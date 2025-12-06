@@ -46,8 +46,8 @@
 			{ "id": "step7", "text": "Select v1.2 of app1." }
 		],
 		"correct_answer": [
-			{ "order": 1, "option_id": "step6" },
-			{ "order": 2, "option_id": "step3" },
+			{ "order": 1, "option_id": "step3" },
+			{ "order": 2, "option_id": "step6" },
 			{ "order": 3, "option_id": "step4" }
 		],
 		"explanation": "1. Export the model using 'Export for containers (GZIP)'. Containers require the GZIP format, not JSON. 2. Select V1.1. The requirement is the 'latest deployable version'. V1.2 is not trained, so it cannot be deployed. V1.1 is trained (even if not published to a web endpoint), so it can be exported for a container. V1.0 is older. 3. Run the container and mount the model file using Docker commands.",
@@ -496,10 +496,10 @@
 			{ "id": "svc_trans", "text": "Translator" }
 		],
 		"correct_answer": [
-			{ "target": "Detect the incoming language", "option_id": "svc_ta" },
+			{ "target": "Detect the incoming language", "option_id": "svc_s2t" },
 			{
 				"target": "Respond in the callers' own language",
-				"option_id": "svc_trans"
+				"option_id": "svc_t2s"
 			}
 		],
 		"explanation": "1. Detect incoming language: 'Text Analytics' has a specific Language Detection feature. 2. Respond in caller's language: 'Translator' service is used to translate text from one language to another.",
@@ -654,8 +654,8 @@
 			}
 		],
 		"correct_answer": [
-			{ "slot": 0, "option_id": "url_trans_api" },
-			{ "slot": 1, "option_id": "url_text_rec" }
+			{ "slot": 0, "option_id": "url_trans_east" },
+			{ "slot": 1, "option_id": "url_text_lang" }
 		],
 		"explanation": "1. The global endpoint for Translator V3 is `api.cognitive.microsofttranslator.com`. 2. To identify named entities (NER), the correct Text Analytics endpoint suffix is `/text/analytics/v3.1/entities/recognition/general`.",
 		"images": []
