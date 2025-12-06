@@ -5,7 +5,7 @@
 		"type": "DragDrop",
 		"question_text": "You have 100 chatbots that each has its own Language Understanding model. You need to programmatically update the models to include new phrases. How should you complete the code?",
 		"allow_randomize_options": false,
-		"code_snippet": "var phraselistId = await client.Features.AddPhraseListAsync(appId, versionId, new {0} {\n  EnabledForAllModels = false,\n  IsExchangeable = true,\n  Name = \"PL1\",\n  Phrases = \"item1, item2, item3\"\n});",
+		"code_snippet": "var phraselistId = await client.Features.{0}(appId, versionId, new {1} {\n  EnabledForAllModels = false,\n  IsExchangeable = true,\n  Name = \"PL1\",\n  Phrases = \"item1, item2, item3\"\n});",
 		"options": [
 			{ "id": "opt1", "text": "AddPhraseListAsync" },
 			{ "id": "opt2", "text": "Phraselist" },
@@ -14,8 +14,11 @@
 			{ "id": "opt5", "text": "SavePhraselistAsync" },
 			{ "id": "opt6", "text": "UploadPhraseListAsync" }
 		],
-		"correct_answer": [{ "slot": 0, "option_id": "opt3" }],
-		"explanation": "You need to instantiate a 'PhraselistCreateObject' to define the properties of the phrase list before passing it to the 'AddPhraseListAsync' method. The method name itself (AddPhraseListAsync) is already called in the code, so the missing part inside the 'new' keyword must be the class name.",
+		"correct_answer": [
+			{ "slot": 0, "option_id": "opt1" },
+			{ "slot": 1, "option_id": "opt3" }
+		],
+		"explanation": "1. The method to add a phrase list in the LUIS SDK is **AddPhraseListAsync**. 2. The object passed to this method must be an instance of **PhraselistCreateObject**.",
 		"images": []
 	},
 	{
