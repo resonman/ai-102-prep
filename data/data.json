@@ -1,5 +1,113 @@
 [
 	{
+		"id": "T1-Q1",
+		"topic": "Topic 1",
+		"type": "DragDrop",
+		"question_text": "You have 100 chatbots that each has its own Language Understanding model. You need to programmatically update the models to include new phrases. How should you complete the code?",
+		"allow_randomize_options": false,
+		"code_snippet": "var phraselistId = await client.Features.AddPhraseListAsync(appId, versionId, new {0} {\n  EnabledForAllModels = false,\n  IsExchangeable = true,\n  Name = \"PL1\",\n  Phrases = \"item1, item2, item3\"\n});",
+		"options": [
+			{ "id": "opt1", "text": "AddPhraseListAsync" },
+			{ "id": "opt2", "text": "Phraselist" },
+			{ "id": "opt3", "text": "PhraselistCreateObject" },
+			{ "id": "opt4", "text": "Phrases" },
+			{ "id": "opt5", "text": "SavePhraselistAsync" },
+			{ "id": "opt6", "text": "UploadPhraseListAsync" }
+		],
+		"correct_answer": [{ "slot": 0, "option_id": "opt3" }],
+		"explanation": "You need to instantiate a 'PhraselistCreateObject' to define the properties of the phrase list before passing it to the 'AddPhraseListAsync' method. The method name itself (AddPhraseListAsync) is already called in the code, so the missing part inside the 'new' keyword must be the class name.",
+		"images": []
+	},
+	{
+		"id": "T1-Q2",
+		"topic": "Topic 1",
+		"type": "DragDrop",
+		"question_text": "You plan to use a Language Understanding application named app1 that is deployed to a container. App1 has versions: V1.2 (None/None), V1.1 (Trained/None), V1.0 (Trained/Published). You need to create a container that uses the latest deployable version. Which three actions should you perform in sequence?",
+		"allow_randomize_options": true,
+		"options": [
+			{
+				"id": "step1",
+				"text": "Run a container that has version set as an environment variable."
+			},
+			{
+				"id": "step2",
+				"text": "Export the model by using the Export as JSON option."
+			},
+			{ "id": "step3", "text": "Select v1.1 of app1." },
+			{ "id": "step4", "text": "Run a container and mount the model file." },
+			{ "id": "step5", "text": "Select v1.0 of app1." },
+			{
+				"id": "step6",
+				"text": "Export the model by using the Export for containers (GZIP) option."
+			},
+			{ "id": "step7", "text": "Select v1.2 of app1." }
+		],
+		"correct_answer": [
+			{ "order": 1, "option_id": "step6" },
+			{ "order": 2, "option_id": "step3" },
+			{ "order": 3, "option_id": "step4" }
+		],
+		"explanation": "1. Export the model using 'Export for containers (GZIP)'. Containers require the GZIP format, not JSON. 2. Select V1.1. The requirement is the 'latest deployable version'. V1.2 is not trained, so it cannot be deployed. V1.1 is trained (even if not published to a web endpoint), so it can be exported for a container. V1.0 is older. 3. Run the container and mount the model file using Docker commands.",
+		"images": []
+	},
+	{
+		"id": "T1-Q3",
+		"topic": "Topic 1",
+		"type": "SingleChoice",
+		"question_text": "You need to build a chatbot that supports chit-chat, knowledge base, and multilingual models. It must perform sentiment analysis and select the best language model automatically. What should you integrate into the chatbot?",
+		"allow_randomize_options": true,
+		"options": [
+			{ "id": "A", "text": "QnA Maker, Language Understanding, and Dispatch" },
+			{ "id": "B", "text": "Translator, Speech, and Dispatch" },
+			{
+				"id": "C",
+				"text": "Language Understanding, Text Analytics, and QnA Maker"
+			},
+			{ "id": "D", "text": "Text Analytics, Translator, and Dispatch" }
+		],
+		"correct_answer": ["C"],
+		"explanation": "Option C is the most complete answer. 'QnA Maker' handles chit-chat and knowledge base. 'Language Understanding (LUIS)' handles intent recognition. 'Text Analytics' handles sentiment analysis. While 'Dispatch' (mentioned in A) is used for routing, Option C explicitly includes Text Analytics which is required for the 'perform sentiment analysis' requirement, making it the best fit among the choices.",
+		"images": []
+	},
+	{
+		"id": "T1-Q4",
+		"topic": "Topic 1",
+		"type": "SingleChoice",
+		"question_text": "Your company wants to reduce how long it takes for employees to log receipts in expense reports. You need to extract top-level information from the receipts, such as the vendor and transaction total. The solution must minimize development effort. Which Azure service should you use?",
+		"allow_randomize_options": true,
+		"options": [
+			{ "id": "A", "text": "Custom Vision" },
+			{ "id": "B", "text": "Personalizer" },
+			{ "id": "C", "text": "Form Recognizer (Document Intelligence)" },
+			{ "id": "D", "text": "Computer Vision" }
+		],
+		"correct_answer": ["C"],
+		"explanation": "Azure Form Recognizer (now Azure AI Document Intelligence) has a prebuilt Receipt model that is specifically designed to extract data like merchant name, date, and total from receipts. This requires zero training, thus minimizing development effort.",
+		"images": []
+	},
+	{
+		"id": "T1-Q5",
+		"topic": "Topic 1",
+		"type": "Hotspot",
+		"question_text": "You need to create a new resource that will be used to perform sentiment analysis and optical character recognition (OCR). The solution must use a single key and endpoint to access multiple services. How should you complete the HTTP request?",
+		"allow_randomize_options": false,
+		"code_snippet": "{0} https://management.azure.com/subscriptions/.../accounts/CS1?api-version=2017-04-18\n{\n  \"kind\": \"{1}\",\n  \"sku\": { \"name\": \"S0\" },\n  \"location\": \"West US\"\n}",
+		"options": [
+			{ "id": "method_patch", "text": "PATCH", "group": 0 },
+			{ "id": "method_post", "text": "POST", "group": 0 },
+			{ "id": "method_put", "text": "PUT", "group": 0 },
+			{ "id": "kind_cog", "text": "CognitiveServices", "group": 1 },
+			{ "id": "kind_cv", "text": "ComputerVision", "group": 1 },
+			{ "id": "kind_ta", "text": "TextAnalytics", "group": 1 }
+		],
+		"correct_answer": [
+			{ "slot": 0, "option_id": "method_put" },
+			{ "slot": 1, "option_id": "kind_cog" }
+		],
+		"explanation": "1. Use 'PUT' to create a new resource in Azure REST API. 2. To access multiple services (Sentiment Analysis + OCR) with a *single key*, you must create a multi-service resource. The 'kind' for this is 'CognitiveServices'.",
+		"images": []
+	},
+	{
 		"id": "T1-Q6",
 		"topic": "Topic 1",
 		"type": "MultipleChoice",
