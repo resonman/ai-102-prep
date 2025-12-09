@@ -2491,26 +2491,31 @@
 		"type": "Hotspot",
 		"question_text": "Translate text to a single language. Content must remain in Americas geography. Complete the code.",
 		"allow_randomize_options": false,
-		"code_snippet": "endpoint = \"https://{0}/translate\"\nuri = endpoint + \"{1}\"",
+		"code_snippet": "endpoint = \"https://{0}\"\nuri = endpoint + \"{1}\"",
 		"options": [
 			{
-				"id": "ep_glob",
-				"text": "api.cognitive.microsofttranslator.com",
+				"id": "ep_glob_translate",
+				"text": "api.cognitive.microsofttranslator.com/translate",
 				"group": 0
 			},
 			{
-				"id": "ep_nam",
-				"text": "api-nam.cognitive.microsofttranslator.com",
+				"id": "ep_glob_transliterate",
+				"text": "api.cognitive.microsofttranslator.com/transliterate",
 				"group": 0
 			},
 			{
-				"id": "ep_nam_short",
-				"text": "api-nam.cognitive.microsofttranslator.com/translate",
+				"id": "ep_apc",
+				"text": "api-apc.cognitive.microsofttranslator.com/detect",
 				"group": 0
 			},
 			{
-				"id": "ep_azure",
+				"id": "ep_nam-detect",
 				"text": "api-nam.cognitive.microsofttranslator.com/detect",
+				"group": 0
+			},
+			{
+				"id": "ep_nam_translate",
+				"text": "api-nam.cognitive.microsofttranslator.com/translate",
 				"group": 0
 			},
 			{ "id": "param_from", "text": "?from=en", "group": 1 },
@@ -2518,7 +2523,7 @@
 			{ "id": "param_to", "text": "?to=en", "group": 1 }
 		],
 		"correct_answer": [
-			{ "slot": 0, "option_id": "ep_nam" },
+			{ "slot": 0, "option_id": "ep_nam_translate" },
 			{ "slot": 1, "option_id": "param_to" }
 		],
 		"explanation": "1. 'Americas Azure geography' requires the regional endpoint: `api-nam` (North America). 2. To translate *to* a language, use the query parameter `?to={language}`.",
