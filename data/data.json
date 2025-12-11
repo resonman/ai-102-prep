@@ -3492,525 +3492,585 @@
 		"explanation": "1. Source language (Input speech) is defined by `SpeechRecognitionLanguage`. 2. Target translation language is added via `AddTargetLanguage`.",
 		"images": []
 	},
-	
-  {
-    "id": "T3-Q55",
-    "topic": "Topic 3",
-    "type": "DragDrop",
-    "question_text": "Translate German Word docs/PPTs to French. Preserve original formatting. Support custom glossary. Source container 'German', target 'French'. Sequence 3 actions.",
-    "allow_randomize_options": false,
-    "options": [
-      { "id": "act_async_list", "text": "Perform an asynchronous translation by using the list of files to be translated." },
-      { "id": "act_async_doc", "text": "Perform an asynchronous translation by using the document translation specification." },
-      { "id": "act_gen_list", "text": "Generate a list of files to be translated." },
-      { "id": "act_up_gloss_ger", "text": "Upload a glossary file to the container for German files." },
-      { "id": "act_up_gloss_fr", "text": "Upload a glossary file to the container for French files." },
-      { "id": "act_def_spec", "text": "Define a document translation specification that has a French target." }
-    ],
-    "correct_answer": [
-      { "order": 1, "option_id": "act_up_gloss_ger" },
-      { "order": 2, "option_id": "act_def_spec" },
-      { "order": 3, "option_id": "act_async_doc" }
-    ],
-    "explanation": "1. Upload glossary to source (German) container. 2. Define translation spec (Source/Target/Glossary). 3. Start async translation job using the spec.",
-    "images": []
-  },
-  {
-    "id": "T3-Q56",
-    "topic": "Topic 3",
-    "type": "SingleChoice",
-    "question_text": "C# function `GetKeywords`. Code: `ExtractKeyPhrases`. Text: \"The quick brown fox jumps over the lazy dog\". What output?",
-    "allow_randomize_options": true,
-    "options": [
-      { "id": "A", "text": "The quick" },
-      { "id": "B", "text": "The lazy" },
-      { "id": "C", "text": "jumps over the" },
-      { "id": "D", "text": "quick brown fox" },
-      { "id": "E", "text": "lazy dog" }
-    ],
-    "correct_answer": ["D"],
-    "explanation": "Key Phrase Extraction removes stop words ('the', 'over') and identifies main noun phrases. 'quick brown fox' and 'lazy dog' are the key phrases. Option D is one of them. (Note: Output typically includes both, but single choice usually picks the most prominent one).",
-    "images": []
-  },
-  {
-    "id": "T3-Q57",
-    "topic": "Topic 3",
-    "type": "SingleChoice",
-    "question_text": "Python code `create_resource`. Deploy Sentiment Analysis to East US. Which call?",
-    "allow_randomize_options": true,
-    "options": [
-      { "id": "A", "text": "create_resource(..., \"TextAnalytics\", \"Standard\", \"East US\")" },
-      { "id": "B", "text": "create_resource(..., \"ContentModerator\", \"S0\", \"eastus\")" },
-      { "id": "C", "text": "create_resource(..., \"ContentModerator\", \"Standard\", \"East US\")" },
-      { "id": "D", "text": "create_resource(..., \"TextAnalytics\", \"S0\", \"eastus\")" }
-    ],
-    "correct_answer": ["D"],
-    "explanation": "Sentiment Analysis = **TextAnalytics**. Standard Tier code = **S0**. Region code = **eastus**.",
-    "images": []
-  },
-  {
-    "id": "T3-Q58",
-    "topic": "Topic 3",
-    "type": "DragDrop",
-    "question_text": "Python app 'App1'. Speech-to-speech translation (English to German). Complete `SpeechTranslationConfig`.",
-    "allow_randomize_options": false,
-    "options": [
-      { "id": "add_target", "text": "add_target_language" },
-      { "id": "speech_synth", "text": "speech_synthesis_language" },
-      { "id": "speech_recog", "text": "speech_recognition_language" },
-      { "id": "voice_name", "text": "voice_name" }
-    ],
-    "correct_answer": [
-      { "target": "Value = \"en-US\"", "option_id": "speech_recog" },
-      { "target": "Value (\"de\")", "option_id": "add_target" }
-    ],
-    "explanation": "1. `speech_recognition_language` sets the source language (English). 2. `add_target_language` adds the target translation language (German).",
-    "images": []
-  },
-  {
-    "id": "T3-Q59",
-    "topic": "Topic 3",
-    "type": "Hotspot",
-    "question_text": "Streaming Speech to Text with MP3 encoding. Complete code.",
-    "allow_randomize_options": false,
-    "code_snippet": "audio_format = {0}(...)\nstream = ...\nrecognizer = {1}(...)",
-    "options": [
-      { "id": "conf_set", "text": "AudioConfig.SetProperty", "group": 0 },
-      { "id": "conf_comp", "text": "AudioStreamFormat.GetCompressedFormat", "group": 0 },
-      { "id": "conf_pcm", "text": "AudioStreamFormat.GetWaveFormatPCM", "group": 0 },
-      { "id": "conf_pull", "text": "PullAudioInputStream", "group": 0 },
-      { "id": "rec_key", "text": "KeywordRecognizer", "group": 1 },
-      { "id": "rec_spk", "text": "SpeakerRecognizer", "group": 1 },
-      { "id": "rec_speech", "text": "SpeechRecognizer", "group": 1 }
-    ],
-    "correct_answer": [
-      { "slot": 0, "option_id": "conf_comp" },
-      { "slot": 1, "option_id": "rec_speech" }
-    ],
-    "explanation": "1. MP3 is a compressed format, so use `AudioStreamFormat.GetCompressedFormat`. 2. Core class is `SpeechRecognizer`.",
-    "images": []
-  },
-  {
-    "id": "T3-Q60",
-    "topic": "Topic 3",
-    "type": "Hotspot",
-    "question_text": "Chatbot. Content Moderator API to identify aggressive/sexual language. Configure 3 settings.",
-    "allow_randomize_options": false,
-    "code_snippet": "Query parameters:\nautocorrect: {0}\nPII: {1}\nlistId: {2}\nclassify: {3}",
-    "options": [
-      { "id": "val_true", "text": "True", "group": 0 },
-      { "id": "val_false", "text": "False", "group": 0 },
-      { "id": "val_null", "text": "Null", "group": 0 },
-      { "id": "val_true_2", "text": "True", "group": 1 },
-      { "id": "val_false_2", "text": "False", "group": 1 },
-      { "id": "val_true_3", "text": "True", "group": 2 },
-      { "id": "val_false_3", "text": "False", "group": 2 },
-      { "id": "val_id", "text": "Term list ID", "group": 2 },
-      { "id": "val_true_4", "text": "True", "group": 3 },
-      { "id": "val_false_4", "text": "False", "group": 3 }
-    ],
-    "correct_answer": [
-      { "slot": 0, "option_id": "val_false" },
-      { "slot": 2, "option_id": "val_null" },
-      { "slot": 3, "option_id": "val_true_4" }
-    ],
-    "explanation": "1. Autocorrect: False (not required for detection). 2. PII: False (question focuses on aggressive/sexual). 3. listId: Null (no custom blocklist mentioned). 4. **Classify: True** (This is crucial, as 'classify' returns the scores for Category 1/2/3 - sexual/aggressive). Note: The answer key often highlights False/Null/True pattern.",
-    "images": ["T3-Q60.png"]
-  },
-  {
-    "id": "T3-Q61",
-    "topic": "Topic 3",
-    "type": "SingleChoice",
-    "question_text": "App uses Decision and Language APIs. Provision resources. Ensure single endpoint and credential access. Which resource?",
-    "allow_randomize_options": true,
-    "options": [
-      { "id": "A", "text": "Language" },
-      { "id": "B", "text": "Speech" },
-      { "id": "C", "text": "Azure Cognitive Services" },
-      { "id": "D", "text": "Content Moderator" }
-    ],
-    "correct_answer": ["C"],
-    "explanation": "**Azure Cognitive Services** (Multi-service account) allows access to multiple services (Vision, Language, Decision, Speech) with a single key/endpoint.",
-    "images": []
-  },
-  {
-    "id": "T3-Q62",
-    "topic": "Topic 3",
-    "type": "SingleChoice",
-    "question_text": "Chatbot. Recognize company product names and codenames. Minimize dev effort. Which Language service feature?",
-    "allow_randomize_options": true,
-    "options": [
-      { "id": "A", "text": "custom text classification" },
-      { "id": "B", "text": "entity linking" },
-      { "id": "C", "text": "custom Named Entity Recognition (NER)" },
-      { "id": "D", "text": "key phrase extraction" }
-    ],
-    "correct_answer": ["C"],
-    "explanation": "Product names and internal codenames are domain-specific entities. **Custom NER** allows you to train the model to recognize these specific terms.",
-    "images": []
-  },
-  {
-    "id": "T3-Q63",
-    "topic": "Topic 3",
-    "type": "SingleChoice",
-    "question_text": "Azure App Service (App1). Multi-service Cognitive Services (CSAccount1). Configure App1 to access CSAccount1. Minimize admin effort. What to use?",
-    "allow_randomize_options": true,
-    "options": [
-      { "id": "A", "text": "Managed Identity and X.509" },
-      { "id": "B", "text": "Endpoint URI and OAuth token" },
-      { "id": "C", "text": "Endpoint URI and SAS token" },
-      { "id": "D", "text": "Endpoint URI and subscription key" }
-    ],
-    "correct_answer": ["D"],
-    "explanation": "The standard, simplest way (Minimal effort) to connect to Cognitive Services is using the **Endpoint URI** and **Subscription Key**. Managed Identity is more secure but requires more setup effort.",
-    "images": []
-  },
-  {
-    "id": "T3-Q64",
-    "topic": "Topic 3",
-    "type": "SingleChoice",
-    "question_text": "Translator resource 'Translator1'. App translates text/docs. Create REST API request. Which headers?",
-    "allow_randomize_options": true,
-    "options": [
-      { "id": "A", "text": "Access control request, content type, content length" },
-      { "id": "B", "text": "Subscription key, client trace ID" },
-      { "id": "C", "text": "Resource ID, content language" },
-      { "id": "D", "text": "Subscription key, subscription region, content type" }
-    ],
-    "correct_answer": ["D"],
-    "explanation": "Translator API headers: `Ocp-Apim-Subscription-Key` (Key), `Ocp-Apim-Subscription-Region` (Region - required for multi-service or regional resources), and `Content-Type` (e.g., application/json).",
-    "images": []
-  },
-  {
-    "id": "T3-Q65",
-    "topic": "Topic 3",
-    "type": "SingleChoice",
-    "question_text": "File share with 5,000 scanned invoices. Extract Invoice items, Sales amounts, Customer details. What to use?",
-    "allow_randomize_options": true,
-    "options": [
-      { "id": "A", "text": "Custom Vision" },
-      { "id": "B", "text": "Azure AI Computer Vision" },
-      { "id": "C", "text": "Azure AI Immersive Reader" },
-      { "id": "D", "text": "Azure AI Document Intelligence" }
-    ],
-    "correct_answer": ["D"],
-    "explanation": "For **Invoices**, Azure AI **Document Intelligence** (formerly Form Recognizer) has a specific Prebuilt Invoice model designed exactly for this.",
-    "images": []
-  },
-  {
-    "id": "T3-Q66",
-    "topic": "Topic 3",
-    "type": "Hotspot",
-    "question_text": "Text processing solution. Function `get_key_words`. Code calls `recognize_entities` on \"Our tour of Paris included a visit to the Eiffel Tower\". Analyze statements.",
-    "allow_randomize_options": false,
-    "code_snippet": "response = textAnalyticsClient.recognize_entities(documents=[text])[0]",
-    "options": [
-      { "id": "s1_yes", "text": "Yes", "group": 0 },
-      { "id": "s1_no", "text": "No", "group": 0 },
-      { "id": "s2_yes", "text": "Yes", "group": 1 },
-      { "id": "s2_no", "text": "No", "group": 1 },
-      { "id": "s3_yes", "text": "Yes", "group": 2 },
-      { "id": "s3_no", "text": "No", "group": 2 }
-    ],
-    "text_map": {
-      "0": "The output will include: our and included.",
-      "1": "The output will include: Paris, Eiffel, and Tower.",
-      "2": "The function will output all key phrases."
-    },
-    "correct_answer": [
-      { "slot": 0, "option_id": "s1_no" },
-      { "slot": 1, "option_id": "s2_yes" },
-      { "slot": 2, "option_id": "s3_no" }
-    ],
-    "explanation": "1. No: 'Our'/'included' are not Named Entities. 2. Yes: 'Paris' and 'Eiffel Tower' are entities (Location). 3. No: The function calls `recognize_entities`, NOT `extract_key_phrases`.",
-    "images": []
-  },
-  {
-    "id": "T3-Q67",
-    "topic": "Topic 3",
-    "type": "Hotspot",
-    "question_text": "Text processing. Function `get_key_phrases`. Code calls `extract_key_phrases` on \"the cat sat on the mat\". Analyze statements.",
-    "allow_randomize_options": false,
-    "code_snippet": "response = text_analytics_client.extract_key_phrases(...)",
-    "options": [
-      { "id": "s1_yes", "text": "Yes", "group": 0 },
-      { "id": "s1_no", "text": "No", "group": 0 },
-      { "id": "s2_yes", "text": "Yes", "group": 1 },
-      { "id": "s2_no", "text": "No", "group": 1 },
-      { "id": "s3_yes", "text": "Yes", "group": 2 },
-      { "id": "s3_no", "text": "No", "group": 2 }
-    ],
-    "text_map": {
-      "0": "The call will output key phrases to console.",
-      "1": "The output will contain: the, cat, sat, on, and mat.",
-      "2": "The output will contain the confidence level."
-    },
-    "correct_answer": [
-      { "slot": 0, "option_id": "s1_yes" },
-      { "slot": 1, "option_id": "s2_no" },
-      { "slot": 2, "option_id": "s3_no" }
-    ],
-    "explanation": "1. Yes. 2. No: Stop words (the, on) are removed. 'Sat' (verb) usually removed. Output is likely just 'cat', 'mat'. 3. No: Key Phrase Extraction API v3 does not return confidence scores.",
-    "images": []
-  },
-  {
-    "id": "T3-Q68",
-    "topic": "Topic 3",
-    "type": "Hotspot",
-    "question_text": "Speech-to-text. Method `append_to_transcript_file`. Transcripts in EN, FR, ES, DE. Complete code.",
-    "allow_randomize_options": false,
-    "code_snippet": "translation_config = speechsdk.translation.SpeechTranslationConfig(...)\n...\ntranslation_config.speech_recognition_language = \"en-GB\"\n...\ntranslation_config.{0}({1})",
-    "options": [
-      { "id": "m_add", "text": "add_target_language", "group": 0 },
-      { "id": "m_set", "text": "set_target_language", "group": 0 },
-      { "id": "val_codes", "text": "[\"fr\", \"de\", \"es\"]", "group": 1 },
-      { "id": "val_code_1", "text": "\"fr\"", "group": 1 }
-    ],
-    "correct_answer": [
-      { "slot": 0, "option_id": "m_add" },
-      { "slot": 1, "option_id": "val_code_1" }
-    ],
-    "explanation": "1. Method is `add_target_language`. 2. The method usually takes a single string. To add multiple, you call it multiple times or iterate. The snippet shows a single call structure inside a potential loop or just adding one. Based on standard options, selecting a single code string is the syntactic match.",
-    "images": []
-  },
-  {
-    "id": "T3-Q69",
-    "topic": "Topic 3",
-    "type": "SingleChoice",
-    "question_text": "Text-to-speech app for motor vehicles. Optimize quality. Which SSML attribute?",
-    "allow_randomize_options": true,
-    "options": [
-      { "id": "A", "text": "the style attribute of mstts:express-as" },
-      { "id": "B", "text": "the effect attribute of the voice element" },
-      { "id": "C", "text": "the pitch attribute of prosody" },
-      { "id": "D", "text": "the level attribute of emphasis" }
-    ],
-    "correct_answer": ["B"],
-    "explanation": "Use `<voice effect=\"eq_car\">` to optimize audio for car environments.",
-    "images": []
-  },
-  {
-    "id": "T3-Q70",
-    "topic": "Topic 3",
-    "type": "SingleChoice",
-    "question_text": "Content management system. Optimize reading for users with dyslexia. Minimize effort. Which service?",
-    "allow_randomize_options": true,
-    "options": [
-      { "id": "A", "text": "Azure AI Immersive Reader" },
-      { "id": "B", "text": "Azure AI Translator" },
-      { "id": "C", "text": "Azure AI Document Intelligence" },
-      { "id": "D", "text": "Azure AI Language" }
-    ],
-    "correct_answer": ["A"],
-    "explanation": "**Immersive Reader** is specifically designed for accessibility, helping users with dyslexia through features like read-aloud, line focus, and spacing.",
-    "images": []
-  },
-  {
-    "id": "T3-Q71",
-    "topic": "Topic 3",
-    "type": "Hotspot",
-    "question_text": "App to answer customer calls about order status. 1. Convert calls into text. 2. Provide spoken response. Select objects.",
-    "allow_randomize_options": false,
-    "code_snippet": "Convert calls to text: {0}\nProvide spoken response: {1}",
-    "options": [
-      { "id": "rec_recog", "text": "SpeechRecognizer", "group": 0 },
-      { "id": "rec_synth", "text": "SpeechSynthesizer", "group": 0 },
-      { "id": "rec_trans", "text": "TranslationRecognizer", "group": 0 },
-      { "id": "prov_recog", "text": "SpeechRecognizer", "group": 1 },
-      { "id": "prov_synth", "text": "SpeechSynthesizer", "group": 1 },
-      { "id": "prov_trans", "text": "TranslationRecognizer", "group": 1 }
-    ],
-    "correct_answer": [
-      { "slot": 0, "option_id": "rec_recog" },
-      { "slot": 1, "option_id": "prov_synth" }
-    ],
-    "explanation": "1. Audio to Text -> **SpeechRecognizer**. 2. Text to Audio -> **SpeechSynthesizer**.",
-    "images": ["T3-Q71.png"]
-  },
-  {
-    "id": "T3-Q72",
-    "topic": "Topic 3",
-    "type": "SingleChoice",
-    "question_text": "Python app. Use Azure AI model 'Model1' (Intent recognition). Which package?",
-    "allow_randomize_options": true,
-    "options": [
-      { "id": "A", "text": "azure-cognitiveservices-language-textanalytics" },
-      { "id": "B", "text": "azure-ai-language-conversations" },
-      { "id": "C", "text": "azure-mgmt-cognitiveservices" },
-      { "id": "D", "text": "azure-cognitiveservices-speech" }
-    ],
-    "correct_answer": ["B"],
-    "explanation": "The Python SDK for Conversational Language Understanding (CLU/Intent Recognition) is **azure-ai-language-conversations**.",
-    "images": []
-  },
-  {
-    "id": "T3-Q73",
-    "topic": "Topic 3",
-    "type": "Hotspot",
-    "question_text": "Auto translate speech from English to FR, DE, ES. Configure Speech service. Complete code.",
-    "allow_randomize_options": false,
-    "code_snippet": "languages = { 'en-GB' }\n...\ntranslation_config.add_target_language({0})",
-    "options": [
-      { "id": "lang_fr", "text": "fr", "group": 0 },
-      { "id": "lang_de", "text": "de", "group": 0 },
-      { "id": "lang_es", "text": "es", "group": 0 },
-      { "id": "lang_list", "text": "list", "group": 0 },
-      { "id": "lang_target", "text": "target", "group": 0 }
-    ],
-    "correct_answer": [
-      { "slot": 0, "option_id": "lang_fr" }
-    ],
-    "explanation": "Note: The question typically asks to complete a loop or a specific call. In the visual for this question, there is a loop iterating through target languages. `add_target_language` takes one language code at a time. The answer key usually highlights one of the language codes or the variable representing them.",
-    "images": []
-  },
-  {
-    "id": "T3-Q74",
-    "topic": "Topic 3",
-    "type": "DragDrop",
-    "question_text": "Implement Cognitive Search resource with custom skill (Sentiment Analysis). Sequence 5 actions.",
-    "allow_randomize_options": false,
-    "options": [
-      { "id": "act_create_end", "text": "Create an endpoint for the model." },
-      { "id": "act_rerun", "text": "Rerun the indexer to enrich the index." },
-      { "id": "act_create_ws", "text": "Create an Azure Machine Learning workspace." },
-      { "id": "act_train", "text": "Create and train the model in Azure Machine Learning studio." },
-      { "id": "act_prov", "text": "Provision Azure AI Services resource and obtain the endpoint." },
-      { "id": "act_conn", "text": "Connect the custom skill the endpoint." }
-    ],
-    "correct_answer": [
-      { "order": 1, "option_id": "act_create_ws" },
-      { "order": 2, "option_id": "act_train" },
-      { "order": 3, "option_id": "act_create_end" },
-      { "order": 4, "option_id": "act_conn" },
-      { "order": 5, "option_id": "act_rerun" }
-    ],
-    "explanation": "Standard AML Custom Skill workflow: 1. Create Workspace. 2. Train Model. 3. Deploy Endpoint (AKS/ACI). 4. Connect Skill to Endpoint (in skillset). 5. Run Indexer.",
-    "images": []
-  },
-  {
-    "id": "T3-Q75",
-    "topic": "Topic 3",
-    "type": "Hotspot",
-    "question_text": "Collection of press releases (PDF). 1. Extract text. 2. Perform sentiment analysis. Select services.",
-    "allow_randomize_options": false,
-    "code_snippet": "Extract text: {0}\nPerform sentiment analysis: {1}",
-    "options": [
-      { "id": "ext_search", "text": "Azure AI Search", "group": 0 },
-      { "id": "ext_vis", "text": "Azure AI Vision", "group": 0 },
-      { "id": "ext_doc", "text": "Azure AI Document Intelligence", "group": 0 },
-      { "id": "sent_search", "text": "Azure Cognitive Search", "group": 1 },
-      { "id": "sent_comp", "text": "Azure AI Computer Vision", "group": 1 },
-      { "id": "sent_doc", "text": "Azure AI Document Intelligence", "group": 1 },
-      { "id": "sent_lang", "text": "Azure AI Language", "group": 1 }
-    ],
-    "correct_answer": [
-      { "slot": 0, "option_id": "ext_doc" },
-      { "slot": 1, "option_id": "sent_lang" }
-    ],
-    "explanation": "1. Extract text from PDFs: **Document Intelligence** (Read model). 2. Sentiment: **Azure AI Language**.",
-    "images": ["T3-Q75.png"]
-  },
-  {
-    "id": "T3-Q76",
-    "topic": "Topic 3",
-    "type": "SingleChoice",
-    "question_text": "Internet-based training. Monitor video stream to verify user is alone and not collaborating. Minimize effort. Which solution?",
-    "allow_randomize_options": true,
-    "options": [
-      { "id": "A", "text": "speech-to-text in Azure AI Speech service" },
-      { "id": "B", "text": "object detection in Azure AI Custom Vision" },
-      { "id": "C", "text": "Spatial Analysis in Azure AI Vision" },
-      { "id": "D", "text": "object detection in Azure AI Custom Vision" }
-    ],
-    "correct_answer": ["C"],
-    "explanation": "**Spatial Analysis** (a feature of Computer Vision) has prebuilt operations like `personCount` and distance measurement, perfect for verifying if a person is alone in a room.",
-    "images": []
-  },
-  {
-    "id": "T3-Q77",
-    "topic": "Topic 3",
-    "type": "SingleChoice",
-    "question_text": "App uses Speech and Language APIs. Provision resource. Ensure single endpoint and credential. Which resource?",
-    "allow_randomize_options": true,
-    "options": [
-      { "id": "A", "text": "Azure AI Language" },
-      { "id": "B", "text": "Azure AI Speech" },
-      { "id": "C", "text": "Azure AI Services" },
-      { "id": "D", "text": "Azure AI Content Safety" }
-    ],
-    "correct_answer": ["C"],
-    "explanation": "**Azure AI Services** (formerly Cognitive Services) is the multi-service resource kind that bundles Speech, Language, Vision, etc. under one key.",
-    "images": []
-  },
-  {
-    "id": "T3-Q78",
-    "topic": "Topic 3",
-    "type": "Hotspot",
-    "question_text": "App for speech-to-speech translation. Auto translate English to French, German, Spanish. Define output languages and configure Speech service. Complete code.",
-    "allow_randomize_options": false,
-    "code_snippet": "translation_config = speechsdk.translation.SpeechTranslationConfig(...)\nvar languages = new List<string> { \"en-GB\" };\n...languages.ForEach(config.{0});\nusing var recognizer = new {1}...",
-    "options": [
-      { "id": "m_add", "text": "AddTargetLanguage", "group": 0 },
-      { "id": "m_recog", "text": "SpeechRecognitionLanguage", "group": 0 },
-      { "id": "class_intent", "text": "IntentRecognizer", "group": 1 },
-      { "id": "class_spk", "text": "SpeakerRecognizer", "group": 1 },
-      { "id": "class_trans", "text": "TranslationRecognizer", "group": 1 }
-    ],
-    "correct_answer": [
-      { "slot": 0, "option_id": "m_add" },
-      { "slot": 1, "option_id": "class_trans" }
-    ],
-    "explanation": "1. To add multiple target languages from a list: `AddTargetLanguage`. 2. Recognition class: `TranslationRecognizer`.",
-    "images": []
-  },
-  {
-    "id": "T3-Q79",
-    "topic": "Topic 3",
-    "type": "SingleChoice",
-    "question_text": "Text processing function `GetKeywords`. Input: \"Our tour of London included a visit to Buckingham Palace\". What will it return?",
-    "allow_randomize_options": true,
-    "options": [
-      { "id": "A", "text": "London and Buckingham Palace only" },
-      { "id": "B", "text": "Tour and visit only" },
-      { "id": "C", "text": "London and Tour only" },
-      { "id": "D", "text": "Our tour of London included visit to Buckingham Palace" }
-    ],
-    "correct_answer": ["A"],
-    "explanation": "The function likely calls **NER** (RecognizeEntities). 'London' and 'Buckingham Palace' are Location entities. 'Tour' and 'visit' are not standard named entities.",
-    "images": []
-  },
-  {
-    "id": "T3-Q80",
-    "topic": "Topic 3",
-    "type": "SingleChoice",
-    "question_text": "Python function `my_function`. Calls `extract_key_phrases` on \"the quick brown fox jumps over the lazy dog\". Following 'Key phrases', what output?",
-    "allow_randomize_options": true,
-    "options": [
-      { "id": "A", "text": "The quick - The lazy" },
-      { "id": "B", "text": "jumps over the" },
-      { "id": "C", "text": "quick brown fox - lazy dog" },
-      { "id": "D", "text": "the quick brown fox jumps over the lazy dog" }
-    ],
-    "correct_answer": ["C"],
-    "explanation": "Key phrase extraction identifies the main subjects: **'quick brown fox'** and **'lazy dog'**.",
-    "images": []
-  },
-  {
-    "id": "T3-Q81",
-    "topic": "Topic 3",
-    "type": "SingleChoice",
-    "question_text": "Deploy Azure AI Search resource. Recognize geographic locations. Which built-in skill?",
-    "allow_randomize_options": true,
-    "options": [
-      { "id": "A", "text": "AzureOpenAIEmbeddingSkill" },
-      { "id": "B", "text": "DocumentExtractionSkill" },
-      { "id": "C", "text": "EntityRecognitionSkill" },
-      { "id": "D", "text": "EntityLinkingSkill" }
-    ],
-    "correct_answer": ["C"],
-    "explanation": "**EntityRecognitionSkill** is the built-in skill used to identify entities like People, Organizations, and **Locations** (geographic).",
-    "images": []
-  },
+
+	{
+		"id": "T3-Q55",
+		"topic": "Topic 3",
+		"type": "DragDrop",
+		"question_text": "Translate German Word docs/PPTs to French. Preserve original formatting. Support custom glossary. Source container 'German', target 'French'. Sequence 3 actions.",
+		"allow_randomize_options": false,
+		"options": [
+			{
+				"id": "act_async_list",
+				"text": "Perform an asynchronous translation by using the list of files to be translated."
+			},
+			{
+				"id": "act_async_doc",
+				"text": "Perform an asynchronous translation by using the document translation specification."
+			},
+			{
+				"id": "act_gen_list",
+				"text": "Generate a list of files to be translated."
+			},
+			{
+				"id": "act_up_gloss_ger",
+				"text": "Upload a glossary file to the container for German files."
+			},
+			{
+				"id": "act_up_gloss_fr",
+				"text": "Upload a glossary file to the container for French files."
+			},
+			{
+				"id": "act_def_spec",
+				"text": "Define a document translation specification that has a French target."
+			}
+		],
+		"correct_answer": [
+			{ "order": 1, "option_id": "act_up_gloss_ger" },
+			{ "order": 2, "option_id": "act_def_spec" },
+			{ "order": 3, "option_id": "act_async_doc" }
+		],
+		"explanation": "1. Upload glossary to source (German) container. 2. Define translation spec (Source/Target/Glossary). 3. Start async translation job using the spec.",
+		"images": []
+	},
+	{
+		"id": "T3-Q56",
+		"topic": "Topic 3",
+		"type": "SingleChoice",
+		"question_text": "C# function `GetKeywords`. Code: `ExtractKeyPhrases`. Text: \"The quick brown fox jumps over the lazy dog\". What output?",
+		"allow_randomize_options": true,
+		"options": [
+			{ "id": "A", "text": "The quick" },
+			{ "id": "B", "text": "The lazy" },
+			{ "id": "C", "text": "jumps over the" },
+			{ "id": "D", "text": "quick brown fox" },
+			{ "id": "E", "text": "lazy dog" }
+		],
+		"correct_answer": ["D"],
+		"explanation": "Key Phrase Extraction removes stop words ('the', 'over') and identifies main noun phrases. 'quick brown fox' and 'lazy dog' are the key phrases. Option D is one of them. (Note: Output typically includes both, but single choice usually picks the most prominent one).",
+		"images": []
+	},
+	{
+		"id": "T3-Q57",
+		"topic": "Topic 3",
+		"type": "SingleChoice",
+		"question_text": "Python code `create_resource`. Deploy Sentiment Analysis to East US. Which call?",
+		"allow_randomize_options": true,
+		"options": [
+			{
+				"id": "A",
+				"text": "create_resource(..., \"TextAnalytics\", \"Standard\", \"East US\")"
+			},
+			{
+				"id": "B",
+				"text": "create_resource(..., \"ContentModerator\", \"S0\", \"eastus\")"
+			},
+			{
+				"id": "C",
+				"text": "create_resource(..., \"ContentModerator\", \"Standard\", \"East US\")"
+			},
+			{
+				"id": "D",
+				"text": "create_resource(..., \"TextAnalytics\", \"S0\", \"eastus\")"
+			}
+		],
+		"correct_answer": ["D"],
+		"explanation": "Sentiment Analysis = **TextAnalytics**. Standard Tier code = **S0**. Region code = **eastus**.",
+		"images": []
+	},
+	{
+		"id": "T3-Q58",
+		"topic": "Topic 3",
+		"type": "DragDrop",
+		"question_text": "Python app 'App1'. Speech-to-speech translation (English to German). Complete `SpeechTranslationConfig`.",
+		"allow_randomize_options": false,
+		"options": [
+			{ "id": "add_target", "text": "add_target_language" },
+			{ "id": "speech_synth", "text": "speech_synthesis_language" },
+			{ "id": "speech_recog", "text": "speech_recognition_language" },
+			{ "id": "voice_name", "text": "voice_name" }
+		],
+		"correct_answer": [
+			{ "target": "Value = \"en-US\"", "option_id": "speech_recog" },
+			{ "target": "Value (\"de\")", "option_id": "add_target" }
+		],
+		"explanation": "1. `speech_recognition_language` sets the source language (English). 2. `add_target_language` adds the target translation language (German).",
+		"images": []
+	},
+	{
+		"id": "T3-Q59",
+		"topic": "Topic 3",
+		"type": "Hotspot",
+		"question_text": "Streaming Speech to Text with MP3 encoding. Complete code.",
+		"allow_randomize_options": false,
+		"code_snippet": "audio_format = {0}(...)\nstream = ...\nrecognizer = {1}(...)",
+		"options": [
+			{ "id": "conf_set", "text": "AudioConfig.SetProperty", "group": 0 },
+			{
+				"id": "conf_comp",
+				"text": "AudioStreamFormat.GetCompressedFormat",
+				"group": 0
+			},
+			{
+				"id": "conf_pcm",
+				"text": "AudioStreamFormat.GetWaveFormatPCM",
+				"group": 0
+			},
+			{ "id": "conf_pull", "text": "PullAudioInputStream", "group": 0 },
+			{ "id": "rec_key", "text": "KeywordRecognizer", "group": 1 },
+			{ "id": "rec_spk", "text": "SpeakerRecognizer", "group": 1 },
+			{ "id": "rec_speech", "text": "SpeechRecognizer", "group": 1 }
+		],
+		"correct_answer": [
+			{ "slot": 0, "option_id": "conf_comp" },
+			{ "slot": 1, "option_id": "rec_speech" }
+		],
+		"explanation": "1. MP3 is a compressed format, so use `AudioStreamFormat.GetCompressedFormat`. 2. Core class is `SpeechRecognizer`.",
+		"images": []
+	},
+	{
+		"id": "T3-Q60",
+		"topic": "Topic 3",
+		"type": "Hotspot",
+		"question_text": "You are building a chatbot. You need to use the Content Moderator API to identify aggressive and sexually explicit language. Which settings should you configure?",
+		"allow_randomize_options": false,
+		"code_snippet": "Query parameters:\nautocorrect: {0}\nPII: {1}\nlistId: {2}\nclassify: {3}",
+		"options": [
+			{ "id": "val_true", "text": "True", "group": 0 },
+			{ "id": "val_false", "text": "False", "group": 0 },
+			{ "id": "val_null", "text": "Null", "group": 0 },
+			{ "id": "val_true_2", "text": "True", "group": 1 },
+			{ "id": "val_false_2", "text": "False", "group": 1 },
+			{ "id": "val_true_3", "text": "True", "group": 2 },
+			{ "id": "val_false_3", "text": "False", "group": 2 },
+			{ "id": "val_id", "text": "Term list ID", "group": 2 },
+			{ "id": "val_null_2", "text": "Null", "group": 2 },
+			{ "id": "val_true_4", "text": "True", "group": 3 },
+			{ "id": "val_false_4", "text": "False", "group": 3 }
+		],
+		"correct_answer": [
+			{ "slot": 0, "option_id": "val_false" },
+			{ "slot": 1, "option_id": "val_false_2" },
+			{ "slot": 2, "option_id": "val_null_2" },
+			{ "slot": 3, "option_id": "val_true_4" }
+		],
+		"explanation": "1. **Autocorrect**: False (Not needed for detection). 2. **PII**: False (Focus is on aggressive/sexual content, not privacy). 3. **listId**: Null (No custom blocklist mentioned). 4. **Classify**: True (Crucial for getting Category 1/2/3 scores for sexual/aggressive content).",
+		"images": ["T3-Q60.png"]
+	},
+	{
+		"id": "T3-Q61",
+		"topic": "Topic 3",
+		"type": "SingleChoice",
+		"question_text": "App uses Decision and Language APIs. Provision resources. Ensure single endpoint and credential access. Which resource?",
+		"allow_randomize_options": true,
+		"options": [
+			{ "id": "A", "text": "Language" },
+			{ "id": "B", "text": "Speech" },
+			{ "id": "C", "text": "Azure Cognitive Services" },
+			{ "id": "D", "text": "Content Moderator" }
+		],
+		"correct_answer": ["C"],
+		"explanation": "**Azure Cognitive Services** (Multi-service account) allows access to multiple services (Vision, Language, Decision, Speech) with a single key/endpoint.",
+		"images": []
+	},
+	{
+		"id": "T3-Q62",
+		"topic": "Topic 3",
+		"type": "SingleChoice",
+		"question_text": "Chatbot. Recognize company product names and codenames. Minimize dev effort. Which Language service feature?",
+		"allow_randomize_options": true,
+		"options": [
+			{ "id": "A", "text": "custom text classification" },
+			{ "id": "B", "text": "entity linking" },
+			{ "id": "C", "text": "custom Named Entity Recognition (NER)" },
+			{ "id": "D", "text": "key phrase extraction" }
+		],
+		"correct_answer": ["C"],
+		"explanation": "Product names and internal codenames are domain-specific entities. **Custom NER** allows you to train the model to recognize these specific terms.",
+		"images": []
+	},
+	{
+		"id": "T3-Q63",
+		"topic": "Topic 3",
+		"type": "SingleChoice",
+		"question_text": "Azure App Service (App1). Multi-service Cognitive Services (CSAccount1). Configure App1 to access CSAccount1. Minimize admin effort. What to use?",
+		"allow_randomize_options": true,
+		"options": [
+			{ "id": "A", "text": "Managed Identity and X.509" },
+			{ "id": "B", "text": "Endpoint URI and OAuth token" },
+			{ "id": "C", "text": "Endpoint URI and SAS token" },
+			{ "id": "D", "text": "Endpoint URI and subscription key" }
+		],
+		"correct_answer": ["D"],
+		"explanation": "The standard, simplest way (Minimal effort) to connect to Cognitive Services is using the **Endpoint URI** and **Subscription Key**. Managed Identity is more secure but requires more setup effort.",
+		"images": []
+	},
+	{
+		"id": "T3-Q64",
+		"topic": "Topic 3",
+		"type": "SingleChoice",
+		"question_text": "Translator resource 'Translator1'. App translates text/docs. Create REST API request. Which headers?",
+		"allow_randomize_options": true,
+		"options": [
+			{
+				"id": "A",
+				"text": "Access control request, content type, content length"
+			},
+			{ "id": "B", "text": "Subscription key, client trace ID" },
+			{ "id": "C", "text": "Resource ID, content language" },
+			{
+				"id": "D",
+				"text": "Subscription key, subscription region, content type"
+			}
+		],
+		"correct_answer": ["D"],
+		"explanation": "Translator API headers: `Ocp-Apim-Subscription-Key` (Key), `Ocp-Apim-Subscription-Region` (Region - required for multi-service or regional resources), and `Content-Type` (e.g., application/json).",
+		"images": []
+	},
+	{
+		"id": "T3-Q65",
+		"topic": "Topic 3",
+		"type": "SingleChoice",
+		"question_text": "File share with 5,000 scanned invoices. Extract Invoice items, Sales amounts, Customer details. What to use?",
+		"allow_randomize_options": true,
+		"options": [
+			{ "id": "A", "text": "Custom Vision" },
+			{ "id": "B", "text": "Azure AI Computer Vision" },
+			{ "id": "C", "text": "Azure AI Immersive Reader" },
+			{ "id": "D", "text": "Azure AI Document Intelligence" }
+		],
+		"correct_answer": ["D"],
+		"explanation": "For **Invoices**, Azure AI **Document Intelligence** (formerly Form Recognizer) has a specific Prebuilt Invoice model designed exactly for this.",
+		"images": []
+	},
+	{
+		"id": "T3-Q66",
+		"topic": "Topic 3",
+		"type": "Hotspot",
+		"question_text": "Text processing solution. Function `get_key_words`. Code calls `recognize_entities` on \"Our tour of Paris included a visit to the Eiffel Tower\". Analyze statements.",
+		"allow_randomize_options": false,
+		"code_snippet": "response = textAnalyticsClient.recognize_entities(documents=[text])[0]",
+		"options": [
+			{ "id": "s1_yes", "text": "Yes", "group": 0 },
+			{ "id": "s1_no", "text": "No", "group": 0 },
+			{ "id": "s2_yes", "text": "Yes", "group": 1 },
+			{ "id": "s2_no", "text": "No", "group": 1 },
+			{ "id": "s3_yes", "text": "Yes", "group": 2 },
+			{ "id": "s3_no", "text": "No", "group": 2 }
+		],
+		"text_map": {
+			"0": "The output will include: our and included.",
+			"1": "The output will include: Paris, Eiffel, and Tower.",
+			"2": "The function will output all key phrases."
+		},
+		"correct_answer": [
+			{ "slot": 0, "option_id": "s1_no" },
+			{ "slot": 1, "option_id": "s2_yes" },
+			{ "slot": 2, "option_id": "s3_no" }
+		],
+		"explanation": "1. No: 'Our'/'included' are not Named Entities. 2. Yes: 'Paris' and 'Eiffel Tower' are entities (Location). 3. No: The function calls `recognize_entities`, NOT `extract_key_phrases`.",
+		"images": []
+	},
+	{
+		"id": "T3-Q67",
+		"topic": "Topic 3",
+		"type": "Hotspot",
+		"question_text": "Text processing. Function `get_key_phrases`. Code calls `extract_key_phrases` on \"the cat sat on the mat\". Analyze statements.",
+		"allow_randomize_options": false,
+		"code_snippet": "response = text_analytics_client.extract_key_phrases(...)",
+		"options": [
+			{ "id": "s1_yes", "text": "Yes", "group": 0 },
+			{ "id": "s1_no", "text": "No", "group": 0 },
+			{ "id": "s2_yes", "text": "Yes", "group": 1 },
+			{ "id": "s2_no", "text": "No", "group": 1 },
+			{ "id": "s3_yes", "text": "Yes", "group": 2 },
+			{ "id": "s3_no", "text": "No", "group": 2 }
+		],
+		"text_map": {
+			"0": "The call will output key phrases to console.",
+			"1": "The output will contain: the, cat, sat, on, and mat.",
+			"2": "The output will contain the confidence level."
+		},
+		"correct_answer": [
+			{ "slot": 0, "option_id": "s1_yes" },
+			{ "slot": 1, "option_id": "s2_no" },
+			{ "slot": 2, "option_id": "s3_no" }
+		],
+		"explanation": "1. Yes. 2. No: Stop words (the, on) are removed. 'Sat' (verb) usually removed. Output is likely just 'cat', 'mat'. 3. No: Key Phrase Extraction API v3 does not return confidence scores.",
+		"images": []
+	},
+	{
+		"id": "T3-Q68",
+		"topic": "Topic 3",
+		"type": "Hotspot",
+		"question_text": "Speech-to-text. Method `append_to_transcript_file`. Transcripts in EN, FR, ES, DE. Complete code.",
+		"allow_randomize_options": false,
+		"code_snippet": "translation_config = speechsdk.translation.SpeechTranslationConfig(...)\n...\ntranslation_config.speech_recognition_language = \"en-GB\"\n...\ntranslation_config.{0}({1})",
+		"options": [
+			{ "id": "m_add", "text": "add_target_language", "group": 0 },
+			{ "id": "m_set", "text": "set_target_language", "group": 0 },
+			{ "id": "val_codes", "text": "[\"fr\", \"de\", \"es\"]", "group": 1 },
+			{ "id": "val_code_1", "text": "\"fr\"", "group": 1 }
+		],
+		"correct_answer": [
+			{ "slot": 0, "option_id": "m_add" },
+			{ "slot": 1, "option_id": "val_code_1" }
+		],
+		"explanation": "1. Method is `add_target_language`. 2. The method usually takes a single string. To add multiple, you call it multiple times or iterate. The snippet shows a single call structure inside a potential loop or just adding one. Based on standard options, selecting a single code string is the syntactic match.",
+		"images": []
+	},
+	{
+		"id": "T3-Q69",
+		"topic": "Topic 3",
+		"type": "SingleChoice",
+		"question_text": "Text-to-speech app for motor vehicles. Optimize quality. Which SSML attribute?",
+		"allow_randomize_options": true,
+		"options": [
+			{ "id": "A", "text": "the style attribute of mstts:express-as" },
+			{ "id": "B", "text": "the effect attribute of the voice element" },
+			{ "id": "C", "text": "the pitch attribute of prosody" },
+			{ "id": "D", "text": "the level attribute of emphasis" }
+		],
+		"correct_answer": ["B"],
+		"explanation": "Use `<voice effect=\"eq_car\">` to optimize audio for car environments.",
+		"images": []
+	},
+	{
+		"id": "T3-Q70",
+		"topic": "Topic 3",
+		"type": "SingleChoice",
+		"question_text": "Content management system. Optimize reading for users with dyslexia. Minimize effort. Which service?",
+		"allow_randomize_options": true,
+		"options": [
+			{ "id": "A", "text": "Azure AI Immersive Reader" },
+			{ "id": "B", "text": "Azure AI Translator" },
+			{ "id": "C", "text": "Azure AI Document Intelligence" },
+			{ "id": "D", "text": "Azure AI Language" }
+		],
+		"correct_answer": ["A"],
+		"explanation": "**Immersive Reader** is specifically designed for accessibility, helping users with dyslexia through features like read-aloud, line focus, and spacing.",
+		"images": []
+	},
+	{
+		"id": "T3-Q71",
+		"topic": "Topic 3",
+		"type": "Hotspot",
+		"question_text": "App to answer customer calls about order status. 1. Convert calls into text. 2. Provide spoken response. Select objects.",
+		"allow_randomize_options": false,
+		"code_snippet": "Convert calls to text: {0}\nProvide spoken response: {1}",
+		"options": [
+			{ "id": "rec_recog", "text": "SpeechRecognizer", "group": 0 },
+			{ "id": "rec_synth", "text": "SpeechSynthesizer", "group": 0 },
+			{ "id": "rec_trans", "text": "TranslationRecognizer", "group": 0 },
+			{ "id": "prov_recog", "text": "SpeechRecognizer", "group": 1 },
+			{ "id": "prov_synth", "text": "SpeechSynthesizer", "group": 1 },
+			{ "id": "prov_trans", "text": "TranslationRecognizer", "group": 1 }
+		],
+		"correct_answer": [
+			{ "slot": 0, "option_id": "rec_recog" },
+			{ "slot": 1, "option_id": "prov_synth" }
+		],
+		"explanation": "1. Audio to Text -> **SpeechRecognizer**. 2. Text to Audio -> **SpeechSynthesizer**.",
+		"images": ["T3-Q71.png"]
+	},
+	{
+		"id": "T3-Q72",
+		"topic": "Topic 3",
+		"type": "SingleChoice",
+		"question_text": "Python app. Use Azure AI model 'Model1' (Intent recognition). Which package?",
+		"allow_randomize_options": true,
+		"options": [
+			{ "id": "A", "text": "azure-cognitiveservices-language-textanalytics" },
+			{ "id": "B", "text": "azure-ai-language-conversations" },
+			{ "id": "C", "text": "azure-mgmt-cognitiveservices" },
+			{ "id": "D", "text": "azure-cognitiveservices-speech" }
+		],
+		"correct_answer": ["B"],
+		"explanation": "The Python SDK for Conversational Language Understanding (CLU/Intent Recognition) is **azure-ai-language-conversations**.",
+		"images": []
+	},
+	{
+		"id": "T3-Q73",
+		"topic": "Topic 3",
+		"type": "Hotspot",
+		"question_text": "Auto translate speech from English to FR, DE, ES. Configure Speech service. Complete code.",
+		"allow_randomize_options": false,
+		"code_snippet": "languages = { 'en-GB' }\n...\ntranslation_config.add_target_language({0})",
+		"options": [
+			{ "id": "lang_fr", "text": "fr", "group": 0 },
+			{ "id": "lang_de", "text": "de", "group": 0 },
+			{ "id": "lang_es", "text": "es", "group": 0 },
+			{ "id": "lang_list", "text": "list", "group": 0 },
+			{ "id": "lang_target", "text": "target", "group": 0 }
+		],
+		"correct_answer": [{ "slot": 0, "option_id": "lang_fr" }],
+		"explanation": "Note: The question typically asks to complete a loop or a specific call. In the visual for this question, there is a loop iterating through target languages. `add_target_language` takes one language code at a time. The answer key usually highlights one of the language codes or the variable representing them.",
+		"images": []
+	},
+	{
+		"id": "T3-Q74",
+		"topic": "Topic 3",
+		"type": "DragDrop",
+		"question_text": "Implement Cognitive Search resource with custom skill (Sentiment Analysis). Sequence 5 actions.",
+		"allow_randomize_options": false,
+		"options": [
+			{ "id": "act_create_end", "text": "Create an endpoint for the model." },
+			{ "id": "act_rerun", "text": "Rerun the indexer to enrich the index." },
+			{
+				"id": "act_create_ws",
+				"text": "Create an Azure Machine Learning workspace."
+			},
+			{
+				"id": "act_train",
+				"text": "Create and train the model in Azure Machine Learning studio."
+			},
+			{
+				"id": "act_prov",
+				"text": "Provision Azure AI Services resource and obtain the endpoint."
+			},
+			{ "id": "act_conn", "text": "Connect the custom skill the endpoint." }
+		],
+		"correct_answer": [
+			{ "order": 1, "option_id": "act_create_ws" },
+			{ "order": 2, "option_id": "act_train" },
+			{ "order": 3, "option_id": "act_create_end" },
+			{ "order": 4, "option_id": "act_conn" },
+			{ "order": 5, "option_id": "act_rerun" }
+		],
+		"explanation": "Standard AML Custom Skill workflow: 1. Create Workspace. 2. Train Model. 3. Deploy Endpoint (AKS/ACI). 4. Connect Skill to Endpoint (in skillset). 5. Run Indexer.",
+		"images": []
+	},
+	{
+		"id": "T3-Q75",
+		"topic": "Topic 3",
+		"type": "Hotspot",
+		"question_text": "Collection of press releases (PDF). 1. Extract text. 2. Perform sentiment analysis. Select services.",
+		"allow_randomize_options": false,
+		"code_snippet": "Extract text: {0}\nPerform sentiment analysis: {1}",
+		"options": [
+			{ "id": "ext_search", "text": "Azure AI Search", "group": 0 },
+			{ "id": "ext_vis", "text": "Azure AI Vision", "group": 0 },
+			{ "id": "ext_doc", "text": "Azure AI Document Intelligence", "group": 0 },
+			{ "id": "sent_search", "text": "Azure Cognitive Search", "group": 1 },
+			{ "id": "sent_comp", "text": "Azure AI Computer Vision", "group": 1 },
+			{
+				"id": "sent_doc",
+				"text": "Azure AI Document Intelligence",
+				"group": 1
+			},
+			{ "id": "sent_lang", "text": "Azure AI Language", "group": 1 }
+		],
+		"correct_answer": [
+			{ "slot": 0, "option_id": "ext_doc" },
+			{ "slot": 1, "option_id": "sent_lang" }
+		],
+		"explanation": "1. Extract text from PDFs: **Document Intelligence** (Read model). 2. Sentiment: **Azure AI Language**.",
+		"images": ["T3-Q75.png"]
+	},
+	{
+		"id": "T3-Q76",
+		"topic": "Topic 3",
+		"type": "SingleChoice",
+		"question_text": "Internet-based training. Monitor video stream to verify user is alone and not collaborating. Minimize effort. Which solution?",
+		"allow_randomize_options": true,
+		"options": [
+			{ "id": "A", "text": "speech-to-text in Azure AI Speech service" },
+			{ "id": "B", "text": "object detection in Azure AI Custom Vision" },
+			{ "id": "C", "text": "Spatial Analysis in Azure AI Vision" },
+			{ "id": "D", "text": "object detection in Azure AI Custom Vision" }
+		],
+		"correct_answer": ["C"],
+		"explanation": "**Spatial Analysis** (a feature of Computer Vision) has prebuilt operations like `personCount` and distance measurement, perfect for verifying if a person is alone in a room.",
+		"images": []
+	},
+	{
+		"id": "T3-Q77",
+		"topic": "Topic 3",
+		"type": "SingleChoice",
+		"question_text": "App uses Speech and Language APIs. Provision resource. Ensure single endpoint and credential. Which resource?",
+		"allow_randomize_options": true,
+		"options": [
+			{ "id": "A", "text": "Azure AI Language" },
+			{ "id": "B", "text": "Azure AI Speech" },
+			{ "id": "C", "text": "Azure AI Services" },
+			{ "id": "D", "text": "Azure AI Content Safety" }
+		],
+		"correct_answer": ["C"],
+		"explanation": "**Azure AI Services** (formerly Cognitive Services) is the multi-service resource kind that bundles Speech, Language, Vision, etc. under one key.",
+		"images": []
+	},
+	{
+		"id": "T3-Q78",
+		"topic": "Topic 3",
+		"type": "Hotspot",
+		"question_text": "App for speech-to-speech translation. Auto translate English to French, German, Spanish. Define output languages and configure Speech service. Complete code.",
+		"allow_randomize_options": false,
+		"code_snippet": "translation_config = speechsdk.translation.SpeechTranslationConfig(...)\nvar languages = new List<string> { \"en-GB\" };\n...languages.ForEach(config.{0});\nusing var recognizer = new {1}...",
+		"options": [
+			{ "id": "m_add", "text": "AddTargetLanguage", "group": 0 },
+			{ "id": "m_recog", "text": "SpeechRecognitionLanguage", "group": 0 },
+			{ "id": "class_intent", "text": "IntentRecognizer", "group": 1 },
+			{ "id": "class_spk", "text": "SpeakerRecognizer", "group": 1 },
+			{ "id": "class_trans", "text": "TranslationRecognizer", "group": 1 }
+		],
+		"correct_answer": [
+			{ "slot": 0, "option_id": "m_add" },
+			{ "slot": 1, "option_id": "class_trans" }
+		],
+		"explanation": "1. To add multiple target languages from a list: `AddTargetLanguage`. 2. Recognition class: `TranslationRecognizer`.",
+		"images": []
+	},
+	{
+		"id": "T3-Q79",
+		"topic": "Topic 3",
+		"type": "SingleChoice",
+		"question_text": "Text processing function `GetKeywords`. Input: \"Our tour of London included a visit to Buckingham Palace\". What will it return?",
+		"allow_randomize_options": true,
+		"options": [
+			{ "id": "A", "text": "London and Buckingham Palace only" },
+			{ "id": "B", "text": "Tour and visit only" },
+			{ "id": "C", "text": "London and Tour only" },
+			{
+				"id": "D",
+				"text": "Our tour of London included visit to Buckingham Palace"
+			}
+		],
+		"correct_answer": ["A"],
+		"explanation": "The function likely calls **NER** (RecognizeEntities). 'London' and 'Buckingham Palace' are Location entities. 'Tour' and 'visit' are not standard named entities.",
+		"images": []
+	},
+	{
+		"id": "T3-Q80",
+		"topic": "Topic 3",
+		"type": "SingleChoice",
+		"question_text": "Python function `my_function`. Calls `extract_key_phrases` on \"the quick brown fox jumps over the lazy dog\". Following 'Key phrases', what output?",
+		"allow_randomize_options": true,
+		"options": [
+			{ "id": "A", "text": "The quick - The lazy" },
+			{ "id": "B", "text": "jumps over the" },
+			{ "id": "C", "text": "quick brown fox - lazy dog" },
+			{ "id": "D", "text": "the quick brown fox jumps over the lazy dog" }
+		],
+		"correct_answer": ["C"],
+		"explanation": "Key phrase extraction identifies the main subjects: **'quick brown fox'** and **'lazy dog'**.",
+		"images": []
+	},
+	{
+		"id": "T3-Q81",
+		"topic": "Topic 3",
+		"type": "SingleChoice",
+		"question_text": "Deploy Azure AI Search resource. Recognize geographic locations. Which built-in skill?",
+		"allow_randomize_options": true,
+		"options": [
+			{ "id": "A", "text": "AzureOpenAIEmbeddingSkill" },
+			{ "id": "B", "text": "DocumentExtractionSkill" },
+			{ "id": "C", "text": "EntityRecognitionSkill" },
+			{ "id": "D", "text": "EntityLinkingSkill" }
+		],
+		"correct_answer": ["C"],
+		"explanation": "**EntityRecognitionSkill** is the built-in skill used to identify entities like People, Organizations, and **Locations** (geographic).",
+		"images": []
+	},
 
 	{
 		"id": "T4-Q1",
@@ -5513,17 +5573,24 @@
 		"id": "T5-Q42",
 		"topic": "Topic 5",
 		"type": "Hotspot",
-		"question_text": "Reset conversation if user fails to respond for 10 minutes. Complete the code.",
+		"question_text": "You have a chatbot. You need to ensure that the bot conversation resets if a user fails to respond for 10 minutes. How should you complete the code?",
 		"allow_randomize_options": false,
-		"code_snippet": "if now_seconds != last_access and (now_seconds - last_access >= 600):\n  {0}\n  await turn_context...(\"Welcome back...\")",
+		"code_snippet": "if now_seconds != last_access and (now_seconds - last_access >= 600):\n    await turn_context.{0}(\"Welcome back! Let's start over from the beginning.\")\n    await self.conversation_state.{1}(turn_context)",
 		"options": [
-			{ "id": "clear", "text": "clear_state", "group": 0 },
-			{ "id": "del", "text": "Delete_property_value", "group": 0 },
-			{ "id": "save", "text": "Save_changes", "group": 0 },
-			{ "id": "set", "text": "Set_property_value", "group": 0 }
+			{ "id": "on_send", "text": "on_send_activities", "group": 0 },
+			{ "id": "send_act", "text": "send_activity", "group": 0 },
+			{ "id": "send_trace", "text": "send_trace_activity", "group": 0 },
+			{ "id": "update_act", "text": "update_activity", "group": 0 },
+			{ "id": "clear", "text": "clear_state", "group": 1 },
+			{ "id": "del", "text": "Delete_property_value", "group": 1 },
+			{ "id": "save", "text": "Save_changes", "group": 1 },
+			{ "id": "set", "text": "Set_property_value", "group": 1 }
 		],
-		"correct_answer": [{ "slot": 0, "option_id": "clear" }],
-		"explanation": "To 'reset' the conversation state (forget previous context), you use **clear_state** (or `delete` on the state object).",
+		"correct_answer": [
+			{ "slot": 0, "option_id": "send_act" },
+			{ "slot": 1, "option_id": "clear" }
+		],
+		"explanation": "1. To send a message to the user ('Welcome back...'), use **send_activity**. 2. To reset the conversation (wipe memory), use **clear_state** on the conversation state object.",
 		"images": []
 	},
 	{
