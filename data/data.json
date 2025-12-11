@@ -5969,29 +5969,29 @@
 		"images": []
 	},
 	{
-    "id": "T7-Q6",
-    "topic": "Topic 7",
-    "type": "Hotspot",
-    "question_text": "You have an Azure subscription that contains an Azure OpenAI resource named AI1. You build a chatbot that will use AI1 to provide generative answers to specific questions.\n\nYou need to ensure that the responses are more creative and less deterministic.\n\nHow should you complete the code?",
-    "allow_randomize_options": false,
-    "code_snippet": "new ChatCompletionsOptions()\n{\n    Messages =\n    {\n        new ChatMessage({0}, @\"\")\n    },\n    {1} = (float)1.0,\n    MaxTokens = 800,\n};",
-    "options": [
-      { "id": "role_asst", "text": "ChatRole.Assistant", "group": 0 },
-      { "id": "role_func", "text": "ChatRole.Function", "group": 0 },
-      { "id": "role_sys", "text": "ChatRole.System", "group": 0 },
-      { "id": "role_user", "text": "ChatRole.User", "group": 0 },
-      { "id": "param_user", "text": "ChatRole.User", "group": 1 },
-      { "id": "param_pres", "text": "PresencePenalty", "group": 1 },
-      { "id": "param_temp", "text": "Temperature", "group": 1 },
-      { "id": "param_token", "text": "TokenSelectionBiases", "group": 1 }
-    ],
-    "correct_answer": [
-      { "slot": 0, "option_id": "role_sys" },
-      { "slot": 1, "option_id": "param_temp" }
-    ],
-    "explanation": "1. **ChatRole.System**: Defines the system message (behavior/persona) of the bot. 2. **Temperature**: Setting Temperature to a higher value (like 1.0) makes the output more random (creative) and less deterministic.",
-    "images": []
-  },
+		"id": "T7-Q6",
+		"topic": "Topic 7",
+		"type": "Hotspot",
+		"question_text": "You have an Azure subscription that contains an Azure OpenAI resource named AI1. You build a chatbot that will use AI1 to provide generative answers to specific questions.\n\nYou need to ensure that the responses are more creative and less deterministic.\n\nHow should you complete the code?",
+		"allow_randomize_options": false,
+		"code_snippet": "new ChatCompletionsOptions()\n{\n    Messages =\n    {\n        new ChatMessage({0}, @\"\")\n    },\n    {1} = (float)1.0,\n    MaxTokens = 800,\n};",
+		"options": [
+		{ "id": "role_asst", "text": "ChatRole.Assistant", "group": 0 },
+		{ "id": "role_func", "text": "ChatRole.Function", "group": 0 },
+		{ "id": "role_sys", "text": "ChatRole.System", "group": 0 },
+		{ "id": "role_user", "text": "ChatRole.User", "group": 0 },
+		{ "id": "param_user", "text": "ChatRole.User", "group": 1 },
+		{ "id": "param_pres", "text": "PresencePenalty", "group": 1 },
+		{ "id": "param_temp", "text": "Temperature", "group": 1 },
+		{ "id": "param_token", "text": "TokenSelectionBiases", "group": 1 }
+		],
+		"correct_answer": [
+		{ "slot": 0, "option_id": "role_sys" },
+		{ "slot": 1, "option_id": "param_temp" }
+		],
+		"explanation": "1. **ChatRole.System**: Defines the system message (behavior/persona) of the bot. 2. **Temperature**: Setting Temperature to a higher value (like 1.0) makes the output more random (creative) and less deterministic.",
+		"images": []
+  	},
 	{
 		"id": "T7-Q7",
 		"topic": "Topic 7",
@@ -6079,42 +6079,46 @@
 		"id": "T7-Q10",
 		"topic": "Topic 7",
 		"type": "Hotspot",
-		"question_text": "Python console app to call OpenAI. Output results. Complete code.",
+		"question_text": "You plan to develop a console app that will answer user questions using Azure OpenAI (Python SDK). You need to call AI1 and output the results to the console. How should you complete the code?",
 		"allow_randomize_options": false,
-		"code_snippet": "response = openai.ChatCompletion.create(...)\nprint({0})",
+		"code_snippet": "response = openai.{0}.create(\n    engine=deployment_name,\n    prompt=\"What is Microsoft Azure?\"\n)\nprint({1})",
 		"options": [
-			{ "id": "out_choices", "text": "response.choices[0].text", "group": 0 },
-			{ "id": "out_id", "text": "response.id", "group": 0 },
-			{ "id": "out_text", "text": "response.text", "group": 0 }
+		{ "id": "m_chat", "text": "ChatCompletion", "group": 0 },
+		{ "id": "m_embed", "text": "Embedding", "group": 0 },
+		{ "id": "m_img", "text": "Image", "group": 0 },
+		{ "id": "out_choices", "text": "response.choices[0].text", "group": 1 },
+		{ "id": "out_id", "text": "response.id", "group": 1 },
+		{ "id": "out_text", "text": "response.text", "group": 1 }
 		],
-		"correct_answer": [{ "slot": 0, "option_id": "out_choices" }],
-		"explanation": "The API response structure contains the answer in `response['choices'][0]['text']` (for legacy completions) or `['message']['content']` (for chat). Given the options, **response.choices[0].text** is the intended answer format for the completion API.",
+		"correct_answer": [
+		{ "slot": 0, "option_id": "m_chat" },
+		{ "slot": 1, "option_id": "out_choices" }
+		],
+		"explanation": "1. To answer questions (generate text), you use the Completion or ChatCompletion API. The visual answer key selects **ChatCompletion**. 2. The standard response structure places the answer text in `response.choices[0].text`.",
 		"images": []
 	},
 	{
 		"id": "T7-Q11",
 		"topic": "Topic 7",
 		"type": "Hotspot",
-		"question_text": "C# Console app to call OpenAI. Output results. Complete code.",
+		"question_text": "You plan to develop a console app that will answer user questions using Azure OpenAI (C# SDK). You need to call AI1 and output the results to the console. How should you complete the code?",
 		"allow_randomize_options": false,
-		"code_snippet": "Response<ChatCompletions> response = ...\nConsole.WriteLine({0});",
+		"code_snippet": "OpenAIClient client = new OpenAIClient(...);\nResponse<Completions> response = client.{0}(deploymentName, \"What is Microsoft Azure?\");\nConsole.WriteLine({1});",
 		"options": [
-			{
-				"id": "out_val_choice",
-				"text": "response.Value.Choices[0].Text",
-				"group": 0
-			},
-			{ "id": "out_val_id", "text": "response.Value.Id", "group": 0 },
-			{
-				"id": "out_val_prompt",
-				"text": "response.Value.PromptFilterResults",
-				"group": 0
-			}
+		{ "id": "m_comp", "text": "GetCompletions", "group": 0 },
+		{ "id": "m_embed", "text": "GetEmbeddings", "group": 0 },
+		{ "id": "m_img", "text": "GetImageGenerations", "group": 0 },
+		{ "id": "out_val_choice", "text": "response.Value.Choices[0].Text", "group": 1 },
+		{ "id": "out_val_id", "text": "response.Value.Id", "group": 1 },
+		{ "id": "out_val_prompt", "text": "response.Value.PromptFilterResults", "group": 1 }
 		],
-		"correct_answer": [{ "slot": 0, "option_id": "out_val_choice" }],
-		"explanation": "In the Azure OpenAI C# SDK, the text result is accessed via `Value.Choices[0].Text` (or `.Message.Content` depending on version, but Text is the valid option here).",
+		"correct_answer": [
+		{ "slot": 0, "option_id": "m_comp" },
+		{ "slot": 1, "option_id": "out_val_choice" }
+		],
+		"explanation": "1. The variable type `Response<Completions>` implies the method call returns completions, so **GetCompletions** is the correct method. 2. In the C# SDK, the text is accessed via `Value.Choices[0].Text`.",
 		"images": []
-	},
+  	},
 	{
 		"id": "T7-Q12",
 		"topic": "Topic 7",
