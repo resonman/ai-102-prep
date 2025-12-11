@@ -1664,7 +1664,7 @@
 			{ "id": "act_verify", "text": "verify" }
 		],
 		"correct_answer": [
-			{ "target": "URL suffix", "option_id": "act_detect" },
+			{ "target": "URL suffix", "option_id": "act_findsimilar" },
 			{ "target": "Mode", "option_id": "mode_person" }
 		],
 		"explanation": "Wait, the question asks to 'Find photos... based on sample'. The diagram shows `POST {Endpoint}/face/v1.0/{slot1}` and body `mode: {slot2}`. \nCorrection: The provided answer key in PDF says Box 1: `findsimilars` (which is wrong in URL structure context if the box is the *method*, but let's check the graphic). The graphic shows the URL ending. Standard API is `/findsimilars`. The Box 1 in PDF answer says `detect` but arrow points to `findsimilars`... Wait, looking at the PDF OCR text: 'Box 1: detect'. Why? Because to find similar, you first need a `faceId`, which you get by calling `detect` on the sample image. *However*, the code snippet shows a JSON body with `faceId`, implying we already have it? \nLet's re-read the PDF 'Correct Answer' section carefully. \nPDF says: 'Box 1: detect... Face - Detect With Url...'. \nPDF also shows an arrow pointing from `findsimilars` to the URL? \nLet's analyze the JSON body: It has `faceId` as input. `FindSimilar` takes `faceId`. `Detect` takes an image URL/Stream. The JSON body shown in the question contains `\"faceId\": \"c5c24...\"`, `\"largeFaceListId\"`, `\"maxNumOfCandidates\"`, `\"mode\"`. This is the body for **Find Similar**. The URL for Find Similar is `.../face/v1.0/findsimilars`. \n**Conflict**: The PDF text says 'Box 1: detect' but the code body is clearly `FindSimilar`. If I put `detect` in the URL, the body is wrong. If I put `findsimilars`, the body matches. \n*Decision*: I will follow the visual evidence of the JSON body which corresponds to `findsimilars`. However, if the PDF explicitly says 'Box 1: detect', it might be referring to the *first step* in the logical process? No, it asks to complete the request. I will set the answer to `findsimilars` as it's technicaly correct for the displayed body.",
@@ -4995,7 +4995,7 @@
 			{ "id": "content_media", "text": "media", "group": 1 }
 		],
 		"correct_answer": [
-			{ "slot": 0, "option_id": "card_thumb" },
+			{ "slot": 0, "option_id": "card_adaptive" },
 			{ "slot": 1, "option_id": "content_img" }
 		],
 		"explanation": "1. A card with a small image on the side (thumbnail) is a **Thumbnail Card**. (Hero cards have large images). 2. It includes an **image** (the plane icon).",
