@@ -5727,7 +5727,7 @@
 		"id": "T5-Q48",
 		"topic": "Topic 5",
 		"type": "Hotspot",
-		"question_text": "Test bot in Emulator. Ensure you are prompted for credentials when signing in. Select settings.",
+		"question_text": "You have a chatbot. You need to test the bot by using the Bot Framework Emulator. The solution must ensure that you are prompted for credentials when you sign in to the bot.\n\nWhich three settings should you configure? To answer, select the appropriate settings in the answer area.",
 		"allow_randomize_options": false,
 		"code_snippet": "Select 3 settings in the Emulator configuration UI.",
 		"options": [
@@ -5739,35 +5739,35 @@
 			{
 				"id": "use_signin",
 				"text": "Use a sign-in verification code for OAuthCard",
-				"group": 1
+				"group": 0
 			},
 			{
 				"id": "use_token",
 				"text": "Use version 1.0 authentication token",
-				"group": 2
+				"group": 0
 			},
 			{
 				"id": "bypass",
 				"text": "Bypass ngrok for local addresses",
-				"group": 3
+				"group": 0
 			},
 			{
 				"id": "run_ngrok",
 				"text": "Run ngrok when the Emulator starts up",
-				"group": 4
+				"group": 0
 			},
 			{
 				"id": "help_data",
 				"text": "Help improve the Emulator by allowing us to collect usage data",
-				"group": 5
+				"group": 0
 			}
 		],
 		"correct_answer": [
-			{ "slot": 0, "option_id": "use_user_id" },
-			{ "slot": 1, "option_id": "use_signin" },
-			{ "slot": 2, "option_id": "use_token" }
+			{ "slot": 0, "option_id": "bypass" },
+			{ "slot": 0, "option_id": "use_signin" },
+			{ "slot": 0, "option_id": "use_token" }
 		],
-		"explanation": "To simulate a real auth flow with prompts: 1. Use your own user ID (simulates a real user). 2. Use sign-in verification code (simulates the OAuth card flow). 3. Use v1.0 auth token (standard auth protocol). Note: The screenshot in the answer key highlights these three checkboxes.",
+		"explanation": "Based on the PDF screenshot visual evidence: 1. **Use a sign-in verification code**: Forces manual entry of the magic code (credential prompt). 2. **Use version 1.0 authentication token**: Standard setting for testing this flow. 3. **Bypass ngrok for local addresses**: Ensures stable local connectivity for the auth handshake. (Note: 'Run ngrok' is NOT checked in the official answer image).",
 		"images": ["T5-Q48.png"]
 	},
 	{
