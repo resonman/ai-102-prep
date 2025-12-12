@@ -6689,24 +6689,30 @@
 	},
 	{
 		"id": "T11-Q2",
-		"topic": "Topic 11 (Case Study: Contoso)",
-		"type": "SingleChoice",
-		"question_text": "[Background Requirement]\nWhen the response confidence score of an AI response is lower than 70 percent, the response must be improved by human input.\n\n[Question]\nYou need to trigger a manual review of the extracted information. Which expression should you use?",
-		"allow_randomize_options": true,
+		"topic": "Topic 11 (Case Study: Wide World Importers)",
+		"type": "Hotspot",
+		"question_text": "You need to develop code to upload images for the product creation project. The solution must meet the accessibility requirements. How should you complete the code?",
+		"allow_randomize_options": false,
+		"code_snippet": "public static async Task<string> SuggestAltText(ComputerVisionClient client, {0} image)\n{\n  List<VisualFeatureTypes> features = new List<VisualFeatureTypes>()\n  {\n    {1}\n  };\n  ImageAnalysis results = await client.AnalyzeImageAsync(image, features);\n  var c = {2};\n  if(c.Confidence > 0.5) return(c.Text);\n}",
 		"options": [
-			{ "id": "A", "text": "documentResults.docType == \"prebuilt:receipt\"" },
-			{ "id": "B", "text": "documentResults.fields.*.confidence < 0.7" },
-			{
-				"id": "C",
-				"text": "documentResults.fields.ReceiptType.confidence > 0.7"
-			},
-			{
-				"id": "D",
-				"text": "documentResults.fields.MerchantName.confidence < 0.7"
-			}
+		{ "id": "param_dict", "text": "Dictionary<string, string>", "group": 0 },
+		{ "id": "param_stream", "text": "stream", "group": 0 },
+		{ "id": "param_string", "text": "string", "group": 0 },
+		{ "id": "feat_desc", "text": "VisualFeatureTypes.Description", "group": 1 },
+		{ "id": "feat_imgtype", "text": "VisualFeatureTypes.ImageType", "group": 1 },
+		{ "id": "feat_objs", "text": "VisualFeatureTypes.Objects", "group": 1 },
+		{ "id": "feat_tags", "text": "VisualFeatureTypes.Tags", "group": 1 },
+		{ "id": "c_brands", "text": "results.Brands.DetectedBrands[0]", "group": 2 },
+		{ "id": "c_captions", "text": "results.Description.Captions[0]", "group": 2 },
+		{ "id": "c_meta", "text": "results.Metadata[0]", "group": 2 },
+		{ "id": "c_objs", "text": "results.Objects[0]", "group": 2 }
 		],
-		"correct_answer": ["B"],
-		"explanation": "The requirement states that *any* AI response with a confidence lower than 70% needs human input. The expression `fields.*.confidence < 0.7` checks the confidence of **all** extracted fields. If any field is below 0.7, it triggers the review.",
+		"correct_answer": [
+		{ "slot": 0, "option_id": "param_string" },
+		{ "slot": 1, "option_id": "feat_desc" },
+		{ "slot": 2, "option_id": "c_captions" }
+		],
+		"explanation": "1. The image parameter should be a string (URL of the image to analyze). 2. Use 'VisualFeatureTypes.Description' to generate captions for alt text. 3. Extract the caption from 'results.Description.Captions[0]' and check its confidence.",
 		"images": []
 	},
 	{
