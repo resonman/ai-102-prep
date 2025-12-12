@@ -6123,60 +6123,68 @@
 		"id": "T7-Q12",
 		"topic": "Topic 7",
 		"type": "Hotspot",
-		"question_text": "Create Azure OpenAI resource generating stories. Ensure Customer-Managed Key (CMK). Complete CLI script.",
+		"question_text": "You have an Azure subscription. You need to create a new resource that will generate fictional stories. The solution must ensure that the resource uses a customer-managed key. How should you complete the script?",
 		"allow_randomize_options": false,
-		"code_snippet": "az cognitiveservices account create ... {0}",
+		"code_snippet": "az cognitiveservices account create ... --kind {0} ...\n{1} '{\"keyVaultUri\": ...}'",
 		"options": [
-			{ "id": "enc", "text": "--encryption", "group": 0 },
-			{ "id": "assign", "text": "--assign-identity", "group": 0 },
-			{ "id": "api", "text": "--api-properties", "group": 0 }
+		{ "id": "kind_ai", "text": "AIServices", "group": 0 },
+		{ "id": "kind_lang", "text": "LanguageAuthoring", "group": 0 },
+		{ "id": "kind_openai", "text": "OpenAI", "group": 0 },
+		{ "id": "arg_api", "text": "--api-properties", "group": 1 },
+		{ "id": "arg_assign", "text": "--assign-identity", "group": 1 },
+		{ "id": "arg_enc", "text": "--encryption", "group": 1 }
 		],
-		"correct_answer": [{ "slot": 0, "option_id": "enc" }],
-		"explanation": "To configure CMK via CLI during creation (or update), you use the **--encryption** parameter structure (referencing Key Vault).",
+		"correct_answer": [
+		{ "slot": 0, "option_id": "kind_openai" },
+		{ "slot": 1, "option_id": "arg_enc" }
+		],
+		"explanation": "1. **--kind OpenAI**: The scenario is 'generate fictional stories', which requires the Azure OpenAI service. 2. **--encryption**: This parameter is used to pass the JSON configuration for Customer-Managed Keys (Key Vault URI, etc.).",
 		"images": []
-	},
+  	},
 	{
 		"id": "T7-Q13",
 		"topic": "Topic 7",
 		"type": "Hotspot",
-		"question_text": "Chatbot using OpenAI. Upload company data via Chat playground. Complete configuration code.",
+		"question_text": "You have a chatbot that uses Azure OpenAI. You need to upload company data to ensure the chatbot uses the data to answer user questions (Chat on your data). How should you complete the code?",
 		"allow_randomize_options": false,
-		"code_snippet": "new AzureChatExtensionConfiguration {\n  {0}\n}",
+		"code_snippet": "var options = new {0}()\n{\n    AzureExtensionsOptions = new AzureChatExtensionsOptions()\n    {\n        Extensions = { new {1}() { ... } }\n    }\n};",
 		"options": [
-			{
-				"id": "opt_cog_search",
-				"text": "AzureCognitiveSearchChatExtensionConfiguration",
-				"group": 0
-			},
-			{ "id": "opt_chat_opt", "text": "ChatCompletionsOptions", "group": 0 },
-			{ "id": "opt_compl_opt", "text": "CompletionsOptions", "group": 0 }
+		{ "id": "opt_chat", "text": "ChatCompletionsOptions", "group": 0 },
+		{ "id": "opt_comp", "text": "CompletionsOptions", "group": 0 },
+		{ "id": "opt_stream", "text": "StreamingChatCompletions", "group": 0 },
+		{ "id": "ext_config", "text": "AzureChatExtensionConfiguration", "group": 1 },
+		{ "id": "ext_search", "text": "AzureCognitiveSearchChatExtensionConfiguration", "group": 1 },
+		{ "id": "ext_opts", "text": "AzureChatExtensionsOptions", "group": 1 }
 		],
-		"correct_answer": [{ "slot": 0, "option_id": "opt_cog_search" }],
-		"explanation": "The 'Chat on your data' feature typically uses **Azure Cognitive Search** as the vector store/index. The configuration object is `AzureCognitiveSearchChatExtensionConfiguration`.",
+		"correct_answer": [
+		{ "slot": 0, "option_id": "opt_chat" },
+		{ "slot": 1, "option_id": "ext_search" }
+		],
+		"explanation": "1. **ChatCompletionsOptions**: This is the standard options class for the Chat Completion API. 2. **AzureCognitiveSearchChatExtensionConfiguration**: The 'Chat on your data' feature typically uses Azure Cognitive Search as the vector store backend, so you must instantiate this specific configuration class.",
 		"images": []
-	},
+  	},
 	{
 		"id": "T7-Q14",
 		"topic": "Topic 7",
 		"type": "Hotspot",
-		"question_text": "Query OpenAI1 to retrieve embeddings. Complete code.",
+		"question_text": "You have an Azure subscription linked to a Microsoft Entra tenant. The subscription contains an Azure OpenAI resource named OpenAI1 with a deployment named 'embeddings1' using the 'text-embedding-ada-002' model.\n\nKey: 1111a111a111aaa11a1a1a1a11a11aa\n\nYou need to query OpenAI1 and retrieve embeddings. How should you complete the code?",
 		"allow_randomize_options": false,
-		"code_snippet": "key = \"{0}\"\nvar returnValue = client.GetEmbeddings(\"{1}\", ...)",
+		"code_snippet": "AzureKeyCredential credentials = new AzureKeyCredential(\"{0}\");\nOpenAIClient openAIClient = new OpenAIClient(new Uri(endpoint), credentials);\nEmbeddingsOptions embeddingOptions = new EmbeddingsOptions(input_text_string);\n\nvar returnValue = openAIClient.GetEmbeddings(\"{1}\", embeddingOptions);",
 		"options": [
-			{ "id": "key_val", "text": "1111a111a...", "group": 0 },
-			{ "id": "sub_id", "text": "x1xx11x1...", "group": 0 },
-			{ "id": "ten_id", "text": "1y1y1yyy...", "group": 0 },
-			{ "id": "dep_name", "text": "embeddings1", "group": 1 },
-			{ "id": "svc_name", "text": "OpenAI1", "group": 1 },
-			{ "id": "mod_name", "text": "text-embedding-ada-002", "group": 1 }
+		{ "id": "sub_id", "text": "x1xx11x1-x111-xxxx-xxxx-x1111xxx11x1", "group": 0 },
+		{ "id": "key_val", "text": "1111a111a111aaa11a1a1a1a11a11aa", "group": 0 },
+		{ "id": "ten_id", "text": "1y1y1yyy-1y1y-y1y1-yy11-y1y1y11111y1", "group": 0 },
+		{ "id": "dep_name", "text": "embeddings1", "group": 1 },
+		{ "id": "svc_name", "text": "OpenAI1", "group": 1 },
+		{ "id": "mod_name", "text": "text-embedding-ada-002", "group": 1 }
 		],
 		"correct_answer": [
-			{ "slot": 0, "option_id": "key_val" },
-			{ "slot": 1, "option_id": "dep_name" }
+		{ "slot": 0, "option_id": "key_val" },
+		{ "slot": 1, "option_id": "dep_name" }
 		],
-		"explanation": "1. Authentication uses the API Key (`1111a...`). 2. The `GetEmbeddings` method requires the **Deployment Name** (`embeddings1`), not the model name.",
+		"explanation": "1. **AzureKeyCredential**: This object is used to authenticate the client, so you must pass the **API Key** (`1111a...`). 2. **GetEmbeddings**: The first parameter of this method in the Azure SDK is the **Deployment Name** (`embeddings1`), not the Model Name or Resource Name.",
 		"images": []
-	},
+  	},
 	{
 		"id": "T7-Q15",
 		"topic": "Topic 7",
@@ -6325,26 +6333,30 @@
 		"id": "T7-Q23",
 		"topic": "Topic 7",
 		"type": "Hotspot",
-		"question_text": "Analyze Python code for OpenAI. Statements about logic.",
+		"question_text": "You are building an app that will provide users with definitions of common AI terms. You create the following Python code.\n\nAnalyze the statements.",
 		"allow_randomize_options": false,
-		"code_snippet": "Changing \"What is an LLM?\" to \"What is an LLM in the context of AI models?\" will produce the intended response.",
+		"code_snippet": "Statements about prompt engineering logic:",
 		"options": [
-			{ "id": "s1_yes", "text": "Yes", "group": 0 },
-			{ "id": "s1_no", "text": "No", "group": 0 },
-			{ "id": "s2_yes", "text": "Yes", "group": 1 },
-			{ "id": "s2_no", "text": "No", "group": 1 }
+		{ "id": "s1_yes", "text": "Yes", "group": 0 },
+		{ "id": "s1_no", "text": "No", "group": 0 },
+		{ "id": "s2_yes", "text": "Yes", "group": 1 },
+		{ "id": "s2_no", "text": "No", "group": 1 },
+		{ "id": "s3_yes", "text": "Yes", "group": 2 },
+		{ "id": "s3_no", "text": "No", "group": 2 }
 		],
 		"text_map": {
-			"0": "The response will contain an explanation of large language models (LLMs) that has a high degree of certainty.",
-			"1": "Changing 'You are a helpful assistant' to 'You must answer only within the context of AI language models' will produce the intended response."
+		"0": "The response will contain an explanation of large language models (LLMs) that has a high degree of certainty.",
+		"1": "Changing \"What is an LLM?\" to \"What is an LLM in the context of AI models?\" will produce the intended response.",
+		"2": "Changing \"You are a helpful assistant\" to \"You must answer only within the context of AI language models\" will produce the intended response."
 		},
 		"correct_answer": [
-			{ "slot": 0, "option_id": "s1_no" },
-			{ "slot": 1, "option_id": "s2_yes" }
+		{ "slot": 0, "option_id": "s1_no" },
+		{ "slot": 1, "option_id": "s2_no" },
+		{ "slot": 2, "option_id": "s3_yes" }
 		],
-		"explanation": "1. No: The question is generic, but the key to high certainty/specific constraints usually lies in the System Message, not just the user prompt. 2. Yes: Modifying the System Message ('You are...') to restrict the context is the correct way to control the scope and behavior of the model.",
+		"explanation": "1. **No**: Without setting `temperature=0`, certainty is not guaranteed. 2. **No**: Merely changing the user prompt is considered less robust for defining app behavior than the system message. 3. **Yes**: Modifying the **System Message** (Persona/Grounding) is the standard and correct way to restrict the bot's domain to AI contexts.",
 		"images": []
-	},
+  	},
 	{
 		"id": "T8-Q1",
 		"topic": "Topic 8",
@@ -6512,22 +6524,26 @@
 		"id": "T8-Q11",
 		"topic": "Topic 8",
 		"type": "Hotspot",
-		"question_text": "Use SDK to identify harmful content in text (Content Safety). Complete code.",
+		"question_text": "You have an Azure subscription that contains an Azure AI Content Safety resource named CS1. You need to use the SDK to call CS1 to identify requests that contain harmful content. How should you complete the code?",
 		"allow_randomize_options": false,
-		"code_snippet": "var client = new {0}(...);\n...\nclient.{1}(request);",
+		"code_snippet": "var client = new {0}(endpoint, key);\nvar request = new {1}(text);\n\nResponse<AnalyzeTextResult> response;\nresponse = client.AnalyzeText(request);",
 		"options": [
-			{ "id": "client_cs", "text": "ContentSafetyClient", "group": 0 },
-			{ "id": "client_bl", "text": "BlocklistClient", "group": 0 },
-			{ "id": "m_an_txt", "text": "AnalyzeText", "group": 1 },
-			{ "id": "m_an_img", "text": "AnalyzeImage", "group": 1 }
+		{ "id": "client_an", "text": "AnalyzeTextOptions", "group": 0 },
+		{ "id": "client_bl", "text": "BlocklistClient", "group": 0 },
+		{ "id": "client_cs", "text": "ContentSafetyClient", "group": 0 },
+		{ "id": "client_cat", "text": "TextCategoriesAnalysis", "group": 0 },
+		{ "id": "req_add", "text": "AddorUpdateBlocklistItemsOptions", "group": 1 },
+		{ "id": "req_opt", "text": "AnalyzeTextOptions", "group": 1 },
+		{ "id": "req_match", "text": "TextBlocklistMatch", "group": 1 },
+		{ "id": "req_cat", "text": "TextCategoriesAnalysis", "group": 1 }
 		],
 		"correct_answer": [
-			{ "slot": 0, "option_id": "client_cs" },
-			{ "slot": 1, "option_id": "m_an_txt" }
+		{ "slot": 0, "option_id": "client_cs" },
+		{ "slot": 1, "option_id": "req_opt" }
 		],
-		"explanation": "1. `ContentSafetyClient`. 2. `AnalyzeText` for text content.",
+		"explanation": "1. **ContentSafetyClient**: The main client to interact with the service. 2. **AnalyzeTextOptions**: The object used to construct the payload (text content) for the `AnalyzeText` method.",
 		"images": []
-	},
+  	},
 	{
 		"id": "T8-Q12",
 		"topic": "Topic 8",
