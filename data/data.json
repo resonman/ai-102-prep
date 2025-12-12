@@ -6717,27 +6717,27 @@
 	},
 	{
 		"id": "T12-Q1",
-		"topic": "Topic 16 (Case Study: Contoso)",
-		"type": "MultipleChoice",
-		"question_text": "[Background Requirement]\n- The solution must process standardized financial documents (containing tables and text).\n- The solution must extract information from receipt images.\n\n[Question]\nYou are developing the document processing workflow. Which two API endpoints should you use?",
-		"allow_randomize_options": true,
+		"topic": "Topic 12 (Case Study: Contoso)",
+		"type": "DragDrop",
+		"question_text": "[Background Requirement]\nThe document processing solution must be able to extract tables and text from the financial documents.\nThe document processing solution must be able to extract information from receipt images.\nMembers of a group named Management-Bookkeeper must define how to extract tables from the financial documents.\nMembers of a group named Consultant-Bookkeeper must be able to process the financial documents.\n\n[Question]\nYou are developing a solution for the Management-Bookkeepers group to meet the document processing requirements. The solution must contain the following components:\nA Form Recognizer resource\nAn Azure web app that hosts the Form Recognizer sample labeling tool\nThe Management-Bookkeepers group needs to create a custom table extractor by using the sample labeling tool.\nWhich three actions should the Management-Bookkeepers group perform in sequence?",
+		"allow_randomize_options": false,
 		"options": [
-			{ "id": "A", "text": "/vision/v3.1/read/analyzeResults" },
-			{
-				"id": "B",
-				"text": "/formrecognizer/v2.0/custom/models/{modelId}/analyze"
-			},
-			{ "id": "C", "text": "/formrecognizer/v2.0/prebuilt/receipt/analyze" },
-			{ "id": "D", "text": "/vision/v3.1/describe" },
-			{ "id": "E", "text": "/vision/v3.1/read/analyze" }
+		{ "id": "act1", "text": "Train a custom model" },
+		{ "id": "act2", "text": "Label the sample documents" },
+		{ "id": "act3", "text": "Create a new project and load sample documents" },
+		{ "id": "act4", "text": "Create a composite model" }
 		],
-		"correct_answer": ["B", "C"],
-		"explanation": "1. For specific 'standardized financial documents' unique to each office, use a **Custom Model** (B). 2. For 'receipt images', use the **Prebuilt Receipt** model (C).",
+		"correct_answer": [
+		{ "order": 1, "option_id": "act3" },
+		{ "order": 2, "option_id": "act2" },
+		{ "order": 3, "option_id": "act1" }
+		],
+		"explanation": "Step 1: Create a new project and load sample documents. Projects store your configurations and settings.\nStep 2: Label the sample documents. When you create or open a project, the main tag editor window opens.\nStep 3: Train a custom model. Finally, train a custom model.\nReference: https://docs.microsoft.com/en-us/azure/applied-ai-services/form-recognizer/label-tool",
 		"images": []
 	},
 	{
-		"id": "T13-Q1",
-		"topic": "Topic 13 (Case Study: Contoso)",
+		"id": "T12-Q2",
+		"topic": "Topic 12 (Case Study: Contoso)",
 		"type": "SingleChoice",
 		"question_text": "[Background Requirement]\nThe knowledgebase must be able to transcribe industry-specific jargon with high accuracy from webinars.\n\n[Question]\nYou use Azure Video Analyzer for Media (Video Indexer). What should you do to meet the requirement?",
 		"allow_randomize_options": true,
@@ -6755,8 +6755,8 @@
 		"images": []
 	},
 	{
-		"id": "T14-Q1",
-		"topic": "Topic 14 (Case Study: Wide World Importers)",
+		"id": "T13-Q1",
+		"topic": "Topic 13 (Case Study: Wide World Importers)",
 		"type": "Hotspot",
 		"question_text": "[Background Requirement]\nProduct descriptions, transcripts, and alt text must be available in English, Spanish, and Portuguese.\n\n[Question]\nYou are planning the product creation project. You need to build the REST endpoint to create the multilingual product descriptions. Complete the URI.",
 		"allow_randomize_options": false,
@@ -6795,6 +6795,23 @@
 		"images": []
 	},
 	{
+		"id": "T14-Q1",
+		"topic": "Topic 14 (Case Study: Contoso)",
+		"type": "SingleChoice",
+		"question_text": "You need to develop an extract solution for the receipt images. The solution must meet the document processing requirements and the technical requirements.\nYou upload the receipt images to the Form Recognizer API for analysis, and the API returns the following JSON.\nWhich expression should you use to trigger a manual review of the extracted information by a member of the Consultant-Bookkeeper group?",
+		"allow_randomize_options": true,
+		"code_snippet": "{ \"documentResults\": [ { \"docType\": \"prebuilt:receipt\", \"pageRange\": [ 1, 1 ], \"fields\": { \"ReceiptType\": { \"type\": \"string\", \"valueString\": \"Itemized\", \"confidence\": 0.672 }, \"MerchantName\": { \"type\": \"string\", \"valueString\": \"Tailwind\", \"text\": \"Tailwind\", \"boundingBox\": [], \"page\": 1, \"confidence\": 0.913, \"elements\": [ \"#/readResults/0/lines/0/words/0\" ] } }, ... }",
+		"options": [
+			{ "id": "A", "text": "documentResults.docType == \"prebuilt:receipt\"" },
+			{ "id": "B", "text": "documentResults.fields.*.confidence < 0.7" },
+			{ "id": "C", "text": "documentResults.fields.ReceiptType.confidence > 0.7" },
+			{ "id": "D", "text": "documentResults.fields.MerchantName.confidence < 0.7" }
+		],
+		"correct_answer": "B",
+		"explanation": "To trigger manual review when confidence is lower than 70 percent (0.7), use documentResults.fields.*.confidence < 0.7.",
+		"images": []
+	},
+	{
 		"id": "T15-Q1",
 		"topic": "Topic 15 (Case Study: Wide World Importers)",
 		"type": "MultipleChoice",
@@ -6824,7 +6841,77 @@
 		"explanation": "1. Create a **Suggester** encompassing the relevant fields (B). 2. Ensure proper tokenization using an **Analyzer** (F). 3. Query the **Autocomplete** endpoint (A).",
 		"images": []
 	},
-
+	{
+		"id": "T16-Q1",
+		"topic": "Topic 16 (Case Study: Contoso)",
+		"type": "MultipleChoice",
+		"question_text": "You are developing the document processing workflow.\nYou need to identify which API endpoints to use to extract text from the financial documents. The solution must meet the document processing requirements.\nWhich two API endpoints should you identify?",
+		"allow_randomize_options": true,
+		"options": [
+			{ "id": "A", "text": "/vision/v3.1/read/analyzeResults" },
+			{ "id": "B", "text": "/formrecognizer/v2.0/custom/models/{modelId}/analyze" },
+			{ "id": "C", "text": "/formrecognizer/v2.0/prebuilt/receipt/analyze" },
+			{ "id": "D", "text": "/vision/v3.1/describe" },
+			{ "id": "E", "text": "/vision/v3.1/read/analyze" }
+		],
+		"correct_answer": ["C", "E"],
+		"explanation": "Use Form Recognizer prebuilt receipt model for receipts and Computer Vision Read API for general text extraction from financial documents.",
+		"images": []
+	},
+	{
+		"id": "T16-Q2",
+		"topic": "Topic 16 (Case Study: Contoso)",
+		"type": "Hotspot",
+		"question_text": "You are developing the knowledgebase by using Azure Cognitive Search.\nYou need to build a skill that will be used by indexers.\nHow should you complete the code?",
+		"allow_randomize_options": false,
+		"code_snippet": "{\n  \"@odata.type\": \"#Microsoft.Skills.Text.EntityRecognitionSkill\",\n  \"categories\": {0},\n  \"defaultLanguageCode\": \"en\",\n  \"includeTypelessEntities\": true,\n  \"minimumPrecision\": 0.1,\n  \"inputs\": [\n    {\n      \"name\": \"text\",\n      \"source\": \"/document/content\"\n    }\n  ],\n  \"outputs\": [\n    {\n      \"name\": \"persons\",\n      \"targetName\": \"people\"\n    },\n    {\n      \"name\": \"locations\",\n      \"targetName\": \"locations\"\n    },\n    {\n      \"name\": \"organizations\",\n      \"targetName\": \"organizations\"\n    },\n    {1}\n  ]\n}",
+		"options": [
+			{ "id": "cat1", "text": "[]", "group": 0 },
+			{ "id": "cat2", "text": "[ \"Email\", \"Persons\", \"Organizations\" ]", "group": 0 },
+			{ "id": "cat3", "text": "[ \"Locations\", \"Persons\", \"Organizations\" ]", "group": 0 },
+			{ "id": "out1", "text": "{ \"name\": \"entities\" }", "group": 1 },
+			{ "id": "out2", "text": "{ \"name\": \"categories\" }", "group": 1 },
+			{ "id": "out3", "text": "{ \"name\": \"namedEntities\" }", "group": 1 }
+		],
+		"correct_answer": [
+			{ "slot": 0, "option_id": "cat3" },
+			{ "slot": 1, "option_id": "out1" }
+		],
+		"explanation": "Box 1: [\"Locations\", \"Persons\", \"Organizations\"]\nBox 2: {\"name\": \"entities\"}\nReference: https://docs.microsoft.com/en-us/azure/search/cognitive-search-skill-entity-recognition",
+		"images": []
+	},
+	{
+		"id": "T16-Q3",
+		"topic": "Topic 16 (Case Study: Contoso)",
+		"type": "SingleChoice",
+		"question_text": "You are developing the knowledgebase by using Azure Cognitive Search.\nYou need to process wiki content to meet the technical requirements.\nWhat should you include in the solution?",
+		"allow_randomize_options": true,
+		"options": [
+			{ "id": "A", "text": "an indexer for Azure Blob storage attached to a skillset that contains the language detection skill and the text translation skill" },
+			{ "id": "B", "text": "an indexer for Azure Blob storage attached to a skillset that contains the language detection skill" },
+			{ "id": "C", "text": "an indexer for Azure Cosmos DB attached to a skillset that contains the document extraction skill and the text translation skill" },
+			{ "id": "D", "text": "an indexer for Azure Cosmos DB attached to a skillset that contains the language detection skill and the text translation skill" }
+		],
+		"correct_answer": "C",
+		"explanation": "Wikis are stored in Azure Cosmos DB; use document extraction for text and translation for multilingual support.",
+		"images": []
+	},
+	{
+		"id": "T16-Q4",
+		"topic": "Topic 18 (Case Study: Contoso)",
+		"type": "SingleChoice",
+		"question_text": "[Background Requirement]\nThe knowledgebase must support searches for equivalent terms (e.g., specific acronyms or jargon).\n\n[Question]\nYou are developing the knowledgebase using Azure Cognitive Search. What should you include?",
+		"allow_randomize_options": true,
+		"options": [
+			{ "id": "A", "text": "synonym map" },
+			{ "id": "B", "text": "a suggester" },
+			{ "id": "C", "text": "a custom analyzer" },
+			{ "id": "D", "text": "a built-in key phrase extraction skill" }
+		],
+		"correct_answer": ["A"],
+		"explanation": "A **Synonym Map** connects equivalent terms (like 'MSFT' and 'Microsoft') so that searching for one finds the other.",
+		"images": []
+	},
 	{
 		"id": "T17-Q1",
 		"topic": "Topic 17 (Case Study: Wide World Importers)",
@@ -6875,6 +6962,22 @@
 		"images": []
 	},
 	{
+		"id": "T17-Q3",
+		"topic": "Topic 14 (Case Study: Wide World Importers)",  
+		"type": "SingleChoice",
+		"question_text": "You are developing the chatbot.\nYou create the following components:\nA QnA Maker resource\nA chatbot by using the Azure Bot Framework SDK\nYou need to add an additional component to meet the technical requirements and the chatbot requirements.\nWhat should you add?",
+		"allow_randomize_options": true,
+		"options": [
+			{ "id": "A", "text": "Microsoft Translator" },
+			{ "id": "B", "text": "Language Understanding" },
+			{ "id": "C", "text": "Orchestrator" },
+			{ "id": "D", "text": "chatdown" }
+		],
+		"correct_answer": "C",
+		"explanation": "Orchestrator is needed to manage multilingual interactions and integrate QnA with other services like Translator for the chatbot.",
+		"images": []
+	},
+	{
 		"id": "T18-Q1",
 		"topic": "Topic 18 (Case Study: Contoso)",
 		"type": "SingleChoice",
@@ -6894,16 +6997,16 @@
 		"id": "T18-Q2",
 		"topic": "Topic 18 (Case Study: Contoso)",
 		"type": "SingleChoice",
-		"question_text": "[Background Requirement]\nThe knowledgebase must support searches for equivalent terms (e.g., specific acronyms or jargon).\n\n[Question]\nYou are developing the knowledgebase using Azure Cognitive Search. What should you include?",
+		"question_text": "[Background Requirement]\nAll planned projects must support English, French, and Portuguese.\nWhen the response confidence score is low, ensure that the chatbot can provide other response options to the customers.\n\n[Question]\nYou are developing the chatbot. You create the following components: A QnA Maker resource, A chatbot by using the Azure Bot Framework SDK. You need to add an additional component to meet the technical requirements and the chatbot requirements. What should you add?",
 		"allow_randomize_options": true,
 		"options": [
-			{ "id": "A", "text": "synonym map" },
-			{ "id": "B", "text": "a suggester" },
-			{ "id": "C", "text": "a custom analyzer" },
-			{ "id": "D", "text": "a built-in key phrase extraction skill" }
+			{ "id": "A", "text": "Microsoft Translator" },
+			{ "id": "B", "text": "Language Understanding" },
+			{ "id": "C", "text": "Orchestrator" },
+			{ "id": "D", "text": "chatdown" }
 		],
-		"correct_answer": ["A"],
-		"explanation": "A **Synonym Map** connects equivalent terms (like 'MSFT' and 'Microsoft') so that searching for one finds the other.",
+		"correct_answer": ["C"],
+		"explanation": "Orchestrator is needed to handle multilingual responses, low-confidence fallbacks, and integration with QnA Maker in the Bot Framework SDK.",
 		"images": []
 	}
 ]
