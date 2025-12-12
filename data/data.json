@@ -6556,7 +6556,7 @@
 		"images": []
 	},
 	{
-		"id": "T11-Q1",
+		"id": "T10-Q1",
 		"topic": "Topic 11 (Case Study: Contoso)",
 		"type": "Hotspot",
 		"question_text": "[Background Requirement]\n- Management-Accountants must be able to approve (publish) the FAQs.\n- Consultant-Accountants must be able to create and amend the FAQs.\n- Agent-CustomerServices must be able to browse (read) the FAQs.\n\n[Question]\nWhich RBAC role should you assign to each group for the QnA Maker resource?",
@@ -6628,6 +6628,48 @@
 			{ "order": 3, "option_id": "act_train" }
 		],
 		"explanation": "To define table extraction: 1. Create a project in the tool. 2. Label the tables in the samples. 3. Train the model.",
+		"images": []
+	},
+	{
+		"id": "T11-Q2",
+		"topic": "Topic 11 (Case Study: Contoso)",
+		"type": "SingleChoice",
+		"question_text": "[Background Requirement]\nWhen the response confidence score of an AI response is lower than 70 percent, the response must be improved by human input.\n\n[Question]\nYou need to trigger a manual review of the extracted information. Which expression should you use?",
+		"allow_randomize_options": true,
+		"options": [
+			{ "id": "A", "text": "documentResults.docType == \"prebuilt:receipt\"" },
+			{ "id": "B", "text": "documentResults.fields.*.confidence < 0.7" },
+			{
+				"id": "C",
+				"text": "documentResults.fields.ReceiptType.confidence > 0.7"
+			},
+			{
+				"id": "D",
+				"text": "documentResults.fields.MerchantName.confidence < 0.7"
+			}
+		],
+		"correct_answer": ["B"],
+		"explanation": "The requirement states that *any* AI response with a confidence lower than 70% needs human input. The expression `fields.*.confidence < 0.7` checks the confidence of **all** extracted fields. If any field is below 0.7, it triggers the review.",
+		"images": []
+	},
+	{
+		"id": "T12-Q1",
+		"topic": "Topic 16 (Case Study: Contoso)",
+		"type": "MultipleChoice",
+		"question_text": "[Background Requirement]\n- The solution must process standardized financial documents (containing tables and text).\n- The solution must extract information from receipt images.\n\n[Question]\nYou are developing the document processing workflow. Which two API endpoints should you use?",
+		"allow_randomize_options": true,
+		"options": [
+			{ "id": "A", "text": "/vision/v3.1/read/analyzeResults" },
+			{
+				"id": "B",
+				"text": "/formrecognizer/v2.0/custom/models/{modelId}/analyze"
+			},
+			{ "id": "C", "text": "/formrecognizer/v2.0/prebuilt/receipt/analyze" },
+			{ "id": "D", "text": "/vision/v3.1/describe" },
+			{ "id": "E", "text": "/vision/v3.1/read/analyze" }
+		],
+		"correct_answer": ["B", "C"],
+		"explanation": "1. For specific 'standardized financial documents' unique to each office, use a **Custom Model** (B). 2. For 'receipt images', use the **Prebuilt Receipt** model (C).",
 		"images": []
 	},
 	{
@@ -6719,26 +6761,7 @@
 		"explanation": "1. Create a **Suggester** encompassing the relevant fields (B). 2. Ensure proper tokenization using an **Analyzer** (F). 3. Query the **Autocomplete** endpoint (A).",
 		"images": []
 	},
-	{
-		"id": "T16-Q1",
-		"topic": "Topic 16 (Case Study: Contoso)",
-		"type": "MultipleChoice",
-		"question_text": "[Background Requirement]\n- The solution must process standardized financial documents (containing tables and text).\n- The solution must extract information from receipt images.\n\n[Question]\nYou are developing the document processing workflow. Which two API endpoints should you use?",
-		"allow_randomize_options": true,
-		"options": [
-			{ "id": "A", "text": "/vision/v3.1/read/analyzeResults" },
-			{
-				"id": "B",
-				"text": "/formrecognizer/v2.0/custom/models/{modelId}/analyze"
-			},
-			{ "id": "C", "text": "/formrecognizer/v2.0/prebuilt/receipt/analyze" },
-			{ "id": "D", "text": "/vision/v3.1/describe" },
-			{ "id": "E", "text": "/vision/v3.1/read/analyze" }
-		],
-		"correct_answer": ["B", "C"],
-		"explanation": "1. For specific 'standardized financial documents' unique to each office, use a **Custom Model** (B). 2. For 'receipt images', use the **Prebuilt Receipt** model (C).",
-		"images": []
-	},
+
 	{
 		"id": "T17-Q1",
 		"topic": "Topic 17 (Case Study: Wide World Importers)",
