@@ -5976,22 +5976,22 @@
 		"allow_randomize_options": false,
 		"code_snippet": "new ChatCompletionsOptions()\n{\n    Messages =\n    {\n        new ChatMessage({0}, @\"\")\n    },\n    {1} = (float)1.0,\n    MaxTokens = 800,\n};",
 		"options": [
-		{ "id": "role_asst", "text": "ChatRole.Assistant", "group": 0 },
-		{ "id": "role_func", "text": "ChatRole.Function", "group": 0 },
-		{ "id": "role_sys", "text": "ChatRole.System", "group": 0 },
-		{ "id": "role_user", "text": "ChatRole.User", "group": 0 },
-		{ "id": "param_user", "text": "ChatRole.User", "group": 1 },
-		{ "id": "param_pres", "text": "PresencePenalty", "group": 1 },
-		{ "id": "param_temp", "text": "Temperature", "group": 1 },
-		{ "id": "param_token", "text": "TokenSelectionBiases", "group": 1 }
+			{ "id": "role_asst", "text": "ChatRole.Assistant", "group": 0 },
+			{ "id": "role_func", "text": "ChatRole.Function", "group": 0 },
+			{ "id": "role_sys", "text": "ChatRole.System", "group": 0 },
+			{ "id": "role_user", "text": "ChatRole.User", "group": 0 },
+			{ "id": "param_user", "text": "ChatRole.User", "group": 1 },
+			{ "id": "param_pres", "text": "PresencePenalty", "group": 1 },
+			{ "id": "param_temp", "text": "Temperature", "group": 1 },
+			{ "id": "param_token", "text": "TokenSelectionBiases", "group": 1 }
 		],
 		"correct_answer": [
-		{ "slot": 0, "option_id": "role_sys" },
-		{ "slot": 1, "option_id": "param_temp" }
+			{ "slot": 0, "option_id": "role_sys" },
+			{ "slot": 1, "option_id": "param_temp" }
 		],
 		"explanation": "1. **ChatRole.System**: Defines the system message (behavior/persona) of the bot. 2. **Temperature**: Setting Temperature to a higher value (like 1.0) makes the output more random (creative) and less deterministic.",
 		"images": []
-  	},
+	},
 	{
 		"id": "T7-Q7",
 		"topic": "Topic 7",
@@ -6083,16 +6083,16 @@
 		"allow_randomize_options": false,
 		"code_snippet": "response = openai.{0}.create(\n    engine=deployment_name,\n    prompt=\"What is Microsoft Azure?\"\n)\nprint({1})",
 		"options": [
-		{ "id": "m_chat", "text": "ChatCompletion", "group": 0 },
-		{ "id": "m_embed", "text": "Embedding", "group": 0 },
-		{ "id": "m_img", "text": "Image", "group": 0 },
-		{ "id": "out_choices", "text": "response.choices[0].text", "group": 1 },
-		{ "id": "out_id", "text": "response.id", "group": 1 },
-		{ "id": "out_text", "text": "response.text", "group": 1 }
+			{ "id": "m_chat", "text": "ChatCompletion", "group": 0 },
+			{ "id": "m_embed", "text": "Embedding", "group": 0 },
+			{ "id": "m_img", "text": "Image", "group": 0 },
+			{ "id": "out_choices", "text": "response.choices[0].text", "group": 1 },
+			{ "id": "out_id", "text": "response.id", "group": 1 },
+			{ "id": "out_text", "text": "response.text", "group": 1 }
 		],
 		"correct_answer": [
-		{ "slot": 0, "option_id": "m_chat" },
-		{ "slot": 1, "option_id": "out_choices" }
+			{ "slot": 0, "option_id": "m_chat" },
+			{ "slot": 1, "option_id": "out_choices" }
 		],
 		"explanation": "1. To answer questions (generate text), you use the Completion or ChatCompletion API. The visual answer key selects **ChatCompletion**. 2. The standard response structure places the answer text in `response.choices[0].text`.",
 		"images": []
@@ -6105,20 +6105,28 @@
 		"allow_randomize_options": false,
 		"code_snippet": "OpenAIClient client = new OpenAIClient(...);\nResponse<Completions> response = client.{0}(deploymentName, \"What is Microsoft Azure?\");\nConsole.WriteLine({1});",
 		"options": [
-		{ "id": "m_comp", "text": "GetCompletions", "group": 0 },
-		{ "id": "m_embed", "text": "GetEmbeddings", "group": 0 },
-		{ "id": "m_img", "text": "GetImageGenerations", "group": 0 },
-		{ "id": "out_val_choice", "text": "response.Value.Choices[0].Text", "group": 1 },
-		{ "id": "out_val_id", "text": "response.Value.Id", "group": 1 },
-		{ "id": "out_val_prompt", "text": "response.Value.PromptFilterResults", "group": 1 }
+			{ "id": "m_comp", "text": "GetCompletions", "group": 0 },
+			{ "id": "m_embed", "text": "GetEmbeddings", "group": 0 },
+			{ "id": "m_img", "text": "GetImageGenerations", "group": 0 },
+			{
+				"id": "out_val_choice",
+				"text": "response.Value.Choices[0].Text",
+				"group": 1
+			},
+			{ "id": "out_val_id", "text": "response.Value.Id", "group": 1 },
+			{
+				"id": "out_val_prompt",
+				"text": "response.Value.PromptFilterResults",
+				"group": 1
+			}
 		],
 		"correct_answer": [
-		{ "slot": 0, "option_id": "m_comp" },
-		{ "slot": 1, "option_id": "out_val_choice" }
+			{ "slot": 0, "option_id": "m_comp" },
+			{ "slot": 1, "option_id": "out_val_choice" }
 		],
 		"explanation": "1. The variable type `Response<Completions>` implies the method call returns completions, so **GetCompletions** is the correct method. 2. In the C# SDK, the text is accessed via `Value.Choices[0].Text`.",
 		"images": []
-  	},
+	},
 	{
 		"id": "T7-Q12",
 		"topic": "Topic 7",
@@ -6621,7 +6629,7 @@
 		"images": []
 	},
 	{
-		"id": "T12-Q1",
+		"id": "T11-Q1",
 		"topic": "Topic 12 (Case Study: Contoso)",
 		"type": "DragDrop",
 		"question_text": "[Background Requirement]\nThe Management-Bookkeepers group needs to define how to extract tables from financial documents using a custom solution.\n\n[Question]\nYou are developing a solution using the Form Recognizer (Document Intelligence) Sample Labeling Tool. Which three actions should the group perform in sequence?",
