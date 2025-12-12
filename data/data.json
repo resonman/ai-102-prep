@@ -6578,7 +6578,7 @@
 	},
 	{
 		"id": "T10-Q1",
-		"topic": "Topic 11 (Case Study: Contoso)",
+		"topic": "Topic 10 (Case Study: Contoso)",
 		"type": "Hotspot",
 		"question_text": "[Background Requirement]\n- Management-Accountants must be able to approve (publish) the FAQs.\n- Consultant-Accountants must be able to create and amend the FAQs.\n- Agent-CustomerServices must be able to browse (read) the FAQs.\n\n[Question]\nWhich RBAC role should you assign to each group for the QnA Maker resource?",
 		"allow_randomize_options": false,
@@ -6630,25 +6630,45 @@
 	},
 	{
 		"id": "T11-Q1",
-		"topic": "Topic 12 (Case Study: Contoso)",
+		"topic": "Topic 11 (Case Study: Wide World Importers)",
 		"type": "DragDrop",
-		"question_text": "[Background Requirement]\nThe Management-Bookkeepers group needs to define how to extract tables from financial documents using a custom solution.\n\n[Question]\nYou are developing a solution using the Form Recognizer (Document Intelligence) Sample Labeling Tool. Which three actions should the group perform in sequence?",
+		"question_text": "[Background Requirement]\n- All videos must have transcripts that are associated to the video and included in product descriptions.\n- Product descriptions, transcripts, and alt text must be available in English, Spanish, and Portuguese.\n\n[Question]\nYou are planning the product creation project. You need to recommend a process for analyzing videos. Which four actions should you perform in sequence?",
 		"allow_randomize_options": false,
 		"options": [
-			{ "id": "act_train", "text": "Train a custom model" },
-			{ "id": "act_label", "text": "Label the sample documents" },
 			{
-				"id": "act_create",
-				"text": "Create a new project and load sample documents"
+				"id": "act_index",
+				"text": "Index the video by using the Azure Video Analyzer for Media (previously Video Indexer) API."
 			},
-			{ "id": "act_composite", "text": "Create a composite model" }
+			{ "id": "act_upload_blob", "text": "Upload the video to blob storage." },
+			{
+				"id": "act_analyze_cv",
+				"text": "Analyze the video by using the Computer Vision API."
+			},
+			{
+				"id": "act_extract_stream",
+				"text": "Extract the transcript from Microsoft Stream."
+			},
+			{
+				"id": "act_send_luis",
+				"text": "Send the transcript to the Language Understanding API as an utterance."
+			},
+			{
+				"id": "act_extract_vi",
+				"text": "Extract the transcript from the Azure Video Analyzer for Media (Video Indexer) API."
+			},
+			{
+				"id": "act_translate",
+				"text": "Translate the transcript by using the Translator API."
+			},
+			{ "id": "act_upload_file", "text": "Upload the video to file storage." }
 		],
 		"correct_answer": [
-			{ "order": 1, "option_id": "act_create" },
-			{ "order": 2, "option_id": "act_label" },
-			{ "order": 3, "option_id": "act_train" }
+			{ "order": 1, "option_id": "act_upload_blob" },
+			{ "order": 2, "option_id": "act_index" },
+			{ "order": 3, "option_id": "act_extract_vi" },
+			{ "order": 4, "option_id": "act_translate" }
 		],
-		"explanation": "To define table extraction: 1. Create a project in the tool. 2. Label the tables in the samples. 3. Train the model.",
+		"explanation": "1. **Upload to Blob**: Video Indexer requires the file to be accessible via a URL (usually Blob Storage). 2. **Index**: Use the Video Indexer API to process the video. 3. **Extract Transcript**: Retrieve the generated transcript artifacts from Video Indexer. 4. **Translate**: Use the Translator API to meet the requirement of providing transcripts in English, Spanish, and Portuguese.",
 		"images": []
 	},
 	{
