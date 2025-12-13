@@ -2466,26 +2466,28 @@
     "id": "T3-Q5",
     "topic": "Topic 3",
     "type": "Hotspot",
-    "question_text": "Service records lectures in English. Code needs to provide transcripts in English, French, Spanish, and German. Complete the C# code.",
+    "question_text": "You are developing a service that records lectures given in English (United Kingdom). You need to develop code that will provide transcripts of the lectures to attendees in their respective language. The supported languages are English, French, Spanish, and German.\n\nHow should you complete the code?",
     "allow_randomize_options": false,
-    "code_snippet": "var lang = new List<string>\n{\n  \"en-GB\",\n  {0}\n};\n...\nusing var recognizer = new {1}(config, audioConfig);",
+    "code_snippet": "static async Task TranslateSpeechAsync()\n{\n    var config = SpeechTranslationConfig.FromSubscription(\"69cad5cc-0ab3-4704-bdff-afbf4aa07d85\", \"uksouth\");\n\n    var lang = new List<string>\n    {\n        \"en-GB\",\n        {0}\n    };\n\n    config.SpeechRecognitionLanguage = \"en-GB\";\n    lang.ForEach(config.AddTargetLanguage);\n\n    using var audioConfig = AudioConfig.FromDefaultMicrophoneInput();\n    using var recognizer = new {1}(config, audioConfig);\n\n    var result = awit recognizer.RecognizeOnceAsync();\n    if (result.Reason == ResultReason.TranslatedSpeech)",
     "options": [
-      { "id": "list_fr_de_es", "text": "\"fr\", \"de\", \"es\"", "group": 0 },
-      { "id": "list_fr_es", "text": "\"fr\", \"es\"", "group": 0 },
+      { "id": "opt_en", "text": "(\"en-GB\")", "group": 0 },
+      { "id": "opt_all", "text": "[\"en\",\"fr\",\"de\",\"es\"]", "group": 0 },
+      { "id": "opt_part", "text": "(\"fr\",\"de\",\"es\")", "group": 0 },
       {
-        "id": "list_full",
-        "text": "\"French\", \"Spanish\", \"German\"",
+        "id": "opt_names",
+        "text": "[\"French\",\"German\",\"Spanish\")",
         "group": 0
       },
-      { "id": "obj_intent", "text": "IntentRecognizer", "group": 1 },
-      { "id": "obj_speaker", "text": "SpeakerRecognizer", "group": 1 },
-      { "id": "obj_trans", "text": "TranslationRecognizer", "group": 1 }
+      { "id": "rec_intent", "text": "IntentRecognizer", "group": 1 },
+      { "id": "rec_speaker", "text": "SpeakerRecognizer", "group": 1 },
+      { "id": "rec_synth", "text": "SpeechSynthesizer", "group": 1 },
+      { "id": "rec_trans", "text": "TranslationRecognizer", "group": 1 }
     ],
     "correct_answer": [
-      { "slot": 0, "option_id": "list_fr_de_es" },
-      { "slot": 1, "option_id": "obj_trans" }
+      { "slot": 0, "option_id": "opt_part" },
+      { "slot": 1, "option_id": "rec_trans" }
     ],
-    "explanation": "1. The list needs target language codes for French (fr), German (de), and Spanish (es). 2. For speech translation, use the `TranslationRecognizer` class.",
+    "explanation": "1. The list already contains 'en-GB', so we select **(\"fr\",\"de\",\"es\")** to complete the list of supported languages. 2. **TranslationRecognizer** is required for speech translation.",
     "images": []
   },
   {
@@ -3957,26 +3959,28 @@
     "id": "T3-Q73",
     "topic": "Topic 3",
     "type": "Hotspot",
-    "question_text": "You are building an app that will automatically translate speech from English to French, German, and Spanish by using Azure AI service.\n\nYou need to define the output languages and configure the Azure AI Speech service.\n\nHow should you complete the code?",
+    "question_text": "You are building an app that will automatically translate speech from English to French, German, and Spanish by using Azure AI service. You need to define the output languages and configure the Azure AI Speech service.\n\nHow should you complete the code?",
     "allow_randomize_options": false,
-    "code_snippet": "speech_key, service_region = ...\n...\ndef translate_speech_to_text():\n    translation_config = speechsdk.translation.SpeechTranslationConfig(...)\n    for lang in languages:\n        translation_config.{0}(lang)\n    \n    recognizer = speechsdk.translation.{1}(translation_config)",
+    "code_snippet": "speech_key, service_region = os.environ['SPEECH_SERVICE_KEY'], os.environ['SPEECH_SERVICE_REGION']\nlanguages = {0}\n\ndef translate_speech_to_text():\n    translation_config = speechsdk.translation.SpeechTranslationConfig(subscription=speech_key, region=service_region)\n    for lang in languages:\n        translation_config.add_target_language(lang)\n    \n    recognizer = speechsdk.translation.{1}(translation_config)",
     "options": [
-      { "id": "add_target", "text": "add_target_language", "group": 0 },
-      { "id": "set_target", "text": "set_target_language", "group": 0 },
+      { "id": "opt_en", "text": "(\"en-GB\")", "group": 0 },
+      { "id": "opt_all", "text": "[\"en\",\"fr\",\"de\",\"es\"]", "group": 0 },
+      { "id": "opt_part", "text": "(\"fr\",\"de\",\"es\")", "group": 0 },
       {
-        "id": "speech_lang",
-        "text": "speech_recognition_language",
+        "id": "opt_names",
+        "text": "[\"French\",\"German\",\"Spanish\")",
         "group": 0
       },
       { "id": "rec_intent", "text": "IntentRecognizer", "group": 1 },
-      { "id": "rec_trans", "text": "TranslationRecognizer", "group": 1 },
-      { "id": "rec_speech", "text": "SpeechRecognizer", "group": 1 }
+      { "id": "rec_speaker", "text": "SpeakerRecognizer", "group": 1 },
+      { "id": "rec_synth", "text": "SpeechSynthesizer", "group": 1 },
+      { "id": "rec_trans", "text": "TranslationRecognizer", "group": 1 }
     ],
     "correct_answer": [
-      { "slot": 0, "option_id": "add_target" },
+      { "slot": 0, "option_id": "opt_all" },
       { "slot": 1, "option_id": "rec_trans" }
     ],
-    "explanation": "1. In the Python SDK, to add a target language, use **add_target_language**. 2. To perform translation, instantiate the **TranslationRecognizer**.",
+    "explanation": "1. We need to define the full list of languages to iterate over, so **[\"en\",\"fr\",\"de\",\"es\"]** is the correct choice. 2. **TranslationRecognizer** is used for translation.",
     "images": []
   },
   {
@@ -4075,21 +4079,28 @@
     "id": "T3-Q78",
     "topic": "Topic 3",
     "type": "Hotspot",
-    "question_text": "You are building an app that will automatically translate speech from English to French, German, and Spanish. You need to define the output languages and configure the Azure AI Speech service.\n\nHow should you complete the code?",
+    "question_text": "You are building an app that will automatically translate speech from English to French, German, and Spanish by using Azure AI service.\n\nHow should you complete the code?",
     "allow_randomize_options": false,
-    "code_snippet": "static async Task TranslateSpeechAsync()\n{\n    var config = SpeechTranslationConfig.FromSubscription(KEY, REGION);\n    var languages = new List<string>\n    {\n        \"en-GB\", \"fr-FR\", \"de-DE\", \"es-ES\"\n    };\n    languages.ForEach(config.{0});\n    using var recognizer = new {1}(config);",
+    "code_snippet": "static async Task TranslateSpeechAsync()\n{\n    var config = SpeechTranslationConfig.FromSubscription(KEY, REGION);\n    var languages = new List<string>\n    {\n        {0}\n    };\n    languages.ForEach(config.AddTargetLanguage);\n    using var recognizer = new {1}(config);",
     "options": [
-      { "id": "m_add", "text": "AddTargetLanguage", "group": 0 },
-      { "id": "m_recog", "text": "SpeechRecognitionLanguage", "group": 0 },
-      { "id": "class_intent", "text": "IntentRecognizer", "group": 1 },
-      { "id": "class_spk", "text": "SpeakerRecognizer", "group": 1 },
-      { "id": "class_trans", "text": "TranslationRecognizer", "group": 1 }
+      { "id": "opt_en", "text": "(\"en-GB\")", "group": 0 },
+      { "id": "opt_all", "text": "[\"en\",\"fr\",\"de\",\"es\"]", "group": 0 },
+      { "id": "opt_part", "text": "(\"fr\",\"de\",\"es\")", "group": 0 },
+      {
+        "id": "opt_names",
+        "text": "[\"French\",\"German\",\"Spanish\")",
+        "group": 0
+      },
+      { "id": "rec_intent", "text": "IntentRecognizer", "group": 1 },
+      { "id": "rec_speaker", "text": "SpeakerRecognizer", "group": 1 },
+      { "id": "rec_synth", "text": "SpeechSynthesizer", "group": 1 },
+      { "id": "rec_trans", "text": "TranslationRecognizer", "group": 1 }
     ],
     "correct_answer": [
-      { "slot": 0, "option_id": "m_add" },
-      { "slot": 1, "option_id": "class_trans" }
+      { "slot": 0, "option_id": "opt_all" },
+      { "slot": 1, "option_id": "rec_trans" }
     ],
-    "explanation": "1. **AddTargetLanguage**: The `ForEach` loop iterates through the list of language codes and calls `AddTargetLanguage` for each one to set them as translation targets. 2. **TranslationRecognizer**: This is the class used for speech-to-speech or speech-to-text translation.",
+    "explanation": "1. The list is empty, so we need the full list of languages: **[\"en\",\"fr\",\"de\",\"es\"]**. 2. **TranslationRecognizer** is the correct class.",
     "images": []
   },
   {
