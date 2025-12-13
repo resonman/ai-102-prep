@@ -992,51 +992,86 @@
     "id": "T1-Q54",
     "topic": "Topic 1",
     "type": "DragDrop",
-    "question_text": "App scans confidential documents using Language service. Confidential docs must remain on-premises. Which three actions in sequence?",
+    "question_text": "You are building an app that will scan confidential documents and use the Language service to analyze the contents. You provision an Azure Cognitive Services resource.\n\nYou need to ensure that the app can make requests to the Language service endpoint. The solution must ensure that confidential documents remain on-premises.\n\nWhich three actions should you perform in sequence?",
     "allow_randomize_options": false,
     "options": [
       {
-        "id": "act1",
+        "id": "opt_run_appid",
+        "text": "Run the container and specify an App ID and Client Secret."
+      },
+      {
+        "id": "opt_k8s_iso",
+        "text": "Provision an on-premises Kubernetes cluster that is isolated from the internet."
+      },
+      {
+        "id": "opt_pull_mcr",
         "text": "Pull an image from the Microsoft Container Registry (MCR)."
       },
       {
-        "id": "act2",
-        "text": "Run the container and specify an API key and the Endpoint URL."
+        "id": "opt_run_key",
+        "text": "Run the container and specify an API key and the Endpoint URL of the Cognitive Services resource."
       },
-      { "id": "act3", "text": "Provision an on-premises Kubernetes cluster." },
       {
-        "id": "act4",
-        "text": "Provision an Azure Cognitive Services resource."
+        "id": "opt_k8s_net",
+        "text": "Provision an on-premises Kubernetes cluster that has internet connectivity."
+      },
+      { "id": "opt_pull_hub", "text": "Pull an image from Docker Hub." },
+      {
+        "id": "opt_aks",
+        "text": "Provision an Azure Kubernetes Service (AKS) resource."
       }
     ],
     "correct_answer": [
-      { "order": 1, "option_id": "act4" },
-      { "order": 2, "option_id": "act1" },
-      { "order": 3, "option_id": "act2" }
+      { "order": 1, "option_id": "opt_k8s_net" },
+      { "order": 2, "option_id": "opt_pull_mcr" },
+      { "order": 3, "option_id": "opt_run_key" }
     ],
-    "explanation": "To use containers (keeping data on-prem): 1. Provision the Azure resource (to get the Billing Endpoint/Key). 2. Pull the docker image. 3. Run the container with the billing args.",
+    "explanation": "1. **Provision an on-premises Kubernetes cluster that has internet connectivity**: Containers need to run on-prem (to keep confidential docs local), but standard containers require internet access to send billing data to Azure (Metering). 'Isolated' clusters won't work for standard containers. 2. **Pull an image from MCR**: Azure AI containers are hosted on MCR, not Docker Hub. 3. **Run the container...**: You must provide the API Key and Endpoint (Billing args) to start the container.",
     "images": []
   },
   {
     "id": "T1-Q55",
     "topic": "Topic 1",
     "type": "Hotspot",
-    "question_text": "Create a resource for Sentiment Analysis and OCR. Use a single key/endpoint. How to complete the HTTP request?",
+    "question_text": "You have an Azure subscription that has the following configurations:\n\n- **Subscription ID**: 8d3591aa-96b8-4737-ad09-00f9b1ed35ad\n- **Tenant ID**: 3edfe572-cb54-3ced-ae12-c5c177f39a12\n\nYou plan to create a resource that will perform sentiment analysis and optical character recognition (OCR).\n\nYou need to use an HTTP request to create the resource in the subscription. The solution must use a single key and endpoint.\n\nHow should you complete the request?",
     "allow_randomize_options": false,
-    "code_snippet": "{0} https://management.azure.com/.../accounts/CS1?api-version=2017-04-18\n{\n  \"kind\": \"{1}\", ...\n}",
+    "code_snippet": "{0} https://management.azure.com/{1}/resourceGroups/RG1/providers/Microsoft.CognitiveServices/accounts/CS1?api-version=2017-04-18\n{\n  \"location\": \"West US\",\n  \"kind\": \"{2}\",\n  \"sku\": { \"name\": \"S0\" },\n  \"properties\": {}\n}",
     "options": [
-      { "id": "method_patch", "text": "PATCH", "group": 0 },
-      { "id": "method_post", "text": "POST", "group": 0 },
-      { "id": "method_put", "text": "PUT", "group": 0 },
-      { "id": "kind_cog", "text": "CognitiveServices", "group": 1 },
-      { "id": "kind_cv", "text": "ComputerVision", "group": 1 },
-      { "id": "kind_ta", "text": "TextAnalytics", "group": 1 }
+      { "id": "m_get", "text": "GET", "group": 0 },
+      { "id": "m_post", "text": "POST", "group": 0 },
+      { "id": "m_put", "text": "PUT", "group": 0 },
+      { "id": "m_patch", "text": "PATCH", "group": 0 },
+      {
+        "id": "path_sub",
+        "text": "subscriptions/8d3591aa-96b8-4737-ad09-00f9b1ed35ad",
+        "group": 1
+      },
+      {
+        "id": "path_ten",
+        "text": "subscriptions/3edfe572-cb54-3ced-ae12-c5c177f39a12",
+        "group": 1
+      },
+      {
+        "id": "path_ten_root",
+        "text": "tenants/3edfe572-cb54-3ced-ae12-c5c177f39a12",
+        "group": 1
+      },
+      {
+        "id": "path_sub_root",
+        "text": "tenants/8d3591aa-96b8-4737-ad09-00f9b1ed35ad",
+        "group": 1
+      },
+      { "id": "kind_cog", "text": "CognitiveServices", "group": 2 },
+      { "id": "kind_cv", "text": "ComputerVision", "group": 2 },
+      { "id": "kind_ta", "text": "TextAnalytics", "group": 2 },
+      { "id": "kind_form", "text": "FormRecognizer", "group": 2 }
     ],
     "correct_answer": [
-      { "slot": 0, "option_id": "method_put" },
-      { "slot": 1, "option_id": "kind_cog" }
+      { "slot": 0, "option_id": "m_put" },
+      { "slot": 1, "option_id": "path_sub" },
+      { "slot": 2, "option_id": "kind_cog" }
     ],
-    "explanation": "1. Create resource = PUT. 2. Single key for multiple services = 'CognitiveServices' (Multi-service).",
+    "explanation": "1. **PUT**: Create resource. 2. **Path**: Resources exist in a Subscription. You must use the **Subscription ID** (`8d35...`), not the Tenant ID. 3. **Kind**: Sentiment (Language) + OCR (Vision) = **CognitiveServices**.",
     "images": []
   },
   {
@@ -1076,17 +1111,24 @@
     "id": "T1-Q58",
     "topic": "Topic 1",
     "type": "Hotspot",
-    "question_text": "Deploy Azure OpenAI resource via ARM template. Respond to 600 requests per minute. How to complete the SKU capacity?",
+    "question_text": "You plan to deploy an Azure OpenAI resource by using an Azure Resource Manager (ARM) template.\n\nYou need to ensure that the resource can respond to **600 requests per minute**.\n\nHow should you complete the template? To answer, select the appropriate options in the answer area.",
     "allow_randomize_options": false,
-    "code_snippet": "\"sku\": {\n  \"name\": \"Standard\",\n  \"capacity\": {0}\n}",
+    "code_snippet": "\"sku\": {\n  \"name\": \"Standard\",\n  {0}: {1}\n}",
     "options": [
-      { "id": "cap_1", "text": "1", "group": 0 },
-      { "id": "cap_60", "text": "60", "group": 0 },
-      { "id": "cap_100", "text": "100", "group": 0 },
-      { "id": "cap_600", "text": "600", "group": 0 }
+      { "id": "prop_cap", "text": "\"capacity\"", "group": 0 },
+      { "id": "prop_cnt", "text": "\"count\"", "group": 0 },
+      { "id": "prop_max", "text": "\"maxValue\"", "group": 0 },
+      { "id": "prop_size", "text": "\"size\"", "group": 0 },
+      { "id": "val_1", "text": "1", "group": 1 },
+      { "id": "val_60", "text": "60", "group": 1 },
+      { "id": "val_100", "text": "100", "group": 1 },
+      { "id": "val_600", "text": "600", "group": 1 }
     ],
-    "correct_answer": [{ "slot": 0, "option_id": "cap_100" }],
-    "explanation": "OpenAI TPM (Tokens Per Minute) or RPM (Requests Per Minute) units are often scaled. If 1 unit = 6 RPM (hypothetically) or based on TPM quotas. *Exam Specific*: The answer provided is 100. This implies the scale unit logic for that specific exam version. We stick to the provided answer '100'.",
+    "correct_answer": [
+      { "slot": 0, "option_id": "prop_cap" },
+      { "slot": 1, "option_id": "val_100" }
+    ],
+    "explanation": "1. **Property Name**: The scaling unit property in Azure OpenAI ARM templates is named **\"capacity\"**. 2. **Value**: To support 600 RPM, based on the exam's specific scaling logic (approx 6 RPM per unit), you need to set the capacity to **100**.",
     "images": []
   },
   {
