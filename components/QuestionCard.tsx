@@ -1,15 +1,11 @@
 "use client";
 import { useState, useEffect } from "react";
-import { Question, Option, CorrectAnswerItem } from "@/lib/types";
+import { Question, Option } from "@/lib/types";
 import { Star, Check, X } from "lucide-react";
 import Image from "next/image";
 import { clsx } from "clsx";
 
-// 定义用户选择的类型
 type UserSelection = string | string[] | Record<number, string> | null;
-
-// 辅助类型：填空题答案结构
-type SlotAnswer = { slot: number; option_id: string };
 
 interface Props {
   question: Question;
@@ -28,44 +24,32 @@ export default function QuestionCard({
   isFavorite,
   onToggleFavorite,
 }: Props) {
-  // 状态管理
   const [selected, setSelected] = useState<UserSelection>(null);
   const [isSubmitted, setIsSubmitted] = useState(false);
 
-  // 使用 state 存储显示的选项（解决 Impure Function 报错）
-  // 初始化时直接使用原顺序，确保 SSR 一致性
+  // 初始化时直接使用原顺序
   const [currentOptions, setCurrentOptions] = useState<Option[]>(
     question.options
   );
 
-  // 判断是否为填空类题目
   const isSlotQuestion =
     question.type === "DragDrop" || question.type === "Hotspot";
   const slotCount = isSlotQuestion ? question.correct_answer.length : 0;
 
-  // 1. 处理选项乱序 (副作用放在 useEffect)
   useEffect(() => {
-    // 重置选择状态
     setSelected(isSlotQuestion ? {} : null);
     setIsSubmitted(false);
 
-    // 准备选项副本
     const opts = [...question.options];
-
-    // 仅在客户端且开启随机模式时打乱
     if (isRandomMode && question.allow_randomize_options) {
-      // Fisher-Yates Shuffle
       for (let i = opts.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
         [opts[i], opts[j]] = [opts[j], opts[i]];
       }
     }
-
-    // 更新状态
     setCurrentOptions(opts);
   }, [question, isRandomMode, isSlotQuestion]);
 
-  // 辅助函数：渲染高亮代码块
   const renderCodeSnippet = (text: string) => {
     const parts = text.split(/\{(\d+)\}/);
     return parts.map((part, index) => {
@@ -84,13 +68,9 @@ export default function QuestionCard({
     });
   };
 
-  // 处理填空题的选择变更
   const handleSlotChange = (slotIndex: number, optionId: string) => {
     if (isSubmitted) return;
-
-    // 类型断言：确信当前 selected 是 Record 类型（由 useEffect 初始化）
     const currentSlots = (selected as Record<number, string>) || {};
-
     if (!optionId) {
       const newSlots = { ...currentSlots };
       delete newSlots[slotIndex];
@@ -100,6 +80,14 @@ export default function QuestionCard({
     }
   };
 
+  // ✅ 核心修复：归一化 Slot 索引的辅助函数
+  // 兼容 JSON 中的 'slot' (0-based) 和 'order' (1-based)
+  const getNormalizedSlotIndex = (answerItem: any): number => {
+    if ("slot" in answerItem) return answerItem.slot;
+    if ("order" in answerItem) return answerItem.order - 1; // order 1 对应 slot 0
+    return -999;
+  };
+
   const handleSubmit = () => {
     if (selected === null) return;
 
@@ -107,14 +95,13 @@ export default function QuestionCard({
 
     if (isSlotQuestion) {
       const userSlots = selected as Record<number, string>;
-      // 类型守卫：确保 correct_answer 是 SlotAnswer 数组
-      const correctSlots = question.correct_answer.filter(
-        (item): item is SlotAnswer => typeof item === "object" && "slot" in item
-      );
+      const correctAnswers = question.correct_answer as any[];
 
-      correct = correctSlots.every(
-        (ans) => userSlots[ans.slot] === ans.option_id
-      );
+      // ✅ 修复：使用归一化的索引进行比对
+      correct = correctAnswers.every((ans) => {
+        const targetSlot = getNormalizedSlotIndex(ans);
+        return userSlots[targetSlot] === ans.option_id;
+      });
     } else if (
       question.type === "SingleChoice" ||
       question.type === "Simulation"
@@ -122,10 +109,7 @@ export default function QuestionCard({
       correct = question.correct_answer.includes(selected as string);
     } else if (question.type === "MultipleChoice") {
       if (Array.isArray(selected)) {
-        // 类型守卫：确保 correct_answer 是 string[]
-        const correctIds = question.correct_answer.filter(
-          (i): i is string => typeof i === "string"
-        );
+        const correctIds = question.correct_answer as unknown as string[];
         const correctSet = new Set(correctIds);
         correct =
           selected.length === correctSet.size &&
@@ -137,7 +121,6 @@ export default function QuestionCard({
     onAnswer(correct, selected);
   };
 
-  // 渲染填空题 UI (下拉菜单)
   const renderSlotInputs = () => {
     const slots = Array.from({ length: slotCount }, (_, i) => i);
 
@@ -149,10 +132,9 @@ export default function QuestionCard({
             slotIndex
           ];
 
-          // 查找正确答案 (使用类型守卫查找)
-          const correctItem = question.correct_answer.find(
-            (a): a is SlotAnswer =>
-              typeof a === "object" && "slot" in a && a.slot === slotIndex
+          // ✅ 修复：查找正确答案时也使用归一化索引
+          const correctItem = (question.correct_answer as any[]).find(
+            (a) => getNormalizedSlotIndex(a) === slotIndex
           );
 
           const isSlotCorrect =
@@ -160,27 +142,26 @@ export default function QuestionCard({
           const isSlotWrong =
             isSubmitted && userSelection !== correctItem?.option_id;
 
-          // 过滤选项 (Hotspot 分组逻辑)
           const availableOptions = currentOptions.filter(
             (opt) => opt.group === undefined || opt.group === slotIndex
           );
 
           return (
             <div key={slotIndex} className="flex items-center space-x-3">
-              <div className="w-16 shrink-0 font-bold text-gray-600 bg-yellow-200 px-2 py-1 rounded text-center">
+              <div className="w-16 flex-shrink-0 font-bold text-gray-600 bg-yellow-200 px-2 py-1 rounded text-center">
                 [{slotIndex + 1}]
               </div>
 
-              <div className="grow relative">
+              <div className="flex-grow relative">
                 <select
                   value={userSelection || ""}
                   onChange={(e) => handleSlotChange(slotIndex, e.target.value)}
                   disabled={isSubmitted}
                   className={clsx(
-                    "w-full p-2 border rounded appearance-none bg-white",
+                    "w-full p-2 border rounded appearance-none bg-white border-gray-300",
                     showFeedbackImmediate &&
                       isSlotCorrect &&
-                      "border-green-500 bg-green-50 text-green-700",
+                      "border-green-500 bg-green-50 text-green-700 font-medium",
                     showFeedbackImmediate &&
                       isSlotWrong &&
                       "border-red-500 bg-red-50 text-red-700"
@@ -195,7 +176,7 @@ export default function QuestionCard({
                 </select>
 
                 {showFeedbackImmediate && isSubmitted && (
-                  <div className="absolute right-3 top-2.5">
+                  <div className="absolute right-3 top-2.5 pointer-events-none">
                     {isSlotCorrect ? (
                       <Check className="w-5 h-5 text-green-600" />
                     ) : (
@@ -208,24 +189,25 @@ export default function QuestionCard({
           );
         })}
 
-        {/* 显示正确答案 */}
         {showFeedbackImmediate && isSubmitted && (
-          <div className="mt-2 text-sm text-gray-600">
-            <span className="font-bold">Correct Answers: </span>
-            {question.correct_answer.map((ans, i) => {
-              // 仅渲染 Slot 类型的答案
-              if (typeof ans === "object" && "slot" in ans) {
-                const optText = question.options.find(
-                  (o) => o.id === ans.option_id
-                )?.text;
-                return (
-                  <span key={i} className="mr-3 block sm:inline">
-                    [{ans.slot + 1}]:{" "}
-                    <span className="text-green-700 font-mono">{optText}</span>
-                  </span>
-                );
-              }
-              return null;
+          <div className="mt-4 p-3 bg-green-50 border border-green-200 rounded text-sm text-gray-700">
+            <span className="font-bold block mb-1 text-green-800">
+              Correct Sequence:
+            </span>
+            {question.correct_answer.map((ans: any, i) => {
+              // ✅ 修复：正确答案展示也适配
+              const slotIdx = getNormalizedSlotIndex(ans);
+              const optText = question.options.find(
+                (o) => o.id === ans.option_id
+              )?.text;
+              return (
+                <div key={i} className="ml-2 mb-1">
+                  <span className="font-bold text-gray-500">
+                    [{slotIdx + 1}]:
+                  </span>{" "}
+                  <span className="font-mono text-green-700">{optText}</span>
+                </div>
+              );
             })}
           </div>
         )}
@@ -233,7 +215,6 @@ export default function QuestionCard({
     );
   };
 
-  // 渲染普通选择题 UI
   const renderNormalOptions = () => {
     return currentOptions.map((opt: Option) => {
       const isSelected = Array.isArray(selected)
@@ -241,16 +222,16 @@ export default function QuestionCard({
         : selected === opt.id;
 
       let styleClass =
-        "border p-3 rounded cursor-pointer hover:bg-gray-50 mb-2 transition-colors relative";
+        "border p-3 rounded cursor-pointer hover:bg-gray-50 mb-2 transition-colors relative border-gray-200";
 
       if (isSelected)
         styleClass += " border-blue-500 bg-blue-50 ring-1 ring-blue-500";
 
       if (showFeedbackImmediate && isSubmitted) {
-        const correctIds = question.correct_answer.filter(
-          (i): i is string => typeof i === "string"
-        );
-        const isCorrectOption = correctIds.includes(opt.id);
+        const correctIds = question.correct_answer as unknown as string[];
+        const isCorrectOption = Array.isArray(correctIds)
+          ? correctIds.includes(opt.id)
+          : correctIds === opt.id;
 
         if (isCorrectOption) {
           styleClass = "border-green-500 bg-green-100 ring-1 ring-green-500";
@@ -279,11 +260,9 @@ export default function QuestionCard({
           }}
         >
           {opt.text}
-          {/* 选项右侧小图标 */}
           {showFeedbackImmediate && isSubmitted && (
             <div className="absolute right-3 top-3">
-              {/* 仅当该选项是正确答案时显示勾选 */}
-              {question.correct_answer.includes(opt.id) && (
+              {(question.correct_answer as string[]).includes(opt.id) && (
                 <Check className="w-5 h-5 text-green-600" />
               )}
             </div>
@@ -293,11 +272,9 @@ export default function QuestionCard({
     });
   };
 
-  // 验证提交按钮状态
   const isSubmitDisabled = () => {
     if (isSlotQuestion) {
       const userSlots = (selected as Record<number, string>) || {};
-      // 检查是否填满了所有空
       return Object.keys(userSlots).length < slotCount;
     }
     return (
@@ -306,17 +283,16 @@ export default function QuestionCard({
   };
 
   return (
-    <div className="bg-white shadow rounded-lg p-6 max-w-3xl mx-auto">
+    <div className="bg-white shadow rounded-lg p-6 max-w-3xl mx-auto border border-gray-100">
       <div className="flex justify-between items-start mb-4">
-        <span className="text-sm font-bold text-gray-500">
+        <span className="text-xs font-bold text-gray-400 uppercase tracking-wider">
           {question.topic} | {question.id}
         </span>
 
         <button
           type="button"
           onClick={onToggleFavorite}
-          aria-label={isFavorite ? "Remove from favorites" : "Add to favorites"}
-          className="focus:outline-none p-1"
+          className="focus:outline-none p-1 hover:bg-gray-100 rounded-full transition"
         >
           <Star
             className={clsx(
@@ -331,10 +307,9 @@ export default function QuestionCard({
         {question.question_text}
       </h2>
 
-      {/* 代码块渲染 (深色模式 + 高亮插槽) */}
       {question.code_snippet && (
-        <div className="bg-gray-800 p-5 rounded-lg mb-6 overflow-x-auto border border-gray-700 shadow-inner">
-          <pre className="text-sm font-mono text-gray-200 leading-loose whitespace-pre-wrap">
+        <div className="bg-gray-900 p-5 rounded-lg mb-6 overflow-x-auto border border-gray-700 shadow-inner">
+          <pre className="text-sm font-mono text-gray-300 leading-loose whitespace-pre-wrap">
             {renderCodeSnippet(question.code_snippet)}
           </pre>
         </div>
@@ -345,7 +320,7 @@ export default function QuestionCard({
           {question.images.map((img) => (
             <div
               key={img}
-              className="relative w-full h-auto border rounded overflow-hidden"
+              className="relative w-full h-auto border border-gray-200 rounded-lg overflow-hidden shadow-sm"
             >
               <Image
                 src={`/assets/images/${img}`}
@@ -359,7 +334,6 @@ export default function QuestionCard({
         </div>
       )}
 
-      {/* 核心分支：如果是填空题显示下拉，否则显示普通选项 */}
       <div className="mb-6 space-y-2 text-gray-800">
         {isSlotQuestion ? renderSlotInputs() : renderNormalOptions()}
       </div>
@@ -369,15 +343,18 @@ export default function QuestionCard({
           type="button"
           onClick={handleSubmit}
           disabled={isSubmitDisabled()}
-          className="w-full bg-blue-600 text-white py-3 rounded-lg font-semibold hover:bg-blue-700 disabled:bg-gray-300 disabled:cursor-not-allowed transition-colors"
+          className="w-full bg-blue-600 text-white py-3 rounded-lg font-semibold hover:bg-blue-700 disabled:bg-gray-200 disabled:text-gray-400 disabled:cursor-not-allowed transition-all shadow-sm"
         >
           Submit Answer
         </button>
       )}
 
       {showFeedbackImmediate && isSubmitted && (
-        <div className="mt-6 p-5 bg-blue-50 rounded-lg border border-blue-200 animate-in fade-in duration-300">
-          <h3 className="font-bold text-blue-800 mb-2">Explanation</h3>
+        <div className="mt-8 p-6 bg-blue-50/50 rounded-xl border border-blue-100 animate-in fade-in slide-in-from-top-4 duration-500">
+          <div className="flex items-center gap-2 mb-3 text-blue-800">
+            <div className="w-1 h-6 bg-blue-600 rounded-full"></div>
+            <h3 className="font-bold text-lg">Explanation</h3>
+          </div>
           <p className="text-gray-700 leading-relaxed text-sm">
             {question.explanation}
           </p>
