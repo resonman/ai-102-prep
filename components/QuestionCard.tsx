@@ -1,18 +1,12 @@
 "use client";
 import { useState, useEffect } from "react";
-import { Question, Option, CorrectAnswerItem } from "@/lib/types";
+import { Question, Option } from "@/lib/types";
 import { Star, Check, X } from "lucide-react";
 import Image from "next/image";
 import { clsx } from "clsx";
 
 type UserSelection = string | string[] | Record<number, string> | null;
-// 定义具体的答案对象类型结构，方便 TS 推断
-type AnswerObject = {
-  slot?: number;
-  order?: number;
-  target?: string;
-  option_id: string;
-};
+type SlotAnswer = { slot: number; option_id: string };
 
 interface Props {
   question: Question;
@@ -86,10 +80,8 @@ export default function QuestionCard({
   };
 
   const getNormalizedSlotIndex = (answerItem: any, index: number): number => {
-    if (typeof answerItem === "object" && answerItem !== null) {
-      if ("slot" in answerItem) return answerItem.slot;
-      if ("order" in answerItem) return answerItem.order - 1;
-    }
+    if ("slot" in answerItem) return answerItem.slot;
+    if ("order" in answerItem) return answerItem.order - 1;
     return index;
   };
 
@@ -100,13 +92,9 @@ export default function QuestionCard({
 
     if (isSlotQuestion) {
       const userSlots = selected as Record<number, string>;
-      const correctAnswers = question.correct_answer;
+      const correctAnswers = question.correct_answer as any[];
 
       correct = correctAnswers.every((ans, index) => {
-        // 这里的 ans 可能是 string，也可能是对象，但在 SlotQuestion 模式下理论上应该是对象
-        // 我们做个防御性检查
-        if (typeof ans === "string") return false;
-
         const targetSlot = getNormalizedSlotIndex(ans, index);
         return userSlots[targetSlot] === ans.option_id;
       });
@@ -137,10 +125,14 @@ export default function QuestionCard({
     return (
       <div className="space-y-4 bg-gray-50 p-4 rounded-lg border border-gray-200">
         <h3 className="font-bold text-gray-700 mb-2">
-          {(question.correct_answer[0] as any).target
+          {/* 根据是否有 text_map 来决定标题 */}
+          {question.text_map
+            ? "Answer the following statements:"
+            : (question.correct_answer[0] as any).target
             ? "Match the items:"
             : "Fill in the blanks:"}
         </h3>
+
         {slots.map((slotIndex) => {
           const userSelection = (selected as Record<number, string>)?.[
             slotIndex
@@ -150,7 +142,30 @@ export default function QuestionCard({
             (a, i) => getNormalizedSlotIndex(a, i) === slotIndex
           );
 
-          const targetLabel = (correctItem as any)?.target;
+          // 优先顺序：text_map (子题目) > target (拖拽左侧文字) > 默认序号
+          let labelContent;
+          if (question.text_map && question.text_map[slotIndex.toString()]) {
+            // 渲染 Hotspot 的子问题文本
+            labelContent = (
+              <span className="text-sm font-medium">
+                {question.text_map[slotIndex.toString()]}
+              </span>
+            );
+          } else if ((correctItem as any)?.target) {
+            // 渲染 DragDrop 的左侧目标
+            labelContent = (
+              <span className="text-sm font-medium">
+                {(correctItem as any).target}
+              </span>
+            );
+          } else {
+            // 渲染默认的代码填空序号
+            labelContent = (
+              <span className="bg-yellow-200 px-2 py-1 rounded font-bold">
+                [{slotIndex + 1}]
+              </span>
+            );
+          }
 
           const isSlotCorrect =
             isSubmitted && userSelection === correctItem?.option_id;
@@ -164,25 +179,21 @@ export default function QuestionCard({
           return (
             <div
               key={slotIndex}
-              className="flex flex-col sm:flex-row sm:items-center gap-2 mb-4"
+              className="flex flex-col sm:flex-row sm:items-center gap-3 mb-4 p-2 rounded hover:bg-gray-100 transition-colors"
             >
-              <div className="flex-shrink-0 min-w-[120px] font-bold text-gray-700">
-                {targetLabel ? (
-                  <span className="text-sm">{targetLabel}</span>
-                ) : (
-                  <span className="bg-yellow-200 px-2 py-1 rounded">
-                    [{slotIndex + 1}]
-                  </span>
-                )}
+              {/* 左侧：显示子题目文本或序号 */}
+              <div className="flex-shrink-0 sm:w-1/2 text-gray-800">
+                {labelContent}
               </div>
 
-              <div className="flex-grow relative">
+              {/* 右侧：选择框 */}
+              <div className="flex-grow relative sm:w-1/2">
                 <select
                   value={userSelection || ""}
                   onChange={(e) => handleSlotChange(slotIndex, e.target.value)}
                   disabled={isSubmitted}
                   className={clsx(
-                    "w-full p-2 border rounded appearance-none bg-white border-gray-300",
+                    "w-full p-2 border rounded appearance-none bg-white border-gray-300 text-sm",
                     showFeedbackImmediate &&
                       isSlotCorrect &&
                       "border-green-500 bg-green-50 text-green-700 font-medium",
@@ -191,7 +202,7 @@ export default function QuestionCard({
                       "border-red-500 bg-red-50 text-red-700"
                   )}
                 >
-                  <option value="">Select an answer...</option>
+                  <option value="">Select...</option>
                   {availableOptions.map((opt) => (
                     <option key={opt.id} value={opt.id}>
                       {opt.text}
@@ -213,30 +224,36 @@ export default function QuestionCard({
           );
         })}
 
+        {/* 反馈区域 */}
         {showFeedbackImmediate && isSubmitted && (
           <div className="mt-4 p-3 bg-green-50 border border-green-200 rounded text-sm text-gray-700">
             <span className="font-bold block mb-1 text-green-800">
               Correct Answer:
             </span>
             {question.correct_answer.map((ans, i) => {
-              // ✅ 修复点：添加类型守卫
-              // 如果 ans 是字符串，直接跳过（这种情况不应该出现在 renderSlotInputs 里，但为了 TS 不报错）
-              if (typeof ans === "string") return null;
-
-              // 现在 TypeScript 知道 ans 是对象了，且 AnswerObject 类型包含 option_id
-              const safeAns = ans as AnswerObject;
-
-              const slotIdx = getNormalizedSlotIndex(safeAns, i);
+              const slotIdx = getNormalizedSlotIndex(ans, i);
               const optText = question.options.find(
-                (o) => o.id === safeAns.option_id
+                (o) => o.id === ans.option_id
               )?.text;
-              const label = safeAns.target
-                ? safeAns.target
-                : `[${slotIdx + 1}]`;
+
+              // 反馈里的 Label 也要对应
+              let feedbackLabel = `[${slotIdx + 1}]`;
+              if (question.text_map && question.text_map[slotIdx.toString()]) {
+                // 如果文字太长，截取前20个字符...
+                const fullText = question.text_map[slotIdx.toString()];
+                feedbackLabel =
+                  fullText.length > 20
+                    ? fullText.substring(0, 20) + "..."
+                    : fullText;
+              } else if ((ans as any).target) {
+                feedbackLabel = (ans as any).target;
+              }
 
               return (
-                <div key={i} className="ml-2 mb-1">
-                  <span className="font-bold text-gray-500">{label}:</span>{" "}
+                <div key={i} className="ml-2 mb-1 flex items-start">
+                  <span className="font-bold text-gray-500 mr-2 whitespace-nowrap">
+                    {feedbackLabel}:
+                  </span>
                   <span className="font-mono text-green-700">{optText}</span>
                 </div>
               );
