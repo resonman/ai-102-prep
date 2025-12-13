@@ -1764,22 +1764,24 @@
     "id": "T2-Q15",
     "topic": "Topic 2",
     "type": "Hotspot",
-    "question_text": "Add multiple images to a Face API PersonGroup. Complete the code.",
+    "question_text": "You develop an application that uses the Face API. You need to add multiple images to a person group. How should you complete the code?",
     "allow_randomize_options": false,
-    "code_snippet": "using ({0} t = File.OpenRead(imagePath))\n{\n  await faceClient.PersonGroupPerson.{1}(...);\n}",
+    "code_snippet": "Parallel.For(0, PersonCount, async i =>\n{\n  ...\n  using ({0} t = File.OpenRead(imagePath))\n  {\n    await faceClient.PersonGroupPerson.{1}(personGroupId, personId, t);\n  }\n});",
     "options": [
       { "id": "type_file", "text": "File", "group": 0 },
       { "id": "type_stream", "text": "Stream", "group": 0 },
       { "id": "type_uri", "text": "Uri", "group": 0 },
+      { "id": "type_url", "text": "Url", "group": 0 },
       { "id": "m_addstream", "text": "AddFaceFromStreamAsync", "group": 1 },
       { "id": "m_addurl", "text": "AddFaceFromUrlAsync", "group": 1 },
-      { "id": "m_create", "text": "CreateAsync", "group": 1 }
+      { "id": "m_create", "text": "CreateAsync", "group": 1 },
+      { "id": "m_get", "text": "GetAsync", "group": 1 }
     ],
     "correct_answer": [
       { "slot": 0, "option_id": "type_stream" },
       { "slot": 1, "option_id": "m_addstream" }
     ],
-    "explanation": "1. `File.OpenRead` returns a `FileStream`, which inherits from `Stream`. 2. Since we are passing a stream `t`, the method must be `AddFaceFromStreamAsync`.",
+    "explanation": "1. **Stream**: `File.OpenRead` returns a FileStream, which inherits from Stream. 2. **AddFaceFromStreamAsync**: Since the input is a stream (`t`), the correct method is `AddFaceFromStreamAsync`.",
     "images": []
   },
   {
