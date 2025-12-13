@@ -1594,7 +1594,7 @@
     "id": "T2-Q8",
     "topic": "Topic 2",
     "type": "DragDrop",
-    "question_text": "Recognize faults in factory components using Custom Vision. Which three actions in sequence?",
+    "question_text": "You are developing an application that will recognize faults in components produced on a factory production line.\n\nYou need to use the Custom Vision API to help detect common faults.\n\nWhich three actions should you perform in sequence?",
     "allow_randomize_options": false,
     "options": [
       { "id": "act1", "text": "Train the classifier model." },
@@ -1606,9 +1606,9 @@
     "correct_answer": [
       { "order": 1, "option_id": "act5" },
       { "order": 2, "option_id": "act2" },
-      { "order": 3, "option_id": "act4" }
+      { "order": 3, "option_id": "act1" }
     ],
-    "explanation": "1. Create a project (Object Detection type). 2. Upload and tag images (draw bounding boxes around faults). 3. Train the object detection model.",
+    "explanation": "1. **Create a project**: Start by creating a Custom Vision project. 2. **Upload and tag images**: Classification requires tagging images (e.g., 'Faulty', 'OK'). 3. **Train the classifier model**: Since the requirement is just to 'recognize faults' (identify IF there is a fault) and not specifically to 'locate' them, Classification is the standard, lower-effort choice in this exam context.",
     "images": []
   },
   {
