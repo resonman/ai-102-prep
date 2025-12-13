@@ -6,7 +6,13 @@ import Image from "next/image";
 import { clsx } from "clsx";
 
 type UserSelection = string | string[] | Record<number, string> | null;
-type SlotAnswer = { slot: number; option_id: string };
+// 定义具体的答案对象类型结构，方便 TS 推断
+type AnswerObject = {
+  slot?: number;
+  order?: number;
+  target?: string;
+  option_id: string;
+};
 
 interface Props {
   question: Question;
@@ -79,11 +85,11 @@ export default function QuestionCard({
     }
   };
 
-  // ✅ 核心修复：增加 index 参数作为兜底
   const getNormalizedSlotIndex = (answerItem: any, index: number): number => {
-    if ("slot" in answerItem) return answerItem.slot;
-    if ("order" in answerItem) return answerItem.order - 1;
-    // 如果没有 slot 也没有 order (比如 target 类型的连线题)，默认按数组顺序
+    if (typeof answerItem === "object" && answerItem !== null) {
+      if ("slot" in answerItem) return answerItem.slot;
+      if ("order" in answerItem) return answerItem.order - 1;
+    }
     return index;
   };
 
@@ -94,10 +100,13 @@ export default function QuestionCard({
 
     if (isSlotQuestion) {
       const userSlots = selected as Record<number, string>;
-      const correctAnswers = question.correct_answer as any[];
+      const correctAnswers = question.correct_answer;
 
-      // ✅ 修复：传入 index
       correct = correctAnswers.every((ans, index) => {
+        // 这里的 ans 可能是 string，也可能是对象，但在 SlotQuestion 模式下理论上应该是对象
+        // 我们做个防御性检查
+        if (typeof ans === "string") return false;
+
         const targetSlot = getNormalizedSlotIndex(ans, index);
         return userSlots[targetSlot] === ans.option_id;
       });
@@ -128,7 +137,6 @@ export default function QuestionCard({
     return (
       <div className="space-y-4 bg-gray-50 p-4 rounded-lg border border-gray-200">
         <h3 className="font-bold text-gray-700 mb-2">
-          {/* 如果是 target 类型，提示 Label，否则提示 Blank */}
           {(question.correct_answer[0] as any).target
             ? "Match the items:"
             : "Fill in the blanks:"}
@@ -138,12 +146,10 @@ export default function QuestionCard({
             slotIndex
           ];
 
-          // ✅ 修复：传入 i
           const correctItem = (question.correct_answer as any[]).find(
             (a, i) => getNormalizedSlotIndex(a, i) === slotIndex
           );
 
-          // 获取左侧的 Label（针对 DragDrop 连线题）
           const targetLabel = (correctItem as any)?.target;
 
           const isSlotCorrect =
@@ -160,7 +166,6 @@ export default function QuestionCard({
               key={slotIndex}
               className="flex flex-col sm:flex-row sm:items-center gap-2 mb-4"
             >
-              {/* 左侧标签/序号 */}
               <div className="flex-shrink-0 min-w-[120px] font-bold text-gray-700">
                 {targetLabel ? (
                   <span className="text-sm">{targetLabel}</span>
@@ -214,13 +219,19 @@ export default function QuestionCard({
               Correct Answer:
             </span>
             {question.correct_answer.map((ans, i) => {
-              // ✅ 修复：传入 i
-              const slotIdx = getNormalizedSlotIndex(ans, i);
+              // ✅ 修复点：添加类型守卫
+              // 如果 ans 是字符串，直接跳过（这种情况不应该出现在 renderSlotInputs 里，但为了 TS 不报错）
+              if (typeof ans === "string") return null;
+
+              // 现在 TypeScript 知道 ans 是对象了，且 AnswerObject 类型包含 option_id
+              const safeAns = ans as AnswerObject;
+
+              const slotIdx = getNormalizedSlotIndex(safeAns, i);
               const optText = question.options.find(
-                (o) => o.id === ans.option_id
+                (o) => o.id === safeAns.option_id
               )?.text;
-              const label = (ans as any).target
-                ? (ans as any).target
+              const label = safeAns.target
+                ? safeAns.target
                 : `[${slotIdx + 1}]`;
 
               return (
