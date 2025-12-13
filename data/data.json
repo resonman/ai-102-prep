@@ -1483,23 +1483,26 @@
     "id": "T2-Q4",
     "topic": "Topic 2",
     "type": "DragDrop",
-    "question_text": "Configure Video Analyzer for Media widgets. 1. Cognitive Insights Widget: Ensure users can search keywords. 2. Player Widget: Show captions in English.",
+    "question_text": "You are developing a webpage that will use the Azure Video Analyzer for Media (previously Video Indexer) service to display videos of internal company meetings.\n\nYou embed the Player widget and the Cognitive Insights widget into the page.\n\nYou need to configure the widgets to meet the following requirements:\n- Ensure that users can search for keywords.\n- Display the names and faces of people in the video.\n- Show captions in the video in English (United States).\n\nHow should you complete the URL for each widget?",
     "allow_randomize_options": false,
     "options": [
       { "id": "val_enus", "text": "en-US" },
       { "id": "val_false", "text": "false" },
-      { "id": "val_keywords", "text": "people,keywords" },
-      { "id": "val_people", "text": "people,search" },
+      { "id": "val_people_kw", "text": "people,keywords" },
+      { "id": "val_people_search", "text": "people,search" },
       { "id": "val_search", "text": "search" },
       { "id": "val_true", "text": "true" }
     ],
     "correct_answer": [
-      { "target": "Insights Widget ?widgets=", "option_id": "val_people" },
-      { "target": "Insights Widget controls=", "option_id": "val_search" },
-      { "target": "Player Widget showcaptions=", "option_id": "val_true" },
-      { "target": "Player Widget captions=", "option_id": "val_enus" }
+      {
+        "target": "Insights Widget: ?widgets=",
+        "option_id": "val_people_search"
+      },
+      { "target": "Insights Widget: &controls=", "option_id": "val_search" },
+      { "target": "Player Widget: &showCaptions=", "option_id": "val_true" },
+      { "target": "Player Widget: &captions=", "option_id": "val_enus" }
     ],
-    "explanation": "1. To search keywords, the Insights widget needs `controls=search` and `widgets=people,search` (or similar combination allowing search). 2. To show captions in English, Player widget needs `showcaptions=true` and `captions=en-US`.",
+    "explanation": "1. **widgets=people,search**: The requirement is to display 'names and faces' (people) AND allow 'search'. (Note: While 'keywords' is a widget, the answer key specifically selects 'people,search' to satisfy the search requirement). 2. **controls=search**: Adds the search control bar. 3. **showCaptions=true**: Enables captions. 4. **captions=en-US**: Sets the language to English (US).",
     "images": []
   },
   {
