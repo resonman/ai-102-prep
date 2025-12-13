@@ -1262,36 +1262,29 @@
     "id": "T1-Q65",
     "topic": "Topic 1",
     "type": "Hotspot",
-    "question_text": "Deploy containerized Sentiment Analysis. Configure endpoint URI. Complete the docker command.",
+    "question_text": "You plan to deploy a containerized version of an Azure Cognitive Services service that will be used for sentiment analysis.\n\nYou configure https://contoso.cognitiveservices.azure.com as the endpoint URI for the service.\n\nYou need to run the container on an Azure virtual machine by using Docker.\n\nHow should you complete the command?",
     "allow_randomize_options": false,
-    "code_snippet": "docker run ... {0} ... Billing={1} ...",
+    "code_snippet": "docker run --rm -it -p 5000:5000 --memory 8g --cpus 1 \\\n{0} \\\nEula=accept \\\nBilling={1} \\\nApiKey=xxxxxxxxxxxxxxxxxxxx",
     "options": [
+      { "id": "opt_blob", "text": "http://contoso.blob.core.windows.net" },
       {
-        "id": "img_sent",
-        "text": "mcr.microsoft.com/azure-cognitive-services/textanalytics/sentiment",
-        "group": 0
+        "id": "opt_endpoint",
+        "text": "https://contoso.cognitiveservices.azure.com"
       },
       {
-        "id": "img_key",
-        "text": "mcr.microsoft.com/azure-cognitive-services/textanalytics/keyphrase",
-        "group": 0
+        "id": "opt_keyphrase",
+        "text": "mcr.microsoft.com/azure-cognitive-services/textanalytics/keyphrase"
       },
       {
-        "id": "bill_blob",
-        "text": "http://contoso.blob.core.windows.net",
-        "group": 1
-      },
-      {
-        "id": "bill_cog",
-        "text": "https://contoso.cognitiveservices.azure.com",
-        "group": 1
+        "id": "opt_sentiment",
+        "text": "mcr.microsoft.com/azure-cognitive-services/textanalytics/sentiment"
       }
     ],
     "correct_answer": [
-      { "slot": 0, "option_id": "img_sent" },
-      { "slot": 1, "option_id": "bill_cog" }
+      { "slot": 0, "option_id": "opt_sentiment" },
+      { "slot": 1, "option_id": "opt_endpoint" }
     ],
-    "explanation": "Image: Sentiment Analysis image. Billing: The Endpoint URL of the Azure resource.",
+    "explanation": "1. **Image**: The requirement is for **sentiment analysis**, so you must select the `.../sentiment` container image. 2. **Billing Endpoint**: The container requires the **Cognitive Services Endpoint** (`https://contoso.cognitiveservices.azure.com`) for billing metering, not the Blob storage URL.",
     "images": []
   },
   {
