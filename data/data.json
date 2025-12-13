@@ -1557,22 +1557,37 @@
     "id": "T2-Q7",
     "topic": "Topic 2",
     "type": "DragDrop",
-    "question_text": "Move Custom Vision project 'proj1' from development (acvdev) to production (acvprod). Which three actions in sequence?",
+    "question_text": "You have a Custom Vision resource named acvdev in a development environment and acvprod in production.\n\nIn acvdev, you build an object detection model named obj1 in a project named proj1.\n\nYou need to move obj1 to acvprod.\n\nWhich three actions should you perform in sequence?",
     "allow_randomize_options": false,
     "options": [
-      { "id": "act1", "text": "Use the ExportProject endpoint on acvdev." },
-      { "id": "act2", "text": "Use the GetProjects endpoint on acvdev." },
-      { "id": "act3", "text": "Use the ImportProject endpoint on acvprod." },
-      { "id": "act4", "text": "Use the ExportIteration endpoint on acvdev." },
-      { "id": "act5", "text": "Use the GetIterations endpoint on acvdev." },
-      { "id": "act6", "text": "Use the UpdateProject endpoint on acvprod." }
+      {
+        "id": "act_export",
+        "text": "Use the ExportProject endpoint on acvdev."
+      },
+      { "id": "act_get", "text": "Use the GetProjects endpoint on acvdev." },
+      {
+        "id": "act_import",
+        "text": "Use the ImportProject endpoint on acvprod."
+      },
+      {
+        "id": "act_export_iter",
+        "text": "Use the ExportIteration endpoint on acvdev."
+      },
+      {
+        "id": "act_get_iter",
+        "text": "Use the GetIterations endpoint on acvdev."
+      },
+      {
+        "id": "act_update",
+        "text": "Use the UpdateProject endpoint on acvprod."
+      }
     ],
     "correct_answer": [
-      { "order": 1, "option_id": "act1" },
-      { "order": 2, "option_id": "act3" },
-      { "order": 3, "option_id": "act3" }
+      { "order": 1, "option_id": "act_get" },
+      { "order": 2, "option_id": "act_export" },
+      { "order": 3, "option_id": "act_import" }
     ],
-    "explanation": "Wait, the logic is: 1. ExportProject (from source) -> Returns a token/URI. 2. ImportProject (to destination) using that token. *Self-Correction on the sequence display*: The options are just items. Correct Sequence: ExportProject on acvdev -> ImportProject on acvprod. The question asks for three actions? Ah, usually it's just Export -> Import. Let's look at the answer key. Answer says: 1. ExportProject (acvdev), 2. ImportProject (acvprod). It seems to have a glitch in the PDF answer key showing only 2 steps visually or maybe 'Import' is selected twice? Standard procedure is Export then Import. I will configure the answer to follow the standard 2-step or 3-step if it implies waiting. *Correction*: The provided answer key image shows Step 1: ExportProject, Step 2: ImportProject. The third slot is empty/not used or implies a specific token handling. Let's assume standard Export->Import logic.",
+    "explanation": "To move a project between resources via API:\n1. **GetProjects**: You first need to list projects on the source to find the `projectId` of 'proj1'.\n2. **ExportProject**: Use the ID to call the export endpoint, which returns a secure token containing the project data.\n3. **ImportProject**: Use that token on the destination resource to recreate the project.",
     "images": []
   },
   {
