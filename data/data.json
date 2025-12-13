@@ -1529,9 +1529,9 @@
     "id": "T2-Q6",
     "topic": "Topic 2",
     "type": "Hotspot",
-    "question_text": "Code uses Face API to recognize employees. Analyze the Python code snippet.",
+    "question_text": "You are developing an application to recognize employees' faces by using the Face Recognition API. Images of the faces will be accessible from a URI endpoint.\n\nThe application has the following code.\n\nFor each of the following statements, select Yes if the statement is true. Otherwise, select No.",
     "allow_randomize_options": false,
-    "code_snippet": "def add_face(subscription_key, person_group_id, person_id, image_uri):\n  ... client.person_group_person.add_face_from_url(...)",
+    "code_snippet": "def add_face(subscription_key, person_group_id, person_id, image_uri):\n    headers = {\n        'Content-Type': 'application/json',\n        'Ocp-Apim-Subscription-Key': subscription_key\n    }\n    body = {\n        'url': image_uri }\n    conn = httplib.HTTPSConnection('westus.api.cognitive.microsoft.com')\n    conn.request('POST',\n    f'/face/v1.0/persongroups/{person_group_id}/persons/{person_id}/persistedFaces', f'{body}', headers)\n    response = conn.getresponse()\n    response_data = response.read()",
     "options": [
       { "id": "s1_yes", "text": "Yes", "group": 0 },
       { "id": "s1_no", "text": "No", "group": 0 },
@@ -1550,7 +1550,7 @@
       { "slot": 1, "option_id": "s2_yes" },
       { "slot": 2, "option_id": "s3_yes" }
     ],
-    "explanation": "1. Yes: `add_face_from_url` adds a face to a `Person` inside a `PersonGroup`. 2. Yes: A PersonGroup supports up to 10,000 people (LargePersonGroup supports more). 3. Yes: You can and should add multiple faces (angles/lighting) to a single person to improve recognition.",
+    "explanation": "1. **Yes**: The URL structure `/persongroups/{id}/persons/{id}/persistedFaces` with POST method confirms adding a face to a person. 2. **Yes**: A standard PersonGroup supports up to 10,000 people. 3. **Yes**: You can add up to 248 faces to a single Person object.",
     "images": []
   },
   {
@@ -4041,9 +4041,9 @@
     "id": "T3-Q78",
     "topic": "Topic 3",
     "type": "Hotspot",
-    "question_text": "App for speech-to-speech translation. Auto translate English to French, German, Spanish. Define output languages and configure Speech service. Complete code.",
+    "question_text": "You are building an app that will automatically translate speech from English to French, German, and Spanish. You need to define the output languages and configure the Azure AI Speech service.\n\nHow should you complete the code?",
     "allow_randomize_options": false,
-    "code_snippet": "translation_config = speechsdk.translation.SpeechTranslationConfig(...)\nvar languages = new List<string> { \"en-GB\" };\n...languages.ForEach(config.{0});\nusing var recognizer = new {1}...",
+    "code_snippet": "static async Task TranslateSpeechAsync()\n{\n    var config = SpeechTranslationConfig.FromSubscription(KEY, REGION);\n    var languages = new List<string>\n    {\n        \"en-GB\", \"fr-FR\", \"de-DE\", \"es-ES\"\n    };\n    languages.ForEach(config.{0});\n    using var recognizer = new {1}(config);",
     "options": [
       { "id": "m_add", "text": "AddTargetLanguage", "group": 0 },
       { "id": "m_recog", "text": "SpeechRecognitionLanguage", "group": 0 },
@@ -4055,7 +4055,7 @@
       { "slot": 0, "option_id": "m_add" },
       { "slot": 1, "option_id": "class_trans" }
     ],
-    "explanation": "1. To add multiple target languages from a list: `AddTargetLanguage`. 2. Recognition class: `TranslationRecognizer`.",
+    "explanation": "1. **AddTargetLanguage**: The `ForEach` loop iterates through the list of language codes and calls `AddTargetLanguage` for each one to set them as translation targets. 2. **TranslationRecognizer**: This is the class used for speech-to-speech or speech-to-text translation.",
     "images": []
   },
   {
@@ -4740,9 +4740,9 @@
     "id": "T4-Q30",
     "topic": "Topic 4",
     "type": "Hotspot",
-    "question_text": "Python code to analyze PDF for handwritten content using Document Intelligence. Complete the code.",
+    "question_text": "You have an Azure subscription that contains an Azure AI Document Intelligence resource named DI1. You build an app named App1 that analyzes PDF files for handwritten content by using DI1.\n\nHow should you complete the code?",
     "allow_randomize_options": false,
-    "code_snippet": "poller = client.begin_analyze_document(\"{0}\", document)\n...\nif style.confidence > {1}:",
+    "code_snippet": "document_analysis_client = DocumentAnalysisClient(\n    endpoint=endpoint, credential=AzureKeyCredential(key)\n)\nwith open(source_file, \"rb\") as f:\n    poller = document_analysis_client.begin_analyze_document(\n        \"{0}\", document=f\n    )\nresult = poller.result()\nfor style in result.styles:\n    if style.is_handwritten and style.confidence > {1}:",
     "options": [
       { "id": "mod_doc", "text": "prebuilt-document", "group": 0 },
       { "id": "mod_contract", "text": "prebuilt-contract", "group": 0 },
@@ -4755,7 +4755,7 @@
       { "slot": 0, "option_id": "mod_read" },
       { "slot": 1, "option_id": "conf_75" }
     ],
-    "explanation": "1. Handwritten content analysis -> **prebuilt-read**. 2. High confidence threshold -> **0.75** (Note: the image option says '0.75' but OCR reads '0.75', code snippet shows logic for high confidence).",
+    "explanation": "1. **prebuilt-read**: The `prebuilt-read` model is optimized for OCR and handwritten text extraction. 2. **0.75**: A confidence threshold of 0.75 is standard for high-quality filtering in these scenarios.",
     "images": []
   },
   {
