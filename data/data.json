@@ -1804,28 +1804,28 @@
     "id": "T2-Q17",
     "topic": "Topic 2",
     "type": "SingleChoice",
-    "question_text": "Create a FREE Azure Computer Vision resource in West US using Python. Which code?",
+    "question_text": "You have the following Python function for creating Azure Cognitive Services resources programmatically.\n\n`def create_resource(resource_name, kind, account_tier, location): ...`\n\nYou need to call the function to create a **free** Azure resource in the **West US** Azure region. The resource will be used to **generate captions of images automatically**.\n\nWhich code should you use?",
     "allow_randomize_options": true,
     "options": [
       {
         "id": "A",
-        "text": "create_resource(..., \"ComputerVision\", \"F0\", \"westus\")"
+        "text": "create_resource(client, \"res1\", \"ComputerVision\", \"F0\", \"westus\")"
       },
       {
         "id": "B",
-        "text": "create_resource(..., \"CustomVision.Prediction\", \"F0\", \"westus\")"
+        "text": "create_resource(client, \"res1\", \"CustomVision.Prediction\", \"F0\", \"westus\")"
       },
       {
         "id": "C",
-        "text": "create_resource(..., \"ComputerVision\", \"S0\", \"westus\")"
+        "text": "create_resource(client, \"res1\", \"ComputerVision\", \"S0\", \"westus\")"
       },
       {
         "id": "D",
-        "text": "create_resource(..., \"CustomVision.Prediction\", \"S0\", \"westus\")"
+        "text": "create_resource(client, \"res1\", \"CustomVision.Prediction\", \"S0\", \"westus\")"
       }
     ],
     "correct_answer": ["A"],
-    "explanation": "1. 'Generate captions' -> Computer Vision. 2. 'Free' -> F0 SKU.",
+    "explanation": "1. **Service Selection**: The requirement 'generate captions' is a core feature of **Computer Vision** (Image Analysis). Custom Vision is for classifying/detecting specific objects you train it on, not generating captions. -> Eliminate B, D.\n2. **Pricing Tier**: The requirement 'free' corresponds to the **F0** SKU. -> Eliminate C.\n3. **Result**: Option A.",
     "images": []
   },
   {
