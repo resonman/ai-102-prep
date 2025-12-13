@@ -157,58 +157,26 @@
 		"id": "T1-Q8",
 		"topic": "Topic 1",
 		"type": "Hotspot",
-		"question_text": "You plan to deploy a containerized version of Text Analytics. You configure https://contoso.cognitiveservices.azure.com as the endpoint. You need to run the container. How should you complete the command?",
+		"question_text": "You plan to deploy a containerized version of the Text Analytics **Sentiment Analysis** container.\n\nYou configure https://contoso.cognitiveservices.azure.com as the endpoint URI for the service.\n\nYou need to run the container on an Azure virtual machine by using Docker.\n\nHow should you complete the command? To answer, select the appropriate options in the answer area.",
 		"allow_randomize_options": false,
 		"code_snippet": "docker run --rm -it -p 5000:5000 --memory 8g --cpus 1 \\\n{0} \\\nEula=accept \\\nBilling={1} \\\nApiKey=xxxxxxxxxxxxxxxxxxxx",
 		"options": [
-			{
-				"id": "img_blob",
-				"text": "http://contoso.blob.core.windows.net",
-				"group": 0
-			},
-			{
-				"id": "img_https",
-				"text": "https://contoso.cognitiveservices.azure.com",
-				"group": 0
-			},
-			{
-				"id": "img_keyphrase",
-				"text": "mcr.microsoft.com/azure-cognitive-services/textanalytics/keyphrase",
-				"group": 0
-			},
-			{
-				"id": "img_sentiment",
-				"text": "mcr.microsoft.com/azure-cognitive-services/textanalytics/sentiment",
-				"group": 0
-			},
-			{
-				"id": "bill_blob",
-				"text": "http://contoso.blob.core.windows.net",
-				"group": 1
-			},
-			{
-				"id": "bill_https",
-				"text": "https://contoso.cognitiveservices.azure.com",
-				"group": 1
-			},
-			{
-				"id": "bill_keyphrase",
-				"text": "mcr.microsoft.com/azure-cognitive-services/textanalytics/keyphrase",
-				"group": 1
-			},
-			{
-				"id": "bill_sentiment",
-				"text": "mcr.microsoft.com/azure-cognitive-services/textanalytics/sentiment",
-				"group": 1
-			}
+		{ "id": "img_blob", "text": "http://contoso.blob.core.windows.net", "group": 0 },
+		{ "id": "img_https", "text": "https://contoso.cognitiveservices.azure.com", "group": 0 },
+		{ "id": "img_keyphrase", "text": "mcr.microsoft.com/azure-cognitive-services/textanalytics/keyphrase", "group": 0 },
+		{ "id": "img_sentiment", "text": "mcr.microsoft.com/azure-cognitive-services/textanalytics/sentiment", "group": 0 },
+		{ "id": "bill_blob", "text": "http://contoso.blob.core.windows.net", "group": 1 },
+		{ "id": "bill_https", "text": "https://contoso.cognitiveservices.azure.com", "group": 1 },
+		{ "id": "bill_keyphrase", "text": "mcr.microsoft.com/azure-cognitive-services/textanalytics/keyphrase", "group": 1 },
+		{ "id": "bill_sentiment", "text": "mcr.microsoft.com/azure-cognitive-services/textanalytics/sentiment", "group": 1 }
 		],
 		"correct_answer": [
-			{ "slot": 0, "option_id": "img_sentiment" },
-			{ "slot": 1, "option_id": "bill_https" }
+		{ "slot": 0, "option_id": "img_sentiment" },
+		{ "slot": 1, "option_id": "bill_https" }
 		],
-		"explanation": "1. The question specifies using the 'Sentiment Analysis' container, so the image is '.../textanalytics/sentiment'. 2. The 'Billing' argument requires the endpoint URI of the Azure resource, which is 'https://contoso.cognitiveservices.azure.com'.",
+		"explanation": "1. The question explicitly specifies the **Sentiment Analysis** container, so the image URI must end in `/sentiment`. 2. The `Billing` argument requires the endpoint URI of the Azure resource (`https://...`), not a Blob URL.",
 		"images": []
-	},
+  	},
 	{
 		"id": "T1-Q9",
 		"topic": "Topic 1",
@@ -263,7 +231,7 @@
 		"id": "T1-Q11",
 		"topic": "Topic 1",
 		"type": "MultipleChoice",
-		"question_text": "You build a custom Form Recognizer model. You receive sample files: File1 (PDF, 20MB), File2 (MP4, 100MB), File3 (JPG, 20MB), File4 (PDF, 100MB), File5 (1MB), File6 (JPG, 40MB). Which three files can you use to train the model?",
+		"question_text": "You build a custom Form Recognizer model. You receive sample files: File1 (PDF, 20MB), File2 (MP4, 100MB), File3 (JPG, 20MB), File4 (PDF, 100MB), File5 (GIF, 1MB), File6 (JPG, 40MB). Which three files can you use to train the model?",
 		"allow_randomize_options": true,
 		"options": [
 			{ "id": "A", "text": "File1" },
