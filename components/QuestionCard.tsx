@@ -1,11 +1,12 @@
 "use client";
 import { useState, useEffect } from "react";
-import { Question, Option } from "@/lib/types";
+import { Question, Option, CorrectAnswerItem } from "@/lib/types";
 import { Star, Check, X } from "lucide-react";
 import Image from "next/image";
 import { clsx } from "clsx";
 
 type UserSelection = string | string[] | Record<number, string> | null;
+type SlotAnswer = { slot: number; option_id: string };
 
 interface Props {
   question: Question;
@@ -26,8 +27,6 @@ export default function QuestionCard({
 }: Props) {
   const [selected, setSelected] = useState<UserSelection>(null);
   const [isSubmitted, setIsSubmitted] = useState(false);
-
-  // 初始化时直接使用原顺序
   const [currentOptions, setCurrentOptions] = useState<Option[]>(
     question.options
   );
@@ -80,12 +79,12 @@ export default function QuestionCard({
     }
   };
 
-  // ✅ 核心修复：归一化 Slot 索引的辅助函数
-  // 兼容 JSON 中的 'slot' (0-based) 和 'order' (1-based)
-  const getNormalizedSlotIndex = (answerItem: any): number => {
+  // ✅ 核心修复：增加 index 参数作为兜底
+  const getNormalizedSlotIndex = (answerItem: any, index: number): number => {
     if ("slot" in answerItem) return answerItem.slot;
-    if ("order" in answerItem) return answerItem.order - 1; // order 1 对应 slot 0
-    return -999;
+    if ("order" in answerItem) return answerItem.order - 1;
+    // 如果没有 slot 也没有 order (比如 target 类型的连线题)，默认按数组顺序
+    return index;
   };
 
   const handleSubmit = () => {
@@ -97,9 +96,9 @@ export default function QuestionCard({
       const userSlots = selected as Record<number, string>;
       const correctAnswers = question.correct_answer as any[];
 
-      // ✅ 修复：使用归一化的索引进行比对
-      correct = correctAnswers.every((ans) => {
-        const targetSlot = getNormalizedSlotIndex(ans);
+      // ✅ 修复：传入 index
+      correct = correctAnswers.every((ans, index) => {
+        const targetSlot = getNormalizedSlotIndex(ans, index);
         return userSlots[targetSlot] === ans.option_id;
       });
     } else if (
@@ -109,7 +108,9 @@ export default function QuestionCard({
       correct = question.correct_answer.includes(selected as string);
     } else if (question.type === "MultipleChoice") {
       if (Array.isArray(selected)) {
-        const correctIds = question.correct_answer as unknown as string[];
+        const correctIds = question.correct_answer.filter(
+          (i): i is string => typeof i === "string"
+        );
         const correctSet = new Set(correctIds);
         correct =
           selected.length === correctSet.size &&
@@ -126,16 +127,24 @@ export default function QuestionCard({
 
     return (
       <div className="space-y-4 bg-gray-50 p-4 rounded-lg border border-gray-200">
-        <h3 className="font-bold text-gray-700 mb-2">Fill in the blanks:</h3>
+        <h3 className="font-bold text-gray-700 mb-2">
+          {/* 如果是 target 类型，提示 Label，否则提示 Blank */}
+          {(question.correct_answer[0] as any).target
+            ? "Match the items:"
+            : "Fill in the blanks:"}
+        </h3>
         {slots.map((slotIndex) => {
           const userSelection = (selected as Record<number, string>)?.[
             slotIndex
           ];
 
-          // ✅ 修复：查找正确答案时也使用归一化索引
+          // ✅ 修复：传入 i
           const correctItem = (question.correct_answer as any[]).find(
-            (a) => getNormalizedSlotIndex(a) === slotIndex
+            (a, i) => getNormalizedSlotIndex(a, i) === slotIndex
           );
+
+          // 获取左侧的 Label（针对 DragDrop 连线题）
+          const targetLabel = (correctItem as any)?.target;
 
           const isSlotCorrect =
             isSubmitted && userSelection === correctItem?.option_id;
@@ -147,9 +156,19 @@ export default function QuestionCard({
           );
 
           return (
-            <div key={slotIndex} className="flex items-center space-x-3">
-              <div className="w-16 flex-shrink-0 font-bold text-gray-600 bg-yellow-200 px-2 py-1 rounded text-center">
-                [{slotIndex + 1}]
+            <div
+              key={slotIndex}
+              className="flex flex-col sm:flex-row sm:items-center gap-2 mb-4"
+            >
+              {/* 左侧标签/序号 */}
+              <div className="flex-shrink-0 min-w-[120px] font-bold text-gray-700">
+                {targetLabel ? (
+                  <span className="text-sm">{targetLabel}</span>
+                ) : (
+                  <span className="bg-yellow-200 px-2 py-1 rounded">
+                    [{slotIndex + 1}]
+                  </span>
+                )}
               </div>
 
               <div className="flex-grow relative">
@@ -192,19 +211,21 @@ export default function QuestionCard({
         {showFeedbackImmediate && isSubmitted && (
           <div className="mt-4 p-3 bg-green-50 border border-green-200 rounded text-sm text-gray-700">
             <span className="font-bold block mb-1 text-green-800">
-              Correct Sequence:
+              Correct Answer:
             </span>
-            {question.correct_answer.map((ans: any, i) => {
-              // ✅ 修复：正确答案展示也适配
-              const slotIdx = getNormalizedSlotIndex(ans);
+            {question.correct_answer.map((ans, i) => {
+              // ✅ 修复：传入 i
+              const slotIdx = getNormalizedSlotIndex(ans, i);
               const optText = question.options.find(
                 (o) => o.id === ans.option_id
               )?.text;
+              const label = (ans as any).target
+                ? (ans as any).target
+                : `[${slotIdx + 1}]`;
+
               return (
                 <div key={i} className="ml-2 mb-1">
-                  <span className="font-bold text-gray-500">
-                    [{slotIdx + 1}]:
-                  </span>{" "}
+                  <span className="font-bold text-gray-500">{label}:</span>{" "}
                   <span className="font-mono text-green-700">{optText}</span>
                 </div>
               );
@@ -228,10 +249,10 @@ export default function QuestionCard({
         styleClass += " border-blue-500 bg-blue-50 ring-1 ring-blue-500";
 
       if (showFeedbackImmediate && isSubmitted) {
-        const correctIds = question.correct_answer as unknown as string[];
-        const isCorrectOption = Array.isArray(correctIds)
-          ? correctIds.includes(opt.id)
-          : correctIds === opt.id;
+        const correctIds = question.correct_answer.filter(
+          (i): i is string => typeof i === "string"
+        );
+        const isCorrectOption = correctIds.includes(opt.id);
 
         if (isCorrectOption) {
           styleClass = "border-green-500 bg-green-100 ring-1 ring-green-500";
