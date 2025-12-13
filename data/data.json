@@ -1422,7 +1422,7 @@
     "correct_answer": [
       { "slot": 0, "option_id": "s1_no" },
       { "slot": 1, "option_id": "s2_yes" },
-      { "slot": 2, "option_id": "s3_no" }
+      { "slot": 2, "option_id": "s3_yes" }
     ],
     "explanation": "1. **No**: The `features` list includes `Description` and `Tags`, but NOT `Faces`. Face recognition will not be performed.\n2. **Yes**: The code iterates through `results.Tags` and prints the Name and Confidence.\n3. **No**: (Trick question) According to the official exam answer key, this is 'No'. While `File.OpenRead` typically reads from a local disk, the question context often implies whether the *Computer Vision service* is reading directly from a URL vs a Stream. Here it reads a Stream. In some exam versions, the logic is that the method takes a path string but the operation is stream-based. **Please follow the Exam Answer: No, Yes, No.**",
     "images": []
