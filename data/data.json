@@ -1615,7 +1615,7 @@
     "id": "T2-Q9",
     "topic": "Topic 2",
     "type": "Hotspot",
-    "question_text": "Building a model for an iOS app to detect whether an image contains a cat OR a dog (one tag per image). Configure the Custom Vision project.",
+    "question_text": "You are building a model that will be used in an iOS app.\nYou have images of cats and dogs. Each image contains either a cat or a dog.\nYou need to use the Custom Vision service to detect whether the images is of a cat or a dog.\n\nHow should you configure the project in the Custom Vision portal? To answer, select the appropriate options in the answer area.",
     "allow_randomize_options": false,
     "code_snippet": "Project Types: {0}\nClassification Types: {1}\nDomains: {2}",
     "options": [
@@ -1631,23 +1631,28 @@
         "text": "Multilabel (Multiple tags per image)",
         "group": 1
       },
+      { "id": "dom_audit", "text": "Audit", "group": 2 },
+      { "id": "dom_food", "text": "Food", "group": 2 },
       { "id": "dom_gen", "text": "General", "group": 2 },
       { "id": "dom_gen_c", "text": "General (compact)", "group": 2 },
-      { "id": "dom_retail", "text": "Retail", "group": 2 }
+      { "id": "dom_land", "text": "Landmarks", "group": 2 },
+      { "id": "dom_land_c", "text": "Landmarks (compact)", "group": 2 },
+      { "id": "dom_retail", "text": "Retail", "group": 2 },
+      { "id": "dom_retail_c", "text": "Retail (compact)", "group": 2 }
     ],
     "correct_answer": [
       { "slot": 0, "option_id": "pt_class" },
       { "slot": 1, "option_id": "ct_multi" },
       { "slot": 2, "option_id": "dom_gen_c" }
     ],
-    "explanation": "1. Detect if it is a cat OR dog = Classification (not Object Detection). 2. Cat OR Dog implies mutually exclusive = Multiclass. 3. Used in iOS app = needs to be exported = General (compact).",
+    "explanation": "1. **Classification**: You need to detect 'whether the image is of a cat or a dog' (categorize the whole image), not find where they are (Object Detection). 2. **Multiclass**: 'Either a cat or a dog' implies mutual exclusivity (Single tag per image). 3. **General (compact)**: The model will be used in an **iOS app**, which implies offline/edge deployment (CoreML). Compact domains are required for export.",
     "images": []
   },
   {
     "id": "T2-Q10",
     "topic": "Topic 2",
     "type": "SingleChoice",
-    "question_text": "Using Video Indexer to search videos based on who is present. What should you do?",
+    "question_text": "You have an Azure Video Analyzer for Media (previously Video Indexer) service that is used to provide a search interface over company videos on your company's website.\n\nYou need to be able to search for videos based on who is present in the video.\n\nWhat should you do?",
     "allow_randomize_options": true,
     "options": [
       {
@@ -1658,11 +1663,15 @@
         "id": "B",
         "text": "Create person objects and provide face images for each object."
       },
-      { "id": "C", "text": "Invite the entire staff to Video Indexer." },
-      { "id": "D", "text": "Edit the faces in the videos." }
+      {
+        "id": "C",
+        "text": "Invite the entire staff of the company to Video Indexer."
+      },
+      { "id": "D", "text": "Edit the faces in the videos." },
+      { "id": "E", "text": "Upload names to a language model." }
     ],
     "correct_answer": ["A"],
-    "explanation": "Video Indexer uses 'Person Models'. You train a custom Person Model with faces/names of your staff, and then index videos using that model so it can identify them.",
+    "explanation": "To identify specific people (like staff members) in videos using Video Indexer, you need to train a **Person Model**. This involves creating a Person Model in the account and adding people (with face images) to it. Then, when indexing videos, you associate this model so it recognizes those specific faces.",
     "images": []
   },
   {
