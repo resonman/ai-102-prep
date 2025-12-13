@@ -6,7 +6,14 @@ import Image from "next/image";
 import { clsx } from "clsx";
 
 type UserSelection = string | string[] | Record<number, string> | null;
-type SlotAnswer = { slot: number; option_id: string };
+
+// 定义答案对象的结构，用于类型断言
+type AnswerObject = {
+  slot?: number;
+  order?: number;
+  target?: string;
+  option_id: string;
+};
 
 interface Props {
   question: Question;
@@ -80,8 +87,10 @@ export default function QuestionCard({
   };
 
   const getNormalizedSlotIndex = (answerItem: any, index: number): number => {
-    if ("slot" in answerItem) return answerItem.slot;
-    if ("order" in answerItem) return answerItem.order - 1;
+    if (typeof answerItem === "object" && answerItem !== null) {
+      if ("slot" in answerItem) return answerItem.slot;
+      if ("order" in answerItem) return answerItem.order - 1;
+    }
     return index;
   };
 
@@ -92,11 +101,13 @@ export default function QuestionCard({
 
     if (isSlotQuestion) {
       const userSlots = selected as Record<number, string>;
-      const correctAnswers = question.correct_answer as any[];
+      const correctAnswers = question.correct_answer;
 
       correct = correctAnswers.every((ans, index) => {
+        if (typeof ans === "string") return false;
         const targetSlot = getNormalizedSlotIndex(ans, index);
-        return userSlots[targetSlot] === ans.option_id;
+        // 这里 ans 是 CorrectAnswerItem，需要断言成对象才能访问 option_id
+        return userSlots[targetSlot] === (ans as AnswerObject).option_id;
       });
     } else if (
       question.type === "SingleChoice" ||
@@ -125,7 +136,6 @@ export default function QuestionCard({
     return (
       <div className="space-y-4 bg-gray-50 p-4 rounded-lg border border-gray-200">
         <h3 className="font-bold text-gray-700 mb-2">
-          {/* 根据是否有 text_map 来决定标题 */}
           {question.text_map
             ? "Answer the following statements:"
             : (question.correct_answer[0] as any).target
@@ -142,24 +152,20 @@ export default function QuestionCard({
             (a, i) => getNormalizedSlotIndex(a, i) === slotIndex
           );
 
-          // 优先顺序：text_map (子题目) > target (拖拽左侧文字) > 默认序号
           let labelContent;
           if (question.text_map && question.text_map[slotIndex.toString()]) {
-            // 渲染 Hotspot 的子问题文本
             labelContent = (
               <span className="text-sm font-medium">
                 {question.text_map[slotIndex.toString()]}
               </span>
             );
           } else if ((correctItem as any)?.target) {
-            // 渲染 DragDrop 的左侧目标
             labelContent = (
               <span className="text-sm font-medium">
                 {(correctItem as any).target}
               </span>
             );
           } else {
-            // 渲染默认的代码填空序号
             labelContent = (
               <span className="bg-yellow-200 px-2 py-1 rounded font-bold">
                 [{slotIndex + 1}]
@@ -181,12 +187,10 @@ export default function QuestionCard({
               key={slotIndex}
               className="flex flex-col sm:flex-row sm:items-center gap-3 mb-4 p-2 rounded hover:bg-gray-100 transition-colors"
             >
-              {/* 左侧：显示子题目文本或序号 */}
               <div className="flex-shrink-0 sm:w-1/2 text-gray-800">
                 {labelContent}
               </div>
 
-              {/* 右侧：选择框 */}
               <div className="flex-grow relative sm:w-1/2">
                 <select
                   value={userSelection || ""}
@@ -224,29 +228,33 @@ export default function QuestionCard({
           );
         })}
 
-        {/* 反馈区域 */}
+        {/* ✅ 修复点：正确答案渲染区域 */}
         {showFeedbackImmediate && isSubmitted && (
           <div className="mt-4 p-3 bg-green-50 border border-green-200 rounded text-sm text-gray-700">
             <span className="font-bold block mb-1 text-green-800">
               Correct Answer:
             </span>
             {question.correct_answer.map((ans, i) => {
-              const slotIdx = getNormalizedSlotIndex(ans, i);
+              // 1. 先判断类型：如果是字符串（单选题数据），直接跳过，不渲染
+              if (typeof ans === "string") return null;
+
+              // 2. 类型断言：现在 TS 知道 ans 是对象了
+              const safeAns = ans as AnswerObject;
+
+              const slotIdx = getNormalizedSlotIndex(safeAns, i);
               const optText = question.options.find(
-                (o) => o.id === ans.option_id
+                (o) => o.id === safeAns.option_id
               )?.text;
 
-              // 反馈里的 Label 也要对应
               let feedbackLabel = `[${slotIdx + 1}]`;
               if (question.text_map && question.text_map[slotIdx.toString()]) {
-                // 如果文字太长，截取前20个字符...
                 const fullText = question.text_map[slotIdx.toString()];
                 feedbackLabel =
                   fullText.length > 20
                     ? fullText.substring(0, 20) + "..."
                     : fullText;
-              } else if ((ans as any).target) {
-                feedbackLabel = (ans as any).target;
+              } else if (safeAns.target) {
+                feedbackLabel = safeAns.target;
               }
 
               return (
@@ -341,6 +349,7 @@ export default function QuestionCard({
         <button
           type="button"
           onClick={onToggleFavorite}
+          aria-label={isFavorite ? "Remove from favorites" : "Add to favorites"}
           className="focus:outline-none p-1 hover:bg-gray-100 rounded-full transition"
         >
           <Star
