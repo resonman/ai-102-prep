@@ -1496,7 +1496,7 @@
     "correct_answer": [
       {
         "target": "Insights Widget: ?widgets=",
-        "option_id": "val_people_search"
+        "option_id": "val_people_kw"
       },
       { "target": "Insights Widget: &controls=", "option_id": "val_search" },
       { "target": "Player Widget: &showCaptions=", "option_id": "val_true" },
