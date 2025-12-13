@@ -2393,16 +2393,17 @@
     "id": "T2-Q42",
     "topic": "Topic 2",
     "type": "SingleChoice",
-    "question_text": "Analyze files using Video Indexer. File1 (WMV), File2 (AVI), File3 (MOV), File4 (MP4). Which files can be uploaded?",
+    "question_text": "You have a local folder that contains the files shown in the following table.\n\n- File1: WMV, 34 MB\n- File2: AVI, 1,200 MB\n- File3: MOV, 300 MB\n- File4: MP4, 1,800 MB\n\nYou need to analyze the files by using Azure AI Video Indexer.\n\nWhich files can you upload to the Video Indexer website?",
     "allow_randomize_options": true,
     "options": [
       { "id": "A", "text": "File1 and File3 only" },
       { "id": "B", "text": "File1, File2, File3 and File4" },
       { "id": "C", "text": "File1, File2, and File3 only" },
-      { "id": "D", "text": "File1 and File2 only" }
+      { "id": "D", "text": "File1 and File2 only" },
+      { "id": "E", "text": "File1, File2, and File4 only" }
     ],
     "correct_answer": ["B"],
-    "explanation": "Azure Video Indexer supports a wide range of standard video formats, including WMV, AVI, MOV, and MP4. All listed files are valid video formats.",
+    "explanation": "Azure Video Indexer supports a wide range of standard video formats, including WMV, AVI, MOV, and MP4. All listed files are valid video formats and are within the upload limits for the website (typically up to 2GB or more depending on account type, here all < 2GB).",
     "images": []
   },
   {
@@ -3698,23 +3699,24 @@
     "allow_randomize_options": false,
     "code_snippet": "Query parameters:\nautocorrect: {0}\nPII: {1}\nlistId: {2}\nclassify: {3}",
     "options": [
-      { "id": "val_true", "text": "True", "group": 0 },
-      { "id": "val_false", "text": "False", "group": 0 },
-      { "id": "val_null", "text": "Null", "group": 0 },
-      { "id": "val_true_2", "text": "True", "group": 1 },
-      { "id": "val_false_2", "text": "False", "group": 1 },
-      { "id": "val_true_3", "text": "True", "group": 2 },
-      { "id": "val_false_3", "text": "False", "group": 2 },
-      { "id": "val_id", "text": "Term list ID", "group": 2 },
-      { "id": "val_null_2", "text": "Null", "group": 2 },
-      { "id": "val_true_4", "text": "True", "group": 3 },
-      { "id": "val_false_4", "text": "False", "group": 3 }
+      { "id": "name", "text": "name", "group": 0 },
+      { "id": "resource_name", "text": "resource_name", "group": 0 },
+      { "id": "autocoect", "text": "autocoect", "group": 0 },
+      { "id": "PII", "text": "PII", "group": 0 },
+      { "id": "listID", "text": "listID", "group": 0 },
+      { "id": "classify", "text": "classify", "group": 0 },
+      { "id": "language", "text": "language", "group": 0 },
+      { "id": "content_type", "text": "content_type", "group": 0 },
+      {
+        "id": "Ocp-Apim-Subscription-Key",
+        "text": "Ocp-Apim-Subscription-Key",
+        "group": 0
+      }
     ],
     "correct_answer": [
-      { "slot": 0, "option_id": "val_false" },
-      { "slot": 1, "option_id": "val_false_2" },
-      { "slot": 2, "option_id": "val_null_2" },
-      { "slot": 3, "option_id": "val_true_4" }
+      { "slot": 0, "option_id": "resource_name" },
+      { "slot": 1, "option_id": "classify" },
+      { "slot": 2, "option_id": "Ocp-Apim-Subscription-Key" }
     ],
     "explanation": "1. **Autocorrect**: False (Not needed for detection). 2. **PII**: False (Focus is on aggressive/sexual content, not privacy). 3. **listId**: Null (No custom blocklist mentioned). 4. **Classify**: True (Crucial for getting Category 1/2/3 scores for sexual/aggressive content).",
     "images": ["T3-Q60.png"]
@@ -3955,18 +3957,26 @@
     "id": "T3-Q73",
     "topic": "Topic 3",
     "type": "Hotspot",
-    "question_text": "Auto translate speech from English to FR, DE, ES. Configure Speech service. Complete code.",
+    "question_text": "You are building an app that will automatically translate speech from English to French, German, and Spanish by using Azure AI service.\n\nYou need to define the output languages and configure the Azure AI Speech service.\n\nHow should you complete the code?",
     "allow_randomize_options": false,
-    "code_snippet": "languages = { 'en-GB' }\n...\ntranslation_config.add_target_language({0})",
+    "code_snippet": "speech_key, service_region = ...\n...\ndef translate_speech_to_text():\n    translation_config = speechsdk.translation.SpeechTranslationConfig(...)\n    for lang in languages:\n        translation_config.{0}(lang)\n    \n    recognizer = speechsdk.translation.{1}(translation_config)",
     "options": [
-      { "id": "lang_fr", "text": "fr", "group": 0 },
-      { "id": "lang_de", "text": "de", "group": 0 },
-      { "id": "lang_es", "text": "es", "group": 0 },
-      { "id": "lang_list", "text": "list", "group": 0 },
-      { "id": "lang_target", "text": "target", "group": 0 }
+      { "id": "add_target", "text": "add_target_language", "group": 0 },
+      { "id": "set_target", "text": "set_target_language", "group": 0 },
+      {
+        "id": "speech_lang",
+        "text": "speech_recognition_language",
+        "group": 0
+      },
+      { "id": "rec_intent", "text": "IntentRecognizer", "group": 1 },
+      { "id": "rec_trans", "text": "TranslationRecognizer", "group": 1 },
+      { "id": "rec_speech", "text": "SpeechRecognizer", "group": 1 }
     ],
-    "correct_answer": [{ "slot": 0, "option_id": "lang_fr" }],
-    "explanation": "Note: The question typically asks to complete a loop or a specific call. In the visual for this question, there is a loop iterating through target languages. `add_target_language` takes one language code at a time. The answer key usually highlights one of the language codes or the variable representing them.",
+    "correct_answer": [
+      { "slot": 0, "option_id": "add_target" },
+      { "slot": 1, "option_id": "rec_trans" }
+    ],
+    "explanation": "1. In the Python SDK, to add a target language, use **add_target_language**. 2. To perform translation, instantiate the **TranslationRecognizer**.",
     "images": []
   },
   {
