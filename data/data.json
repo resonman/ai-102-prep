@@ -2919,29 +2919,56 @@
     "id": "T3-Q28",
     "topic": "Topic 3",
     "type": "Hotspot",
-    "question_text": "Python app to translate text. Content must remain in Americas geography. Complete the code.",
+    "question_text": "You are developing an application that includes language translation. The application will translate text retrieved by using a function named get_text_to_be_translated. The text can be in one of many languages. The content of the text must remain within the Americas Azure geography. You need to develop code to translate the text to a single language. How should you complete the code?",
     "allow_randomize_options": false,
-    "code_snippet": "conn = httplib.HTTPSConnection(\"{0}\")\nconn.request(\"POST\", \"{1}\", ...)",
+    "code_snippet": "api_key = \"FF956C68B83B21B38691ABD200A4C606\"\ntext = get_text_to_be_translated()\nheaders = {\n  'Content-Type': 'application/json',\n  'Ocp-Apim-Subscription-Key': api_key\n}\nbody = {\n  'Text': text\n}\nconn = httplib.HTTPSConnection(\"{0}\")\nconn.request(\"POST\", \"{1}\", str(body), headers)\nresponse = conn.getresponse()\nresponse_data = response.read()",
     "options": [
       {
-        "id": "host_api",
+        "id": "endpoint_api",
         "text": "api.cognitive.microsofttranslator.com",
         "group": 0
       },
       {
-        "id": "host_nam",
+        "id": "endpoint_apc",
+        "text": "api-apc.cognitive.microsofttranslator.com",
+        "group": 0
+      },
+      {
+        "id": "endpoint_nam",
         "text": "api-nam.cognitive.microsofttranslator.com",
         "group": 0
       },
-      { "id": "path_from", "text": "/translate?from=en", "group": 1 },
-      { "id": "path_sugg", "text": "/translate?suggestedFrom=en", "group": 1 },
-      { "id": "path_to", "text": "/translate?to=en", "group": 1 }
+      {
+        "id": "path_from",
+        "text": "/translate?from=en",
+        "group": 1
+      },
+      {
+        "id": "path_sugg",
+        "text": "/translate?suggestedFrom=en",
+        "group": 1
+      },
+      {
+        "id": "path_to",
+        "text": "/translate?to=en",
+        "group": 1
+      },
+      {
+        "id": "path_detect_to",
+        "text": "/detect?to=en",
+        "group": 1
+      },
+      {
+        "id": "path_detect_from",
+        "text": "/detect?from=en",
+        "group": 1
+      }
     ],
     "correct_answer": [
-      { "slot": 0, "option_id": "host_nam" },
+      { "slot": 0, "option_id": "endpoint_nam" },
       { "slot": 1, "option_id": "path_to" }
     ],
-    "explanation": "1. Americas geography constraint -> `api-nam` (North America endpoint). 2. Translate *to* a language -> `/translate?to=en`.",
+    "explanation": "1. The Americas geography constraint requires the North America endpoint: `api-nam.cognitive.microsofttranslator.com` (NAM = North America). 2. To translate to a single language (not detect) with automatic source language detection, use `/translate?to=en`.",
     "images": []
   },
   {
