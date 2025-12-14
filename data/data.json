@@ -2344,22 +2344,28 @@
 		"images": []
 	},
 	{
-		"id": "T2-Q40",
-		"topic": "Topic 2",
-		"type": "Hotspot",
-		"question_text": "Configure request to identify whether an image is clipart or a line drawing. Complete the URL.",
-		"allow_randomize_options": false,
-		"code_snippet": "POST .../vision/v3.2/analyze?visualFeatures={0}",
-		"options": [
-			{ "id": "desc", "text": "description", "group": 0 },
-			{ "id": "imgtype", "text": "imageType", "group": 0 },
-			{ "id": "obj", "text": "objects", "group": 0 },
-			{ "id": "tags", "text": "tags", "group": 0 }
-		],
-		"correct_answer": [{ "slot": 0, "option_id": "imgtype" }],
-		"explanation": "The `imageType` visual feature returns booleans for `clipArtType` and `lineDrawingType`.",
-		"images": []
-	},
+    "id": "T2-Q40",
+    "topic": "Topic 2",
+    "type": "Hotspot",
+    "question_text": "You are developing an app that will use the Azure AI Vision API to analyze an image.\n\nYou need configure the request that will be used by the app to identify whether an image is clipart or a line drawing.\n\nHow should you complete the request? To answer, select the appropriate options in the answer area.",
+    "allow_randomize_options": false,
+    "code_snippet": "{0} \"https://*.cognitiveservices.azure.com/vision/v3.2/analyze?visualFeatures={1}&details={string}&language=en\"",
+    "options": [
+      { "id": "m_get", "text": "GET", "group": 0 },
+      { "id": "m_patch", "text": "PATCH", "group": 0 },
+      { "id": "m_post", "text": "POST", "group": 0 },
+      { "id": "feat_desc", "text": "description", "group": 1 },
+      { "id": "feat_type", "text": "imageType", "group": 1 },
+      { "id": "feat_obj", "text": "objects", "group": 1 },
+      { "id": "feat_tags", "text": "tags", "group": 1 }
+    ],
+    "correct_answer": [
+      { "slot": 0, "option_id": "m_post" },
+      { "slot": 1, "option_id": "feat_type" }
+    ],
+    "explanation": "1. **POST**: The Analyze Image API requires a POST request because you must provide the image (binary or URL) in the request body. 2. **imageType**: This visual feature returns `clipArtType` and `lineDrawingType` scores, which is the specific requirement.",
+    "images": []
+  },
 	{
 		"id": "T2-Q41",
 		"topic": "Topic 2",
