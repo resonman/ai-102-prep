@@ -3162,7 +3162,7 @@
     "id": "T3-Q38",
     "topic": "Topic 3",
     "type": "Hotspot",
-    "question_text": "You are building a solution that students will use to find references for essays.\n\nYou use the following code to start building the solution.\n\nusing Azure;\nusing System;\nusing Azure.AI.TextAnalytics;\n\nprivate static readonly AzureKeyCredential credentials = new AzureKeyCredential(\"<key>\");\nprivate static readonly Uri endpoint = new Uri(\"<endpoint>\");\nstatic void EntityLinker(TextAnalyticsClient client)\n{\n    var response = client.RecognizeLinkedEntities(\n        \"Our tour guide took us up the Space Needle during our trip to Seattle last week.\");\n}\n\nFor each of the following statements, select Yes if the statement is true. Otherwise, select No.\n\nNOTE: Each correct selection is worth one point.",
+    "question_text": "You are building a solution that students will use to find references for essays.\n\nYou use the following code to start building the solution.\n\nFor each of the following statements, select Yes if the statement is true. Otherwise, select No.\n\nNOTE: Each correct selection is worth one point.",
     "allow_randomize_options": false,
     "code_snippet": "using Azure;\nusing System;\nusing Azure.AI.TextAnalytics;\n\nprivate static readonly AzureKeyCredential credentials = new AzureKeyCredential(\"<key>\");\nprivate static readonly Uri endpoint = new Uri(\"<endpoint>\");\nstatic void EntityLinker(TextAnalyticsClient client)\n{\n    var response = client.RecognizeLinkedEntities(\n        \"Our tour guide took us up the Space Needle during our trip to Seattle last week.\");\n}",
     "options": [
