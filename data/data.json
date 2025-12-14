@@ -3275,12 +3275,12 @@
     ],
     "correct_answer": [
       { "order": 1, "option_id": "act_create_proj" },
-      { "order": 2, "option_id": "act_upload" },
-      { "order": 3, "option_id": "act_train" },
-      { "order": 4, "option_id": "act_create_s2t" },
+      { "order": 2, "option_id": "act_create_s2t" },
+      { "order": 3, "option_id": "act_upload" },
+      { "order": 4, "option_id": "act_train" },
       { "order": 5, "option_id": "act_deploy" }
     ],
-    "explanation": "Standard Custom Speech workflow: 1. Create Project. 2. Upload Data (audio/transcripts). 3. Train Model (using data). 4. Create/Evaluate the Speech-to-Text model. 5. Deploy the model to an endpoint.",
+    "explanation": "Standard Custom Speech workflow: 1. Create Project. 2. Create the Speech-to-Text model. 3. Upload Data (audio/transcripts). 4. Train Model (using data).  5. Deploy the model to an endpoint.",
     "images": []
   },
   {
