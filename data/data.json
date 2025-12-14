@@ -2854,16 +2854,16 @@
     "id": "T3-Q23",
     "topic": "Topic 3",
     "type": "SingleChoice",
-    "question_text": "Text Analytics output for 'Our tour guide took us up the Space Needle...'. Result: Text='Space Needle', Category='Location'. Which API was used?",
+    "question_text": "You are examining the Text Analytics output of an application. The text analyzed is: 'Our tour guide took us up the Space Needle during our trip to Seattle last week.' The response contains the data shown in the following table:\n\nText | Category | ConfidenceScore\nTour guide | PersonType | 0.45\nSpace Needle | Location | 0.38\nTrip | Event | 0.78\nSeattle | Location | 0.78\nLast week | DateTime | 0.80\n\nWhich Text Analytics API is used to analyze the text?",
     "allow_randomize_options": true,
     "options": [
       { "id": "A", "text": "Entity Linking" },
-      { "id": "B", "text": "Named Entity Recognition (NER)" },
+      { "id": "B", "text": "Named Entity Recognition" },
       { "id": "C", "text": "Sentiment Analysis" },
       { "id": "D", "text": "Key Phrase Extraction" }
     ],
     "correct_answer": ["B"],
-    "explanation": "Identifying specific entities (like 'Space Needle') and categorizing them (like 'Location', 'Person', 'Organization') is the core function of **Named Entity Recognition (NER)**.",
+    "explanation": "The API used is Named Entity Recognition (NER) because the output identifies and categorizes specific entities in the text, such as 'Tour guide' as PersonType, 'Space Needle' and 'Seattle' as Location, 'Trip' as Event, and 'Last week' as DateTime. NER is designed to recognize named entities and assign them to predefined categories, which matches the table data.",
     "images": []
   },
   {
