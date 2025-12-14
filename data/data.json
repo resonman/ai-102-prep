@@ -3345,25 +3345,23 @@
     "id": "T3-Q45",
     "topic": "Topic 3",
     "type": "Hotspot",
-    "question_text": "Build text-to-speech app using custom neural voice. SSML requirements: 'Expresses a calm tone', 'Imitates young adult female'. Complete the SSML.",
+    "question_text": "You are building a text-to-speech app that will use a custom neural voice.\n\nYou create an SSML file for the app. The solution must ensure that the voice profile meets the following requirements:\n\n- Expresses a calm tone\n- Imitates the voice of a young adult female\n\nHow should you complete the code? To answer, select the appropriate options in the answer area.\n\nNOTE: Each correct selection is worth one point.",
     "allow_randomize_options": false,
-    "code_snippet": "<mstts:express-as {0}=\"YoungAdultFemale\" {1}=\"gentle\">",
+    "code_snippet": "<mstts:express-as {0}=\"YoungAdultFemale\" {1}=\"gentle\">\nHow can I assist you?\n</mstts:express-as>",
     "options": [
-      { "id": "role", "text": "role", "group": 0 },
-      { "id": "style", "text": "style", "group": 0 },
-      { "id": "styledegree", "text": "styledegree", "group": 0 },
-      { "id": "type", "text": "type", "group": 0 },
-      { "id": "role2", "text": "role", "group": 1 },
-      { "id": "style2", "text": "style", "group": 1 },
-      { "id": "styledegree2", "text": "styledegree", "group": 1 }
+        { "id": "role", "text":"role"}
+        { "id": "style", "text": "style"},
+        { "id": "styledegree", "text": "styledegree"},
+        { "id": "type", "text": "type"},
+        { "id": "voice", "text": "voice"}
     ],
     "correct_answer": [
-      { "slot": 0, "option_id": "role" },
-      { "slot": 1, "option_id": "style2" }
+        { "slot": 0, "option_id": "role" },
+        { "slot": 1, "option_id": "style" }
     ],
     "explanation": "1. To imitate a specific persona like 'YoungAdultFemale', use the `role` attribute. 2. To express a tone like 'calm' or 'gentle', use the `style` attribute.",
     "images": []
-  },
+},
   {
     "id": "T3-Q46",
     "topic": "Topic 3",
