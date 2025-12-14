@@ -2472,20 +2472,20 @@
 		"code_snippet": "static async Task TranslateSpeechAsync()\n{\n    var config = SpeechTranslationConfig.FromSubscription(\"69cad5cc-0ab3-4704-bdff-afbf4aa07d85\", \"uksouth\");\n\n    var lang = new List<string>{0}\n    config.SpeechRecognitionLanguage = \"en-GB\";\n    lang.ForEach(config.AddTargetLanguage);\n\n    using var audioConfig = AudioConfig.FromDefaultMicrophoneInput();\n    using var recognizer = new {1}(config, audioConfig);\n\n    var result = awit recognizer.RecognizeOnceAsync();\n    if (result.Reason == ResultReason.TranslatedSpeech)",
 		"options": [
 			{ "id": "opt_en", "text": "(\"en-GB\")", "group": 0 },
-			{ "id": "opt_all", "text": "[\"en\",\"fr\",\"de\",\"es\"]", "group": 0 },
-			{ "id": "opt_part", "text": "(\"fr\",\"de\",\"es\")", "group": 0 },
+			{ "id": "opt_all", "text": "[\"fr\",\"de\",\"es\"]", "group": 0 },
 			{
 				"id": "opt_names",
 				"text": "[\"French\",\"German\",\"Spanish\")",
 				"group": 0
 			},
+			{ "id": "language", "text": "(language)", "group": 0 },
 			{ "id": "rec_intent", "text": "IntentRecognizer", "group": 1 },
 			{ "id": "rec_speaker", "text": "SpeakerRecognizer", "group": 1 },
 			{ "id": "rec_synth", "text": "SpeechSynthesizer", "group": 1 },
 			{ "id": "rec_trans", "text": "TranslationRecognizer", "group": 1 }
 		],
 		"correct_answer": [
-			{ "slot": 0, "option_id": "opt_part" },
+			{ "slot": 0, "option_id": "opt_all" },
 			{ "slot": 1, "option_id": "rec_trans" }
 		],
 		"explanation": "1. The list already contains 'en-GB', so we select **(\"fr\",\"de\",\"es\")** to complete the list of supported languages. 2. **TranslationRecognizer** is required for speech translation.",
