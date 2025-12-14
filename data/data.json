@@ -2406,7 +2406,7 @@
   "correct_answer": ["B"],
   "explanation": "Azure Video Indexer supports a wide range of standard video formats, including WMV, AVI, MOV, and MP4. All listed files are valid video formats and are within the upload limits for the website (typically up to 2GB or more depending on account type, here all < 2GB).",
   "images": []
-}
+},
 	{
 		"id": "T3-Q1",
 		"topic": "Topic 3",
