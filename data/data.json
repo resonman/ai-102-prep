@@ -3349,19 +3349,19 @@
     "allow_randomize_options": false,
     "code_snippet": "<mstts:express-as {0}=\"YoungAdultFemale\" {1}=\"gentle\">\nHow can I assist you?\n</mstts:express-as>",
     "options": [
-        { "id": "role", "text":"role"}
-        { "id": "style", "text": "style"},
-        { "id": "styledegree", "text": "styledegree"},
-        { "id": "type", "text": "type"},
-        { "id": "voice", "text": "voice"}
+      { "id": "role", "text": "role" },
+      { "id": "style", "text": "style" },
+      { "id": "styledegree", "text": "styledegree" },
+      { "id": "type", "text": "type" },
+      { "id": "voice", "text": "voice" }
     ],
     "correct_answer": [
-        { "slot": 0, "option_id": "role" },
-        { "slot": 1, "option_id": "style" }
+      { "slot": 0, "option_id": "role" },
+      { "slot": 1, "option_id": "style" }
     ],
     "explanation": "1. To imitate a specific persona like 'YoungAdultFemale', use the `role` attribute. 2. To express a tone like 'calm' or 'gentle', use the `style` attribute.",
     "images": []
-},
+  },
   {
     "id": "T3-Q46",
     "topic": "Topic 3",
