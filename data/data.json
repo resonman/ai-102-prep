@@ -3162,9 +3162,9 @@
     "id": "T3-Q38",
     "topic": "Topic 3",
     "type": "Hotspot",
-    "question_text": "Solution for students to find references. Code uses `RecognizeLinkedEntities`. Analyze statements.",
+    "question_text": "You are building a solution that students will use to find references for essays.\n\nYou use the following code to start building the solution.\n\nusing Azure;\nusing System;\nusing Azure.AI.TextAnalytics;\n\nprivate static readonly AzureKeyCredential credentials = new AzureKeyCredential(\"<key>\");\nprivate static readonly Uri endpoint = new Uri(\"<endpoint>\");\nstatic void EntityLinker(TextAnalyticsClient client)\n{\n    var response = client.RecognizeLinkedEntities(\n        \"Our tour guide took us up the Space Needle during our trip to Seattle last week.\");\n}\n\nFor each of the following statements, select Yes if the statement is true. Otherwise, select No.\n\nNOTE: Each correct selection is worth one point.",
     "allow_randomize_options": false,
-    "code_snippet": "var response = client.RecognizeLinkedEntities(text);",
+    "code_snippet": "using Azure;\nusing System;\nusing Azure.AI.TextAnalytics;\n\nprivate static readonly AzureKeyCredential credentials = new AzureKeyCredential(\"<key>\");\nprivate static readonly Uri endpoint = new Uri(\"<endpoint>\");\nstatic void EntityLinker(TextAnalyticsClient client)\n{\n    var response = client.RecognizeLinkedEntities(\n        \"Our tour guide took us up the Space Needle during our trip to Seattle last week.\");\n}",
     "options": [
       { "id": "s1_yes", "text": "Yes", "group": 0 },
       { "id": "s1_no", "text": "No", "group": 0 },
@@ -3175,15 +3175,15 @@
     ],
     "text_map": {
       "0": "The code will detect the language of documents.",
-      "1": "The url attribute returned for each linked entity will be a Bing search link.",
+      "1": "The uri attribute returned for each linked entity will be a Bing search link.",
       "2": "The matches attribute returned for each linked entity will provide the location in a document where the entity is referenced."
     },
     "correct_answer": [
       { "slot": 0, "option_id": "s1_no" },
-      { "slot": 1, "option_id": "s2_yes" },
+      { "slot": 1, "option_id": "s2_no" },
       { "slot": 2, "option_id": "s3_yes" }
     ],
-    "explanation": "1. No: `RecognizeLinkedEntities` detects entities, it doesn't return the document language (Use `DetectLanguage` for that). 2. Yes: Linked Entities (Entity Linking) provides a URL (usually Wikipedia or Bing) to the entity's definition. 3. Yes: `matches` contains the offset and length (location) of the entity in the text.",
+    "explanation": "1. No: RecognizeLinkedEntities detects linked entities but does not detect document language (use DetectLanguage for that). 2. No: The uri attribute typically points to Wikipedia or other knowledge base entries, not Bing search links. 3. Yes: The matches attribute provides the offset and length of each entity occurrence in the document.",
     "images": []
   },
   {
