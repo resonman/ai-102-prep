@@ -2589,7 +2589,7 @@
 			{ "id": "param_to", "text": "?to=en", "group": 1 }
 		],
 		"correct_answer": [
-			{ "slot": 0, "option_id": "ep_nam" },
+			{ "slot": 0, "option_id": "ep_nam-detect" },
 			{ "slot": 1, "option_id": "param_to" }
 		],
 		"explanation": "1. 'Americas Azure geography' requires the regional endpoint: `api-nam` (North America). 2. To translate *to* a language, use the query parameter `?to={language}`.",
