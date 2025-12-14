@@ -2291,33 +2291,33 @@
 		"images": []
 	},
 	{
-		"id": "T2-Q38",
-		"topic": "Topic 2",
-		"type": "Hotspot",
-		"question_text": "Code snippet uses Azure AI Vision client library. Analyze statements.",
-		"allow_randomize_options": false,
-		"code_snippet": "analyze_image(local_image): ... visual_features=[VisualFeatureTypes.Tags, VisualFeatureTypes.Description] ... print(caption.text) ... print(tag.name)",
-		"options": [
-			{ "id": "s1_yes", "text": "Yes", "group": 0 },
-			{ "id": "s1_no", "text": "No", "group": 0 },
-			{ "id": "s2_yes", "text": "Yes", "group": 1 },
-			{ "id": "s2_no", "text": "No", "group": 1 },
-			{ "id": "s3_yes", "text": "Yes", "group": 2 },
-			{ "id": "s3_no", "text": "No", "group": 2 }
-		],
-		"text_map": {
-			"0": "The code will perform face recognition.",
-			"1": "The code will list tags and their associated confidence.",
-			"2": "The code will read an image file from the local file system."
-		},
-		"correct_answer": [
-			{ "slot": 0, "option_id": "s1_no" },
-			{ "slot": 1, "option_id": "s2_yes" },
-			{ "slot": 2, "option_id": "s3_yes" }
-		],
-		"explanation": "1. No: Code asks for Tags and Description, not Face. 2. Yes: `tag.confidence` is a standard property of the Tag object (though not explicitly printed in the snippet, 'associated confidence' is part of the Tags result, and the statement asks if it *will* list tags... usually implies standard output. Wait, the snippet prints `tag.name` and `tag.confidence` (see Q1 for similar logic). Actually, looking at the snippet `print(f\"{tag.name} with confidence {tag.confidence}\")` is present in Q1 but here it says `print(f\"...{tag.confidence}\")`... Wait, let me check the image. Ah, the snippet says `print(f\"{tag.name} with confidence {tag.confidence}\")`. So YES. 3. Yes: `open(local_image, \"rb\")` reads from local file system.",
-		"images": []
-	},
+    "id": "T2-Q38",
+    "topic": "Topic 2",
+    "type": "Hotspot",
+    "question_text": "You are developing an application that will use the Azure AI Vision client library. The application has the following code.\n\nFor each of the following statements, select Yes if the statement is true. Otherwise, select No.",
+    "allow_randomize_options": false,
+    "code_snippet": "def analyze_image(local_image):\n    client = ComputerVisionClient(endpoint, CognitiveServicesCredentials(subscription_key))\n    \n    # Define features to extract\n    visual_features = [VisualFeatureTypes.tags, VisualFeatureTypes.description]\n    \n    # Open local file\n    with open(local_image, \"rb\") as image_stream:\n        results = client.analyze_image_in_stream(image_stream, visual_features)\n    \n    # Print results\n    for caption in results.description.captions:\n        print(\"Caption: {} (confidence: {})\".format(caption.text, caption.confidence))\n        \n    for tag in results.tags:\n        print(\"Tag: {} (confidence: {})\".format(tag.name, tag.confidence))",
+    "options": [
+      { "id": "s1_yes", "text": "Yes", "group": 0 },
+      { "id": "s1_no", "text": "No", "group": 0 },
+      { "id": "s2_yes", "text": "Yes", "group": 1 },
+      { "id": "s2_no", "text": "No", "group": 1 },
+      { "id": "s3_yes", "text": "Yes", "group": 2 },
+      { "id": "s3_no", "text": "No", "group": 2 }
+    ],
+    "text_map": {
+      "0": "The code will perform face recognition.",
+      "1": "The code will list tags and their associated confidence.",
+      "2": "The code will read an image file from the local file system."
+    },
+    "correct_answer": [
+      { "slot": 0, "option_id": "s1_no" },
+      { "slot": 1, "option_id": "s2_yes" },
+      { "slot": 2, "option_id": "s3_yes" }
+    ],
+    "explanation": "1. **No**: The `visual_features` list contains `tags` and `description`. It does NOT contain `faces`. Therefore, face recognition is NOT performed.\n2. **Yes**: The code iterates through `results.tags` and prints both `tag.name` and `tag.confidence`.\n3. **Yes**: The code uses `with open(local_image, \"rb\")`, which specifically opens a file from the local file system in binary read mode.",
+    "images": []
+  },
 	{
 		"id": "T2-Q39",
 		"topic": "Topic 2",
