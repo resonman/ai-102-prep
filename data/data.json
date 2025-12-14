@@ -2756,14 +2756,14 @@
     "id": "T3-Q18",
     "topic": "Topic 3",
     "type": "SingleChoice",
-    "question_text": "Scenario: LUIS model 'FindContact'. Phrases: 'Find contacts in London'. Solution: Create a new entity for the domain. Does this meet the goal?",
+    "question_text": "You build a language model by using a Language Understanding service. The language model is used to search for information on a contact list by using an intent named FindContact. A conversational expert provides you with the following list of phrases to use for training: 'Find contacts in London.', 'Who do I know in Seattle?', 'Search for contacts in Ukraine.'. You need to implement the phrase list in Language Understanding. Solution: You create a new entity for the domain. Does this meet the goal?",
     "allow_randomize_options": false,
     "options": [
       { "id": "A", "text": "Yes" },
       { "id": "B", "text": "No" }
     ],
-    "correct_answer": ["A"],
-    "explanation": "Yes, 'London', 'Seattle', 'Ukraine' are locations. Adding a new Entity (e.g., Location or GeographyV2) is the correct way to capture this variable information.",
+    "correct_answer": ["B"],
+    "explanation": "No. Creating a new entity alone does not implement a phrase list. A phrase list is a specific feature in LUIS that provides a list of related words/phrases to help the model recognize similar terms. To properly implement a phrase list, you should: 1. Create a phrase list feature with the location terms (London, Seattle, Ukraine, etc.), 2. Associate the phrase list with the relevant entity (e.g., a location entity) to improve recognition of similar location names.",
     "images": []
   },
   {
