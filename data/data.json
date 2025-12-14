@@ -2469,7 +2469,7 @@
 		"type": "Hotspot",
 		"question_text": "You are developing a service that records lectures given in English (United Kingdom). You need to develop code that will provide transcripts of the lectures to attendees in their respective language. The supported languages are English, French, Spanish, and German.\n\nHow should you complete the code?",
 		"allow_randomize_options": false,
-		"code_snippet": "static async Task TranslateSpeechAsync()\n{\n    var config = SpeechTranslationConfig.FromSubscription(\"69cad5cc-0ab3-4704-bdff-afbf4aa07d85\", \"uksouth\");\n\n    var lang = new List<string>\n    {\n        \"en-GB\",\n        {0}\n    };\n\n    config.SpeechRecognitionLanguage = \"en-GB\";\n    lang.ForEach(config.AddTargetLanguage);\n\n    using var audioConfig = AudioConfig.FromDefaultMicrophoneInput();\n    using var recognizer = new {1}(config, audioConfig);\n\n    var result = awit recognizer.RecognizeOnceAsync();\n    if (result.Reason == ResultReason.TranslatedSpeech)",
+		"code_snippet": "static async Task TranslateSpeechAsync()\n{\n    var config = SpeechTranslationConfig.FromSubscription(\"69cad5cc-0ab3-4704-bdff-afbf4aa07d85\", \"uksouth\");\n\n    var lang = new List<string>{0}\n    config.SpeechRecognitionLanguage = \"en-GB\";\n    lang.ForEach(config.AddTargetLanguage);\n\n    using var audioConfig = AudioConfig.FromDefaultMicrophoneInput();\n    using var recognizer = new {1}(config, audioConfig);\n\n    var result = awit recognizer.RecognizeOnceAsync();\n    if (result.Reason == ResultReason.TranslatedSpeech)",
 		"options": [
 			{ "id": "opt_en", "text": "(\"en-GB\")", "group": 0 },
 			{ "id": "opt_all", "text": "[\"en\",\"fr\",\"de\",\"es\"]", "group": 0 },
