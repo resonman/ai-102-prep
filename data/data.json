@@ -2394,35 +2394,19 @@
   "id": "T2-Q42",
   "topic": "Topic 2",
   "type": "SingleChoice",
-  "question_text": "Based on the table of video files, which file has the highest size-to-length ratio?",
-  "allow_randomize_options": false,
+  "question_text": "You have a local folder that contains the files shown in the following table:\n\n| File Name | Format | Length (mins) | Size (MB) |\n|-----------|--------|---------------|----------|\n| File1     | WMV    | 34            | 400      |\n| File2     | AVI    | 90            | 1,200    |\n| File3     | MOV    | 300           | 980      |\n| File4     | MP4    | 80            | 1,800    |\n\nYou need to analyze the files by using Azure AI Video Indexer.\n\nWhich files can you upload to the Video Indexer website?",
+  "allow_randomize_options": true,
   "options": [
-    {
-      "id": "A",
-      "text": "File1 (WMV, 34 mins, 400 MB)"
-    },
-    {
-      "id": "B",
-      "text": "File2 (AVI, 90 mins, 1,200 MB)"
-    },
-    {
-      "id": "C",
-      "text": "File3 (MOV, 300 mins, 980 MB)"
-    },
-    {
-      "id": "D",
-      "text": "File4 (MP4, 80 mins, 1,800 MB)"
-    }
+    { "id": "A", "text": "File1 and File3 only" },
+    { "id": "B", "text": "File1, File2, File3 and File4" },
+    { "id": "C", "text": "File1, File2, and File3 only" },
+    { "id": "D", "text": "File1 and File2 only" },
+    { "id": "E", "text": "File1, File2, and File4 only" }
   ],
-  "correct_answer": ["D"],
-  "explanation": "File4 has the highest size-to-length ratio. Calculating the ratio (Size/Length): File1 = 400/34 ≈ 11.76 MB/min, File2 = 1200/90 ≈ 13.33 MB/min, File3 = 980/300 ≈ 3.27 MB/min, File4 = 1800/80 = 22.5 MB/min. File4 has the highest ratio at 22.5 MB per minute.",
-  "images": [
-    {
-      "url": "path/to/uploaded/image.png",
-      "alt_text": "Table showing video file details: Name, Format, Length (mins), Size (MB)"
-    }
-  ]
-},
+  "correct_answer": ["B"],
+  "explanation": "Azure Video Indexer supports a wide range of standard video formats, including WMV, AVI, MOV, and MP4. All listed files are valid video formats and are within the upload limits for the website (typically up to 2GB or more depending on account type, here all < 2GB).",
+  "images": []
+}
 	{
 		"id": "T3-Q1",
 		"topic": "Topic 3",
