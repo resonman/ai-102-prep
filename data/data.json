@@ -2854,7 +2854,7 @@
     "id": "T3-Q23",
     "topic": "Topic 3",
     "type": "SingleChoice",
-    "question_text": "You are examining the Text Analytics output of an application. The text analyzed is: 'Our tour guide took us up the Space Needle during our trip to Seattle last week.' The response contains the data shown in the following table:\n\nText | Category | ConfidenceScore\nTour guide | PersonType | 0.45\nSpace Needle | Location | 0.38\nTrip | Event | 0.78\nSeattle | Location | 0.78\nLast week | DateTime | 0.80\n\nWhich Text Analytics API is used to analyze the text?",
+    "question_text": "You are examining the Text Analytics output of an application. The text analyzed is: 'Our tour guide took us up the Space Needle during our trip to Seattle last week.' The response contains the data shown in the following table:\n\nText         | Category    | ConfidenceScore\nTour guide   | PersonType  | 0.45\nSpace Needle | Location    | 0.38\nTrip         | Event       | 0.78\nSeattle      | Location    | 0.78\nLast week    | DateTime    | 0.80\n\nWhich Text Analytics API is used to analyze the text?",
     "allow_randomize_options": true,
     "options": [
       { "id": "A", "text": "Entity Linking" },
