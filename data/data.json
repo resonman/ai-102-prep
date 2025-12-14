@@ -3118,19 +3118,28 @@
     "id": "T3-Q36",
     "topic": "Topic 3",
     "type": "SingleChoice",
-    "question_text": "Convert text to speech. Provide users with available voice options. Minimize costs. Which Speech API endpoint?",
+    "question_text": "You are building a social media extension that will convert text to speech. The solution must meet the following requirements:\n\n• Support messages of up to 400 characters.\n• Provide users with multiple voice options.\n• Minimize costs.\n\nYou create an Azure Cognitive Services resource.\n\nWhich Speech API endpoint provides users with the available voice options?",
     "allow_randomize_options": true,
     "options": [
-      { "id": "A", "text": ".../speechtotext/v3.0/models/base" },
-      { "id": "B", "text": ".../texttospeech/v3.0/longaudiosynthesis/voices" },
+      {
+        "id": "A",
+        "text": "https://uksouth.api.cognitive.microsoft.com/speechtotext/v3.0/models/base"
+      },
+      {
+        "id": "B",
+        "text": "https://uksouth.customvoice.api.speech.microsoft.com/api/texttospeech/v3.0/longaudiosynthesis/voices"
+      },
       {
         "id": "C",
         "text": "https://uksouth.tts.speech.microsoft.com/cognitiveservices/voices/list"
       },
-      { "id": "D", "text": ".../deploymentId={deploymentId}" }
+      {
+        "id": "D",
+        "text": "https://uksouth.voice.speech.microsoft.com/cognitiveservices/v1?deploymentId={deploymentId}"
+      }
     ],
     "correct_answer": ["C"],
-    "explanation": "The standard endpoint to get the list of all available neural voices is `.../cognitiveservices/voices/list`.",
+    "explanation": "The endpoint that provides the list of all available neural voices for text-to-speech is `https://uksouth.tts.speech.microsoft.com/cognitiveservices/voices/list`. This endpoint is used to retrieve the available voice options that users can choose from, which meets the requirement to provide multiple voice options.",
     "images": []
   },
   {
