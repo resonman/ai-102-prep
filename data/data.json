@@ -2209,22 +2209,21 @@
 		"id": "T2-Q34",
 		"topic": "Topic 2",
 		"type": "Hotspot",
-		"question_text": "App sharing user images. 1. Extract text from images. 2. Detect profane language in extracted text. Minimize effort.",
+		"question_text": "You are building an app that will share user images.\n\nYou need to configure the app to meet the following requirements:\n- Uploaded images must be scanned and any text must be extracted from the images.\n- Extracted text must be analyzed for the presence of profane language.\n- The solution must minimize development effort.\n\nWhat should you use for each requirement? To answer, select the appropriate options in the answer area.",
 		"allow_randomize_options": false,
 		"code_snippet": "Text extraction: {0}\nProfane language detection: {1}",
 		"options": [
-			{ "id": "te_lang", "text": "Azure AI Language", "group": 0 },
-			{ "id": "te_cv", "text": "Azure AI Computer Vision", "group": 0 },
-			{ "id": "te_mod", "text": "Content Moderator", "group": 0 },
-			{ "id": "prof_lang", "text": "Azure AI Language", "group": 1 },
-			{ "id": "prof_cv", "text": "Azure AI Computer Vision", "group": 1 },
-			{ "id": "prof_mod", "text": "Content Moderator", "group": 1 }
+			{ "id": "svc_lang", "text": "Azure AI Language" },
+			{ "id": "svc_cv", "text": "Azure AI Computer Vision" },
+			{ "id": "svc_mod", "text": "Content Moderator" },
+			{ "id": "svc_custom", "text": "Azure AI Custom Vision" },
+			{ "id": "svc_doc", "text": "Azure AI Document Intelligence" }
 		],
 		"correct_answer": [
-			{ "slot": 0, "option_id": "te_cv" },
-			{ "slot": 1, "option_id": "prof_mod" }
+			{ "slot": 0, "option_id": "svc_cv" },
+			{ "slot": 1, "option_id": "svc_mod" }
 		],
-		"explanation": "1. Extract text: Computer Vision (Read API). 2. Detect profanity in *text*: Content Moderator (Text Moderation API). Note: Computer Vision can detect adult content in *images*, but for *text* profanity, Content Moderator is the specific service.",
+		"explanation": "1. **Text extraction**: **Azure AI Computer Vision** (Read API) is the standard service for general OCR (extracting text from images). (Document Intelligence is for structured docs like invoices). 2. **Profane language detection**: **Content Moderator** is the specific service designed for detecting profanity in text (Text Moderation API).",
 		"images": []
 	},
 	{
