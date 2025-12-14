@@ -3309,16 +3309,16 @@
     "id": "T3-Q44",
     "topic": "Topic 3",
     "type": "DragDrop",
-    "question_text": "Deploy LUIS (Language Understanding) container to a host computer. You have downloaded the image. Sequence 3 actions.",
+    "question_text": "You have a Language Understanding solution that runs in a Docker container.\n\nYou download the Language Understanding container image from the Microsoft Container Registry (MCR).\n\nYou need to deploy the container image to a host computer.\n\nWhich three actions should you perform in sequence? To answer, move the appropriate actions from the list of actions to the answer area and arrange them in the correct order.",
     "allow_randomize_options": false,
     "options": [
       {
-        "id": "act_move",
-        "text": "From the host computer, move the package file to the Docker input directory."
-      },
-      {
         "id": "act_export",
         "text": "From the Language Understanding portal, export the solution as a package file."
+      },
+      {
+        "id": "act_move",
+        "text": "From the host computer, move the package file to the Docker input directory."
       },
       {
         "id": "act_build",
@@ -3338,7 +3338,7 @@
       { "order": 2, "option_id": "act_move" },
       { "order": 3, "option_id": "act_run" }
     ],
-    "explanation": "1. Export the trained model as a GZIP package (for containers). 2. Move it to the host input directory. 3. Run the container, mounting the input directory so the container can load the model.",
+    "explanation": "1. First, export the trained LUIS model as a package file from the LUIS portal. 2. Then, move this package file to the Docker input directory on the host computer. 3. Finally, run the container and specify the input directory where the package file is located.",
     "images": []
   },
   {
