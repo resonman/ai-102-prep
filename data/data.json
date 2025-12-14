@@ -2296,7 +2296,7 @@
     "type": "Hotspot",
     "question_text": "You are developing an application that will use the Azure AI Vision client library. The application has the following code.\n\nFor each of the following statements, select Yes if the statement is true. Otherwise, select No.",
     "allow_randomize_options": false,
-    "code_snippet": "def analyze_image(local_image):\n    client = ComputerVisionClient(endpoint, CognitiveServicesCredentials(subscription_key))\n    \n    # Define features to extract\n    visual_features = [VisualFeatureTypes.tags, VisualFeatureTypes.description]\n    \n    # Open local file\n    with open(local_image, \"rb\") as image_stream:\n        results = client.analyze_image_in_stream(image_stream, visual_features)\n    \n    # Print results\n    for caption in results.description.captions:\n        print(\"Caption: {} (confidence: {})\".format(caption.text, caption.confidence))\n        \n    for tag in results.tags:\n        print(\"Tag: {} (confidence: {})\".format(tag.name, tag.confidence))",
+    "code_snippet": "def analyze_image(local_image):\n    with open(local_image, \"rb\") as image_stream:\n        image_analysis = client.analyze_image_in_stream(\n            image_stream,\n            visual_features=[\n                VisualFeatureTypes.Tags,\n                VisualFeatureTypes.Description\n            ]\n        )\n    for caption in image_analysis.description.captions:\n        print(f\"{caption.text} with confidence {caption.confidence}\")\n    for tag in image_analysis.tags:\n        print(f\"{tag.name} {tag.confidence}\")",
     "options": [
       { "id": "s1_yes", "text": "Yes", "group": 0 },
       { "id": "s1_no", "text": "No", "group": 0 },
@@ -2315,7 +2315,7 @@
       { "slot": 1, "option_id": "s2_yes" },
       { "slot": 2, "option_id": "s3_yes" }
     ],
-    "explanation": "1. **No**: The `visual_features` list contains `tags` and `description`. It does NOT contain `faces`. Therefore, face recognition is NOT performed.\n2. **Yes**: The code iterates through `results.tags` and prints both `tag.name` and `tag.confidence`.\n3. **Yes**: The code uses `with open(local_image, \"rb\")`, which specifically opens a file from the local file system in binary read mode.",
+    "explanation": "1. **No**: The `visual_features` list includes `Tags` and `Description`, but NOT `Faces`. 2. **Yes**: The code iterates through `image_analysis.tags` and prints `{tag.name} {tag.confidence}`. 3. **Yes**: The code uses `with open(local_image, \"rb\")`, which reads a file from the local file system.",
     "images": []
   },
 	{
