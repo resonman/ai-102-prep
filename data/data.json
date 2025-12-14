@@ -1990,9 +1990,9 @@
 		"id": "T2-Q24",
 		"topic": "Topic 2",
 		"type": "Hotspot",
-		"question_text": "You make a Face API request. Based on the JSON response shown below, complete the statements.",
+		"question_text": "You make a Face API request and receive the results shown in the following JSON.\n\nUse the drop-down menus to select the answer choice that completes each statement based on the information presented.",
 		"allow_randomize_options": false,
-		"code_snippet": "JSON Response Snippet:\n[{ \"faceId\": \"d14...\", \"faceRectangle\": { ... } },\n { \"faceId\": \"a3a...\", ... },\n { \"faceId\": \"454...\", ... }]",
+		"code_snippet": "[\n  {\n    \"faceId\": \"d14d131c...\",\n    \"faceRectangle\": { \"top\": 201, \"left\": 797, \"width\": 121, \"height\": 160 },\n    \"faceAttributes\": { \"qualityForRecognition\": \"high\" }\n  },\n  {\n    \"faceId\": \"a3a0f2ff...\",\n    \"faceRectangle\": { \"top\": 249, \"left\": 1167, \"width\": 103, \"height\": 159 },\n    \"faceAttributes\": { \"qualityForRecognition\": \"medium\" }\n  },\n  {\n    \"faceId\": \"45481ce8...\",\n    \"faceRectangle\": { \"top\": 191, \"left\": 497, \"width\": 85, \"height\": 178 },\n    \"faceAttributes\": { \"qualityForRecognition\": \"medium\" }\n  },\n  {\n    \"faceId\": \"eac17649...\",\n    \"faceRectangle\": { \"top\": 754, \"left\": 118, \"width\": 30, \"height\": 44 },\n    \"faceAttributes\": { \"qualityForRecognition\": \"low\" }\n  }\n]",
 		"options": [
 			{ "id": "api_detect", "text": "detects", "group": 0 },
 			{ "id": "api_find", "text": "finds similar", "group": 0 },
@@ -2011,7 +2011,7 @@
 			{ "slot": 0, "option_id": "api_detect" },
 			{ "slot": 1, "option_id": "pos_797" }
 		],
-		"explanation": "1. The JSON structure is a list of objects containing `faceId` and `faceRectangle`. This is the output of the **Detect** API. 2. To enroll a face, the image must be of sufficient quality. In the source screenshot (if you had it), usually the face with 'qualityForRecognition': 'High' or 'Medium' is selected. Based on standard dumps, the face at 'Left: 797, Top: 201' is the high-quality one suitable for enrollment.",
+		"explanation": "1. **Detects**: The output structure (a list of face objects with IDs and rectangles) is characteristic of the Face Detection API. 2. **797, 201**: For person enrollment, high-quality images are recommended. In the JSON, the first face (Left: 797, Top: 201) has `\"qualityForRecognition\": \"high\"`, making it the best candidate. The face at 118, 754 is 'low' quality.",
 		"images": []
 	},
 	{
