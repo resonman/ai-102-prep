@@ -2626,7 +2626,7 @@
   "correct_answer": ["A"],
   "explanation": "The Docker command is correctly formatted to run the sentiment analysis container with appropriate resource constraints: mapping port 5000, limiting to 10GB memory and 2 CPUs, and including required authentication parameters.",
   "images": []
-}
+},
 	{
 		"id": "T3-Q12",
 		"topic": "Topic 3",
