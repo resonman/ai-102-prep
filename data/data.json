@@ -2612,20 +2612,32 @@
 		"images": []
 	},
 	{
-  "id": "T3-Q11",
-  "topic": "Topic 3", 
-  "type": "CodeCompletion",
-  "question_text": "You need to run a Docker container for the Azure Cognitive Services Text Analytics sentiment analysis API with specific resource constraints.",
-  "code_snippet": "docker run --rm -it -p 5000:5000 --memory 10g --cpus 2 \\\n  mcr.microsoft.com/azure-cognitive-services/textanalytics/sentiment \\\n  Eula=accept \\\n  Billing={ENDPOINT_URI} \\\n  ApiKey={API_KEY}",
-  "options": [
-    {"id": "A", "text": "Correct command syntax"},
-    {"id": "B", "text": "Missing volume mounting"},
-    {"id": "C", "text": "Incorrect port mapping"}, 
-    {"id": "D", "text": "Wrong EULA parameter"}
-  ],
-  "correct_answer": ["A"],
-  "explanation": "The Docker command is correctly formatted to run the sentiment analysis container with appropriate resource constraints: mapping port 5000, limiting to 10GB memory and 2 CPUs, and including required authentication parameters.",
-  "images": []
+	"id": "T3-Q11",
+	"topic": "Topic 3",
+	"type": "Hotspot",
+	"question_text": "Run LUIS container command. Analyze statements.",
+	"allow_randomize_options": false,
+	"code_snippet": "docker run --rm -it -p 5000:5000 --memory 10g --cpus 2 \\\n  mcr.microsoft.com/azure-cognitive-services/textanalytics/sentiment \\\n  Eula=accept \\\n  Billing={ENDPOINT_URI} \\\n  ApiKey={API_KEY}",
+	"options": [
+		{ "id": "s1_yes", "text": "Yes", "group": 0 },
+		{ "id": "s1_no", "text": "No", "group": 0 },
+		{ "id": "s2_yes", "text": "Yes", "group": 1 },
+		{ "id": "s2_no", "text": "No", "group": 1 },
+		{ "id": "s3_yes", "text": "Yes", "group": 2 },
+		{ "id": "s3_no", "text": "No", "group": 2 }
+	],
+	"text_map": {
+		"0": "Going to http://localhost:5000/status will verify whether the API key is valid.",
+		"1": "The container logging provider will write log data to C:\\output.",
+		"2": "Going to http://localhost:5000/swagger will provide details to access documentation."
+	},
+	"correct_answer": [
+		{ "slot": 0, "option_id": "s1_yes" },
+		{ "slot": 1, "option_id": "s2_yes" },
+		{ "slot": 2, "option_id": "s3_yes" }
+	],
+	"explanation": "1. Yes: The `/status` endpoint validates the key/billing. 2. Yes: The mount `--mount ... src=C:\\output` binds the local folder for logs/output. 3. Yes: Cognitive Services containers provide Swagger docs at `/swagger`.",
+	"images": []
 },
 	{
 		"id": "T3-Q12",
