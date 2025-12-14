@@ -2367,25 +2367,29 @@
     "images": []
   },
 	{
-		"id": "T2-Q41",
-		"topic": "Topic 2",
-		"type": "Hotspot",
-		"question_text": "Video Indexer REST API. Add a custom brand 'Contoso' and logo. Configure exclusion. Complete the JSON body.",
-		"allow_randomize_options": false,
-		"code_snippet": "{\n  ...\n  \"enabled\": \"{0}\",\n  \"state\": \"{1}\",\n  ...\n}",
-		"options": [
-			{ "id": "en_true", "text": "true", "group": 0 },
-			{ "id": "en_false", "text": "false", "group": 0 },
-			{ "id": "st_ex", "text": "Excluded", "group": 1 },
-			{ "id": "st_in", "text": "Included", "group": 1 }
-		],
-		"correct_answer": [
-			{ "slot": 0, "option_id": "en_true" },
-			{ "slot": 1, "option_id": "st_ex" }
-		],
-		"explanation": "1. To use the brand, it must be enabled (`true`). 2. The question asks to 'configure an exclusion', so the state implies it should be treated as an exclusion list? Wait, let's check the provided answer image. The answer highlights `enabled: true` and `tags: false`? No, the options are `Excluded/Included` for state? Actually, usually you define a brand to be *detected*. If you want to *exclude* it from detection (maybe it's a common word?), you might set settings. But looking at the answer options in the PDF: Box 1: `true`. Box 2: `false` (under tags? No, it's a value for `useBuiltIn` or similar). Let's re-read the PDF OCR carefully. The OCR says Box 1 `enabled: true` (selected), Box 2 `useBuiltIn: false` (selected). Wait, the question asks to 'configure an exclusion'. If I create a brand, I usually set `enabled=true`. The PDF answer highlights `false` for something. Ah, the image shows `tags: false`? No, the second box selected is `false` for `useBuiltIn`? Or is it `tags`? Let's check the text. 'Box 2: false'. It's for `useBuiltIn`? If you add a *custom* brand, you might want to disable built-in brands or this specific setting. \n*Correction*: The question asks to 'configure an exclusion'. In Video Indexer Brands API, you can include or exclude brands. The JSON body usually has an `enabled` flag. The second slot in the image seems to point to `useBuiltIn` or `tags` or `state`? The OCR says `false` is selected. Let's assume the question implies disabling the *Built-In* brands list to focus on custom? Or setting the brand itself. Given the ambiguity without clear API docs in front, I will follow the PDF answer: **true, false**.",
-		"images": []
-	},
+  "id": "T2-Q41",
+  "topic": "Topic 2",
+  "type": "Hotspot",
+  "question_text": "You are configuring a custom brand in Azure Video Indexer. You need to add the brand 'Contoso' and configure it as an exclusion.\n\nComplete the JSON body for the API request by selecting the appropriate key and value:",
+  "allow_randomize_options": false,
+  "code_snippet": "{\n  \"referenceUrl\": \"https://www.contoso.com/Contoso\",\n  \"id\": 97974,\n  \"name\": \"Contoso\",\n  \"accountId\": \"ContosoAccountId\",\n  \"lastModifierUserName\": \"SampleUserName\",\n  \"created\": \"2023-04-25T14:59:52.7433333\",\n  \"lastModified\": \"2023-04-25T14:59:52.7433333\",\n  \"logoUrl\": \"https://www.contoso.com/Contoso/logo.png\",\n  \"enabled\": true,\n  {0}: {1}\n}",
+  "options": [
+    { "id": "key_enabled", "text": "\"enabled\"", "group": 0 },
+    { "id": "key_state", "text": "\"state\"", "group": 0 },
+    { "id": "key_tags", "text": "\"tags\"", "group": 0 },
+    { "id": "key_usebuiltin", "text": "\"useBuiltin\"", "group": 0 },
+    { "id": "val_excluded", "text": "\"Excluded\"", "group": 1 },
+    { "id": "val_included", "text": "\"Included\"", "group": 1 },
+    { "id": "val_false", "text": "false", "group": 1 },
+    { "id": "val_true", "text": "true", "group": 1 }
+  ],
+  "correct_answer": [
+    { "slot": 0, "option_id": "key_enabled" },
+    { "slot": 1, "option_id": "val_false" }
+  ],
+  "explanation": "1. **Key**: `\"state\"` - 这是配置品牌状态的字段。2. **Value**: `\"Excluded\"` - 表示将该品牌配置为排除项，即不希望检测到该品牌。",
+  "images": []
+},
 	{
 		"id": "T2-Q42",
 		"topic": "Topic 2",
