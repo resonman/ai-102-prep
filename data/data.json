@@ -3594,24 +3594,21 @@
     "id": "T3-Q54",
     "topic": "Topic 3",
     "type": "Hotspot",
-    "question_text": "Speech SDK app. Translate speech from French to German. Define source/output language. Complete the code.",
+    "question_text": "You are building an app by using the Speech SDK. The app will translate speech from French to German by using natural language processing.\n\nYou need to define the source language and the output language.\n\nHow should you complete the code? To answer, select the appropriate options in the.\n\nNOTE: Each correct selection is worth one point.",
     "allow_randomize_options": false,
-    "code_snippet": "speechTranslationConfig.{0} = \"fr-FR\";\nspeechTranslationConfig.{1}(\"de-DE\");",
+    "code_snippet": "var speechTranslationConfig = SpeechTranslationConfig.FromSubscription(speechKey, speechRegion);\nspeechTranslationConfig.{0} = \"fr-FR\";\nspeechTranslationConfig.{1}(\"de-DE\");",
     "options": [
-      { "id": "src_add", "text": "AddTargetLanguage", "group": 0 },
-      { "id": "src_recog", "text": "SpeechRecognitionLanguage", "group": 0 },
-      { "id": "src_synth", "text": "SpeechSynthesisLanguage", "group": 0 },
-      { "id": "src_voice", "text": "VoiceName", "group": 0 },
-      { "id": "tgt_add", "text": "AddTargetLanguage", "group": 1 },
-      { "id": "tgt_recog", "text": "SpeechRecognitionLanguage", "group": 1 },
-      { "id": "tgt_synth", "text": "SpeechSynthesisLanguage", "group": 1 },
-      { "id": "tgt_voice", "text": "VoiceName", "group": 1 }
+      { "id": "add_target", "text": "AddTargetLanguage" },
+      { "id": "recog_lang", "text": "SpeechRecognitionLanguage" },
+      { "id": "synth_lang", "text": "SpeechSynthesisLanguage" },
+      { "id": "target_langs", "text": "TargetLanguages" },
+      { "id": "voice_name", "text": "VoiceName" }
     ],
     "correct_answer": [
-      { "slot": 0, "option_id": "src_recog" },
-      { "slot": 1, "option_id": "tgt_add" }
+      { "slot": 0, "option_id": "recog_lang" },
+      { "slot": 1, "option_id": "add_target" }
     ],
-    "explanation": "1. Source language (Input speech) is defined by `SpeechRecognitionLanguage`. 2. Target translation language is added via `AddTargetLanguage`.",
+    "explanation": " Source language (French) is defined by `SpeechRecognitionLanguage` property. 2. Target translation language (German) is added via `AddTargetLanguage` method.",
     "images": []
   },
 
