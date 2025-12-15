@@ -3727,13 +3727,13 @@
       { "id": "conf_set", "text": "AudioConfig.SetProperty", "group": 0 },
       {
         "id": "conf_pcm",
-        "text": "AudioStreamFormat.GetWaveFormatPCM",
+        "text": "AudioStreamFormat",
         "group": 0
       },
       { "id": "conf_pull", "text": "PullAudioInputStream", "group": 0 },
       {
         "id": "conf_comp",
-        "text": "AudioStreamFormat.GetCompressedFormat",
+        "text": "GetWaveFormatPCM",
         "group": 0
       },
       { "id": "rec_key", "text": "KeywordRecognizer", "group": 1 },
@@ -3742,7 +3742,7 @@
       { "id": "rec_synth", "text": "SpeechSynthesizer", "group": 1 }
     ],
     "correct_answer": [
-      { "slot": 0, "option_id": "conf_comp" },
+      { "slot": 0, "option_id": "conf_pcm" },
       { "slot": 1, "option_id": "rec_speech" }
     ],
     "explanation": "1. For MP3 compressed audio, use `AudioStreamFormat.GetCompressedFormat` to create the appropriate audio format. 2. For speech-to-text conversion, use `SpeechRecognizer`.",
