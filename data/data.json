@@ -3399,7 +3399,7 @@
     "id": "T3-Q48",
     "topic": "Topic 3",
     "type": "Hotspot",
-    "question_text": "You are developing a text processing solution.\n\nYou have the function shown below.\n\nstatic void GetKeyWords(TextAnalyticsClient textAnalyticsClient, string text)\n{\n    var response = textAnalyticsClient.RecognizeEntities(text);\n    Console.WriteLine(\"Key words:\");\n    foreach (CategorizedEntity entity in response.Value)\n    {\n        Console.WriteLine($\"\\t${entity.Text}\");\n    }\n}\n\nFor the second argument, you call the function and specify the following string.\n\nOur tour of Paris included a visit to the Eiffel Tower\n\nFor each of the following statements, select Yes if the statement is true. Otherwise, select No.",
+    "question_text": "You are developing a text processing solution.\n\nYou have the function shown below.\n\nFor the second argument, you call the function and specify the following string.\n\nOur tour of Paris included a visit to the Eiffel Tower\n\nFor each of the following statements, select Yes if the statement is true. Otherwise, select No.",
     "allow_randomize_options": false,
     "code_snippet": "static void GetKeyWords(TextAnalyticsClient textAnalyticsClient, string text)\n{\n    var response = textAnalyticsClient.RecognizeEntities(text);\n    Console.WriteLine(\"Key words:\");\n    foreach (CategorizedEntity entity in response.Value)\n    {\n        Console.WriteLine($\"\\t${entity.Text}\");\n    }\n}",
     "options": [
