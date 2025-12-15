@@ -3660,10 +3660,10 @@
     "allow_randomize_options": true,
     "code_snippet": "static void MyFunction(TextAnalyticsClient textAnalyticsClient, string text)\n{\n    var response = textAnalyticsClient.ExtractKeyPhrases(text);\n    Console.WriteLine(\"Key phrases:\");\n    \n    foreach (string keyphrase in response.Value)\n    {\n        Console.WriteLine($\"{keyphrase}\");\n    }\n}",
     "options": [
-      { "id": "A", "text": "The quick\n   the lazy" },
-      { "id": "B", "text": "the quick brown fox jumps over the lazy dog" },
-      { "id": "C", "text": "jumps over the" },
-      { "id": "D", "text": "quick brown fox\n   lazy dog" }
+      { "id": "A", "text": "(The quick) (the lazy)" },
+      { "id": "B", "text": "(the quick brown fox jumps over the lazy dog)" },
+      { "id": "C", "text": "(jumps over the)" },
+      { "id": "D", "text": "(quick brown fox) (lazy dog)" }
     ],
     "correct_answer": ["D"],
     "explanation": "The correct output is 'quick brown fox'. Azure Text Analytics' ExtractKeyPhrases function extracts the main noun phrases from text, typically removing common stop words like 'the', 'over', 'jumps', etc. From the input 'the quick brown fox jumps over the lazy dog', the key phrases would be 'quick brown fox' and 'lazy dog', but since this is a single-choice question, the most prominent key phrase is 'quick brown fox'.",
@@ -3720,31 +3720,32 @@
     "id": "T3-Q59",
     "topic": "Topic 3",
     "type": "Hotspot",
-    "question_text": "Streaming Speech to Text with MP3 encoding. Complete code.",
+    "question_text": "You are developing a streaming Speech to Text solution that will use the Speech SDK and MP3 encoding.\n\nYou need to develop a method to convert speech to text for streaming MP3 data.\n\nHow should you complete the code? To answer, select the appropriate options in the answer area.\n\nNOTE: Each correct selection is worth one point.",
     "allow_randomize_options": false,
-    "code_snippet": "audio_format = {0}(...)\nstream = ...\nrecognizer = {1}(...)",
+    "code_snippet": "audio_format = speechsdk.audio.{0}(_stream_format=speechsdk.AudioStreamContainerFormat.MP3)\nstream = speechsdk.audio.PullAudioInputStream(stream_format=audio_format, pull_stream_callback=callback)\nspeech_config = speechsdk.speechConfig(\"18c51a87-3a69-47a8-aedc-a54745f708a1\", \"westus\")\naudio_config = speechsdk.audio.AudioConfig(stream=stream)\nrecognizer = speechsdk.{1}(speech_config=speech_config, audio_config=audio_config)\nresult = recognizer.recognize_once()\ntext = result.text",
     "options": [
       { "id": "conf_set", "text": "AudioConfig.SetProperty", "group": 0 },
-      {
-        "id": "conf_comp",
-        "text": "AudioStreamFormat.GetCompressedFormat",
-        "group": 0
-      },
       {
         "id": "conf_pcm",
         "text": "AudioStreamFormat.GetWaveFormatPCM",
         "group": 0
       },
       { "id": "conf_pull", "text": "PullAudioInputStream", "group": 0 },
+      {
+        "id": "conf_comp",
+        "text": "AudioStreamFormat.GetCompressedFormat",
+        "group": 0
+      },
       { "id": "rec_key", "text": "KeywordRecognizer", "group": 1 },
       { "id": "rec_spk", "text": "SpeakerRecognizer", "group": 1 },
-      { "id": "rec_speech", "text": "SpeechRecognizer", "group": 1 }
+      { "id": "rec_speech", "text": "SpeechRecognizer", "group": 1 },
+      { "id": "rec_synth", "text": "SpeechSynthesizer", "group": 1 }
     ],
     "correct_answer": [
       { "slot": 0, "option_id": "conf_comp" },
       { "slot": 1, "option_id": "rec_speech" }
     ],
-    "explanation": "1. MP3 is a compressed format, so use `AudioStreamFormat.GetCompressedFormat`. 2. Core class is `SpeechRecognizer`.",
+    "explanation": "1. For MP3 compressed audio, use `AudioStreamFormat.GetCompressedFormat` to create the appropriate audio format. 2. For speech-to-text conversion, use `SpeechRecognizer`.",
     "images": []
   },
   {
