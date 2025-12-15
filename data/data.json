@@ -3399,9 +3399,9 @@
     "id": "T3-Q48",
     "topic": "Topic 3",
     "type": "Hotspot",
-    "question_text": "Text processing solution. Code calls `RecognizeEntities` on \"Our tour of Paris included a visit to the Eiffel Tower\". Analyze statements.",
+    "question_text": "You are developing a text processing solution.\n\nYou have the function shown below.\n\nstatic void GetKeyWords(TextAnalyticsClient textAnalyticsClient, string text)\n{\n    var response = textAnalyticsClient.RecognizeEntities(text);\n    Console.WriteLine(\"Key words:\");\n    foreach (CategorizedEntity entity in response.Value)\n    {\n        Console.WriteLine($\"\\t${entity.Text}\");\n    }\n}\n\nFor the second argument, you call the function and specify the following string.\n\nOur tour of Paris included a visit to the Eiffel Tower\n\nFor each of the following statements, select Yes if the statement is true. Otherwise, select No.",
     "allow_randomize_options": false,
-    "code_snippet": "var response = textAnalyticsClient.RecognizeEntities(text);",
+    "code_snippet": "static void GetKeyWords(TextAnalyticsClient textAnalyticsClient, string text)\n{\n    var response = textAnalyticsClient.RecognizeEntities(text);\n    Console.WriteLine(\"Key words:\");\n    foreach (CategorizedEntity entity in response.Value)\n    {\n        Console.WriteLine($\"\\t${entity.Text}\");\n    }\n}",
     "options": [
       { "id": "s1_yes", "text": "Yes", "group": 0 },
       { "id": "s1_no", "text": "No", "group": 0 },
@@ -3420,7 +3420,7 @@
       { "slot": 1, "option_id": "s2_yes" },
       { "slot": 2, "option_id": "s3_no" }
     ],
-    "explanation": "1. No: `RecognizeEntities` (NER) extracts named entities (Location, Person, etc.). 'Our' and 'included' are common words, not named entities. 2. Yes: 'Paris' (Location) and 'Eiffel Tower' (Location/Landmark) are named entities. 3. No: The function is `RecognizeEntities`, NOT `ExtractKeyPhrases`. It outputs entities, not key phrases.",
+    "explanation": "1. No: `RecognizeEntities` extracts named entities (Location, Person, Organization, etc.). 'Our' and 'included' are common words, not named entities. 2. Yes: 'Paris' (Location) and 'Eiffel Tower' (Location/Landmark) are named entities that will be extracted. 3. No: The function is using `RecognizeEntities`, NOT `ExtractKeyPhrases`. It outputs entities, not key phrases.",
     "images": []
   },
   {
