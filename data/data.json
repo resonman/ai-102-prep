@@ -3868,9 +3868,9 @@
     "id": "T3-Q66",
     "topic": "Topic 3",
     "type": "Hotspot",
-    "question_text": "You are developing a text processing solution.\n\nA function processes text by recognizing entities.\n\nWhen called with the string 'Our tour of Paris included a visit to the Eiffel Tower', analyze the following statements about its output.",
+    "question_text": "You are developing a text processing solution.\n\nYou have the function shown below.",
     "allow_randomize_options": false,
-    "code_snippet": "response = textAnalyticsClient.recognize_entities(documents=[text])[0]",
+    "code_snippet": "def get_key_words(textAnalyticsClient, text):\n    response = textAnalyticsClient.recognize_entities(documents = [text])[0]\n    print(\"Key Words:\")\n    for entity in response.entities:\n        print(\"\\t\", entity.text)",
     "options": [
       { "id": "s1_yes", "text": "Yes", "group": 0 },
       { "id": "s1_no", "text": "No", "group": 0 },
@@ -3889,7 +3889,7 @@
       { "slot": 1, "option_id": "s2_yes" },
       { "slot": 2, "option_id": "s3_no" }
     ],
-    "explanation": "1. No: 'Our' and 'included' are not Named Entities (they are common words). 2. Yes: 'Paris' (Location) and 'Eiffel Tower' (Location, returned as a single entity text) are recognized entities. 3. No: The function calls `recognize_entities` to extract named entities, not `extract_key_phrases` for key phrases.",
+    "explanation": "1. No: 'Our' and 'included' are not Named Entities (they are common words/articles and a verb). 2. Yes: 'Paris' (Location) and 'Eiffel Tower' (Location, likely recognized as a single entity) are recognized entities. Note: 'Eiffel' and 'Tower' are part of the entity 'Eiffel Tower', not separate words. 3. No: The function calls `recognize_entities`, which extracts named entities, not `extract_key_phrases`. 'Key phrases' and 'key words' are different outputs in the Azure AI Language service.",
     "images": []
   },
   {
@@ -3924,20 +3924,27 @@
     "id": "T3-Q68",
     "topic": "Topic 3",
     "type": "Hotspot",
-    "question_text": "Speech-to-text. Method `append_to_transcript_file`. Transcripts in EN, FR, ES, DE. Complete code.",
+    "question_text": "You are developing a service that records lectures given in English (United Kingdom).\n\nYou have a method named append_to_transcript_file that takes translated text and a language identifier.\n\nYou need to develop code that will provide transcripts of the lectures to attendees in their respective language. The supported languages are English, French, Spanish, and German.\n\nHow should you complete the code? To answer, select the appropriate options in the answer area.\nNOTE: Each correct selection is worth one point.",
     "allow_randomize_options": false,
-    "code_snippet": "translation_config = speechsdk.translation.SpeechTranslationConfig(...)\n...\ntranslation_config.speech_recognition_language = \"en-GB\"\n...\ntranslation_config.{0}({1})",
+    "code_snippet": "speech_key = os.environ.get('SPEECH_SUBSCRIPTION_KEY')\nservice_region = os.environ.get('SPEECH_SERVICE_REGION')\n\ndef translate_speech():\n    translation_config = speechsdk.translation.SpeechTranslationConfig(\n        subscription=speech_key,\n        region=service_region\n    )\n    translation_config.speech_recognition_language = \"en-GB\"\n    \n    # 第一个填空：定义目标语言列表\n    languages = {0}\n    for language in languages:\n        translation_config.add_target_language(language)\n    \n    audio_config = speechsdk.audio.AudioConfig(use_default_microphone=True)\n    \n    # 第二个填空：创建正确的识别器\n    recognizer = speechsdk.translation.{1}(\n        translation_config=translation_config,\n        audio_config=audio_config\n    )\n    \n    result = recognizer.recognize_once()\n    if result.reason == speechsdk.ResultReason.TranslatedSpeech:\n        append_to_transcript_file(result.text, \"en\")\n        for language in result.translations:\n            append_to_transcript_file(result.translations[language], language)",
     "options": [
-      { "id": "m_add", "text": "add_target_language", "group": 0 },
-      { "id": "m_set", "text": "set_target_language", "group": 0 },
-      { "id": "val_codes", "text": "[\"fr\", \"de\", \"es\"]", "group": 1 },
-      { "id": "val_code_1", "text": "\"fr\"", "group": 1 }
+      { "id": "lang_opt2", "text": "['fr', 'de', 'es']", "group": 0 },
+      {
+        "id": "lang_opt3",
+        "text": "['French', 'Spanish', 'German']",
+        "group": 0
+      },
+      { "id": "lang_opt4", "text": "['languages']", "group": 0 },
+      { "id": "rec_opt1", "text": "IntentRecognizer", "group": 1 },
+      { "id": "rec_opt2", "text": "SpeakerRecognizer", "group": 1 },
+      { "id": "rec_opt3", "text": "SpeechSynthesizer", "group": 1 },
+      { "id": "rec_opt4", "text": "TranslationRecognizer", "group": 1 }
     ],
     "correct_answer": [
-      { "slot": 0, "option_id": "m_add" },
-      { "slot": 1, "option_id": "val_code_1" }
+      { "slot": 0, "option_id": "lang_opt2" },
+      { "slot": 1, "option_id": "rec_opt4" }
     ],
-    "explanation": "1. Method is `add_target_language`. 2. The method usually takes a single string. To add multiple, you call it multiple times or iterate. The snippet shows a single call structure inside a potential loop or just adding one. Based on standard options, selecting a single code string is the syntactic match.",
+    "explanation": "1. 第一个填空 (`{0}`) 应选择 **`['fr', 'de', 'es']`**。这是需要翻译成的目标语言代码列表（法语、德语、西班牙语）。英语原文会从 `result.text` 直接获取，因此列表不应包含 'en' 或 'en-GB'。\n2. 第二个填空 (`{1}`) 应选择 **`TranslationRecognizer`**。这是 Azure Speech SDK 中专门用于语音翻译的识别器，它能接收语音输入并输出翻译结果。其他识别器（如 IntentRecognizer、SpeakerRecognizer、SpeechSynthesizer）分别用于意图识别、说话人识别和语音合成，不符合翻译任务的需求。",
     "images": []
   },
   {
