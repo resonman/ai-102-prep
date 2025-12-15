@@ -3868,7 +3868,7 @@
     "id": "T3-Q66",
     "topic": "Topic 3",
     "type": "Hotspot",
-    "question_text": "You are developing a text processing solution.\n\nYou have the function shown below.You call the method by using the following code.\nget_key_phrases(text_analytics_client, \"the cat sat on the mat\")\nFor each of the following statements, select Yes if the statement is true. Otherwise, select No.\nNOTE: Each correct selection is worth one point.",
+    "question_text": "You are developing a text processing solution.\n\nYou have the function shown below.You call the method by using the following code.",
     "allow_randomize_options": false,
     "code_snippet": "def get_key_words(textAnalyticsClient, text):\n    response = textAnalyticsClient.recognize_entities(documents = [text])[0]\n    print(\"Key Words:\")\n    for entity in response.entities:\n        print(\"\\t\", entity.text)",
     "options": [
@@ -3896,7 +3896,7 @@
     "id": "T3-Q67",
     "topic": "Topic 3",
     "type": "Hotspot",
-    "question_text": "You are developing a text processing solution.\n\nYou develop the following method.",
+    "question_text": "You are developing a text processing solution.\nYou develop the following method.\nget_key_phrases(text_analytics_client, \"the cat sat on the mat\")\nFor each of the following statements, select Yes if the statement is true. Otherwise, select No.\nNOTE: Each correct selection is worth one point.",
     "allow_randomize_options": false,
     "code_snippet": "def get_key_phrases(text_analytics_client, text):\n    response = text_analytics_client.extract_key_phrases(text, language=\"en\")\n    print('Key phrases:')\n    for keyphrase in response.key_phrases:\n        print(f'\\t{keyphrase} ')",
     "options": [
