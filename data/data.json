@@ -3656,8 +3656,9 @@
     "id": "T3-Q56",
     "topic": "Topic 3",
     "type": "SingleChoice",
-    "question_text": "C# function `GetKeywords`. Code: `ExtractKeyPhrases`. Text: \"The quick brown fox jumps over the lazy dog\". What output?",
+    "question_text": "You have the following C# function.\n\nYou call the function by using the following code.\n\nMyFunction(textAnalyticsClient, \"the quick brown fox jumps over the lazy dog\");\n\nWhich output will you receive?",
     "allow_randomize_options": true,
+    "code_snippet": "static void MyFunction(TextAnalyticsClient textAnalyticsClient, string text)\n{\n    var response = textAnalyticsClient.ExtractKeyPhrases(text);\n    Console.WriteLine(\"Key phrases:\");\n    \n    foreach (string keyphrase in response.Value)\n    {\n        Console.WriteLine($\"{keyphrase}\");\n    }\n}",
     "options": [
       { "id": "A", "text": "The quick" },
       { "id": "B", "text": "The lazy" },
@@ -3666,7 +3667,7 @@
       { "id": "E", "text": "lazy dog" }
     ],
     "correct_answer": ["D"],
-    "explanation": "Key Phrase Extraction removes stop words ('the', 'over') and identifies main noun phrases. 'quick brown fox' and 'lazy dog' are the key phrases. Option D is one of them. (Note: Output typically includes both, but single choice usually picks the most prominent one).",
+    "explanation": "The correct output is 'quick brown fox'. Azure Text Analytics' ExtractKeyPhrases function extracts the main noun phrases from text, typically removing common stop words like 'the', 'over', 'jumps', etc. From the input 'the quick brown fox jumps over the lazy dog', the key phrases would be 'quick brown fox' and 'lazy dog', but since this is a single-choice question, the most prominent key phrase is 'quick brown fox'.",
     "images": []
   },
   {
