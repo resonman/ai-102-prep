@@ -3868,7 +3868,7 @@
     "id": "T3-Q66",
     "topic": "Topic 3",
     "type": "Hotspot",
-    "question_text": "Text processing solution. Function `get_key_words`. Code calls `recognize_entities` on \"Our tour of Paris included a visit to the Eiffel Tower\". Analyze statements.",
+    "question_text": "You are developing a text processing solution.\n\nA function processes text by recognizing entities.\n\nWhen called with the string 'Our tour of Paris included a visit to the Eiffel Tower', analyze the following statements about its output.",
     "allow_randomize_options": false,
     "code_snippet": "response = textAnalyticsClient.recognize_entities(documents=[text])[0]",
     "options": [
@@ -3880,25 +3880,25 @@
       { "id": "s3_no", "text": "No", "group": 2 }
     ],
     "text_map": {
-      "0": "The output will include: our and included.",
-      "1": "The output will include: Paris, Eiffel, and Tower.",
-      "2": "The function will output all key phrases."
+      "0": "The output will include the following words: our and included.",
+      "1": "The output will include the following words: Paris, Eiffel, and Tower.",
+      "2": "The function will output all the key phrases from the input string to the console."
     },
     "correct_answer": [
       { "slot": 0, "option_id": "s1_no" },
       { "slot": 1, "option_id": "s2_yes" },
       { "slot": 2, "option_id": "s3_no" }
     ],
-    "explanation": "1. No: 'Our'/'included' are not Named Entities. 2. Yes: 'Paris' and 'Eiffel Tower' are entities (Location). 3. No: The function calls `recognize_entities`, NOT `extract_key_phrases`.",
+    "explanation": "1. No: 'Our' and 'included' are not Named Entities (they are common words). 2. Yes: 'Paris' (Location) and 'Eiffel Tower' (Location, returned as a single entity text) are recognized entities. 3. No: The function calls `recognize_entities` to extract named entities, not `extract_key_phrases` for key phrases.",
     "images": []
   },
   {
     "id": "T3-Q67",
     "topic": "Topic 3",
     "type": "Hotspot",
-    "question_text": "Text processing. Function `get_key_phrases`. Code calls `extract_key_phrases` on \"the cat sat on the mat\". Analyze statements.",
+    "question_text": "You are developing a text processing solution.\n\nYou develop the following method.",
     "allow_randomize_options": false,
-    "code_snippet": "response = text_analytics_client.extract_key_phrases(...)",
+    "code_snippet": "def get_key_phrases(text_analytics_client, text):\n    response = text_analytics_client.extract_key_phrases(text, language=\"en\")\n    print('Key phrases:')\n    for keyphrase in response.key_phrases:\n        print(f'\\t{keyphrase} ')",
     "options": [
       { "id": "s1_yes", "text": "Yes", "group": 0 },
       { "id": "s1_no", "text": "No", "group": 0 },
@@ -3908,16 +3908,16 @@
       { "id": "s3_no", "text": "No", "group": 2 }
     ],
     "text_map": {
-      "0": "The call will output key phrases to console.",
-      "1": "The output will contain: the, cat, sat, on, and mat.",
-      "2": "The output will contain the confidence level."
+      "0": "The call will output key phrases from the input string to the console.",
+      "1": "The output will contain the following words: the, cat, sat, on, and mat.",
+      "2": "The output will contain the confidence level for key phrases."
     },
     "correct_answer": [
       { "slot": 0, "option_id": "s1_yes" },
       { "slot": 1, "option_id": "s2_no" },
       { "slot": 2, "option_id": "s3_no" }
     ],
-    "explanation": "1. Yes. 2. No: Stop words (the, on) are removed. 'Sat' (verb) usually removed. Output is likely just 'cat', 'mat'. 3. No: Key Phrase Extraction API v3 does not return confidence scores.",
+    "explanation": "1. Yes: The function prints each key phrase to the console.\n2. No: Key phrase extraction removes stop words (like 'the', 'on') and typically returns only nouns or noun phrases. The output likely contains 'cat' and 'mat' only.\n3. No: The Key Phrase Extraction API does not return confidence scores for the extracted phrases.",
     "images": []
   },
   {
