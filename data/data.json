@@ -4846,7 +4846,7 @@
     "id": "T4-Q29",
     "topic": "Topic 4",
     "type": "SingleChoice",
-    "question_text": "Analyze files using Document Intelligence S0 tier. File1 (PDF 800MB), File2 (JPG 1KB), File3 (TIFF 5MB). Which files?",
+    "question_text": "You have an Azure subscription that contains an Azure AI Document Intelligence resource named DI1. DI1 uses the Standard S0 pricing tier.\n\nYou have the files shown in the following table.\n\n| Name | Size | Description |\n|------|------|-------------|\n| File1.pdf | 800 MB | Contains scanned images |\n| File2.jpg | 1 KB | An image that has 25 x 25 pixels |\n| File3.tiff | 5 MB | An image that has 5000 x 5000 pixels |\n\nWhich files can you analyze by using DI1?",
     "allow_randomize_options": true,
     "options": [
       { "id": "A", "text": "File 1.pdf only" },
@@ -4856,7 +4856,7 @@
       { "id": "E", "text": "File1.pdf, File2.jpg, and File3.tiff" }
     ],
     "correct_answer": ["B"],
-    "explanation": "File 1 (800MB) exceeds the 500MB limit. File 3 (TIFF, 5MB) is technically a supported format, but the exam answer key marks 'File2 only'. This might be due to specific exam context (e.g. minimum dimensions for TIFF or specific version support). We stick to the provided answer **B**.",
+    "explanation": "File1.pdf (800MB) exceeds the 500MB size limit for the S0 tier. File3.tiff (5MB) is within the size limit, but the exam answer key indicates only File2.jpg is acceptable. This may be due to specific constraints related to TIFF file dimensions or other limitations in the exam context.",
     "images": []
   },
   {
