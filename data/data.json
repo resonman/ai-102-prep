@@ -4220,7 +4220,7 @@
 		"id": "T4-Q1",
 		"topic": "Topic 4",
 		"type": "Hotspot",
-		"question_text": "You are developing a text processing solution.\n\nYou develop the following method.\n\nstatic void GetKeyPhrases(TextAnalyticsClient textAnalyticsClient, string text)\n{\n    var response = textAnalyticsClient.ExtractKeyPhrases(text);\n    Console.WriteLine(\"Key phrases:\");\n    foreach (string keyphrase in response.Value)\n    {\n        Console.WriteLine($\"\\t{keyphrase}\");\n    }\n}\n\nYou call the method by using the following code.\n\nGetKeyPhrases(textAnalyticsClient, \"the cat sat on the mat\");\n\nFor each of the following statements, select Yes if the statement is true. Otherwise, select No.\n\nNOTE: Each correct selection is worth one point.",
+		"question_text": "You are developing a text processing solution.\n\nYou develop the following method.\n\nYou call the method by using the following code.\n\nGetKeyPhrases(textAnalyticsClient, \"the cat sat on the mat\");\n\nFor each of the following statements, select Yes if the statement is true. Otherwise, select No.\n\nNOTE: Each correct selection is worth one point.",
 		"allow_randomize_options": false,
 		"code_snippet": "static void GetKeyPhrases(TextAnalyticsClient textAnalyticsClient, string text)\n{\n    var response = textAnalyticsClient.ExtractKeyPhrases(text);\n    Console.WriteLine(\"Key phrases:\");\n    foreach (string keyphrase in response.Value)\n    {\n        Console.WriteLine($\"\\t{keyphrase}\");\n    }\n}",
 		"options": [
@@ -4340,9 +4340,9 @@
 		"id": "T4-Q6",
 		"topic": "Topic 4",
 		"type": "Hotspot",
-		"question_text": "Building Cognitive Search custom skill. Analyze schema definition.",
+		"question_text": "You are building an Azure Cognitive Search custom skill.\n\nYou have the following custom skill schema definition.\n\nFor each of the following statements, select Yes if the statement is true. Otherwise, select No.\n\nNOTE: Each correct selection is worth one point.",
 		"allow_randomize_options": false,
-		"code_snippet": "\"inputs\": [ { \"name\": \"companyName\", \"source\": \"/document/organizations/*\" } ],\n\"outputs\": [ { \"name\": \"companyDescription\" ... } ]",
+		"code_snippet": "{\n    \"@odata.type\": \"#Microsoft.Skills.Custom.WebApiSkill\",\n    \"description\": \"My custom skill description\",\n    \"uri\": \"https://contoso-webskill.azurewebsites.net/api/process\",\n    \"context\": \"/document/organizations/*\",\n    \"inputs\": [\n        {\n            \"name\": \"companyName\",\n            \"source\": \"/document/organizations/*\"\n        }\n    ],\n    \"outputs\": [\n        {\n            \"name\": \"companyDescription\",\n        }\n    ]\n}",
 		"options": [
 			{ "id": "s1_yes", "text": "Yes", "group": 0 },
 			{ "id": "s1_no", "text": "No", "group": 0 },
@@ -4361,7 +4361,7 @@
 			{ "slot": 1, "option_id": "s2_yes" },
 			{ "slot": 2, "option_id": "s3_no" }
 		],
-		"explanation": "1. Yes: Outputs map to index fields. 2. Yes: `@odata.type`: `#Microsoft.Skills.Custom.WebApiSkill` confirms it calls a Web API. 3. No: The source `.../organizations/*` with the asterisk means it runs for **each** item in the organizations collection, not just the first.",
+		"explanation": "1. Yes: The 'companyDescription' output is defined and will be available for indexing. 2. Yes: The @odata.type is '#Microsoft.Skills.Custom.WebApiSkill', which means it calls a web API. 3. No: The context is '/document/organizations/*' with an asterisk, which means the enrichment step is called for each organization, not just the first one.",
 		"images": []
 	},
 	{
