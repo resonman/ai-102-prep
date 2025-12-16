@@ -4216,14 +4216,13 @@
 		"explanation": "**EntityRecognitionSkill** is the built-in skill used to identify entities like People, Organizations, and **Locations** (geographic).",
 		"images": []
 	},
-
 	{
 		"id": "T4-Q1",
 		"topic": "Topic 4",
 		"type": "Hotspot",
-		"question_text": "Text processing solution. Analyze code: `GetKeyPhrases(textAnalyticsClient, \"the cat sat on the mat\");`",
+		"question_text": "You are developing a text processing solution.\n\nYou develop the following method.\n\nstatic void GetKeyPhrases(TextAnalyticsClient textAnalyticsClient, string text)\n{\n    var response = textAnalyticsClient.ExtractKeyPhrases(text);\n    Console.WriteLine(\"Key phrases:\");\n    foreach (string keyphrase in response.Value)\n    {\n        Console.WriteLine($\"\\t{keyphrase}\");\n    }\n}\n\nYou call the method by using the following code.\n\nGetKeyPhrases(textAnalyticsClient, \"the cat sat on the mat\");\n\nFor each of the following statements, select Yes if the statement is true. Otherwise, select No.\n\nNOTE: Each correct selection is worth one point.",
 		"allow_randomize_options": false,
-		"code_snippet": "Statements about Key Phrase Extraction behavior:",
+		"code_snippet": "static void GetKeyPhrases(TextAnalyticsClient textAnalyticsClient, string text)\n{\n    var response = textAnalyticsClient.ExtractKeyPhrases(text);\n    Console.WriteLine(\"Key phrases:\");\n    foreach (string keyphrase in response.Value)\n    {\n        Console.WriteLine($\"\\t{keyphrase}\");\n    }\n}",
 		"options": [
 			{ "id": "s1_yes", "text": "Yes", "group": 0 },
 			{ "id": "s1_no", "text": "No", "group": 0 },
@@ -4242,7 +4241,7 @@
 			{ "slot": 1, "option_id": "s2_no" },
 			{ "slot": 2, "option_id": "s3_no" }
 		],
-		"explanation": "1. Yes: The method extracts and prints key phrases. 2. No: Key Phrase Extraction removes stop words like 'the', 'on'. It extracts main concepts (e.g., 'cat', 'mat'). 3. No: The Key Phrase Extraction API (v3) does *not* return confidence scores, only the list of strings.",
+		"explanation": "1. Yes: The method extracts and prints key phrases. 2. No: Key Phrase Extraction removes stop words like 'the', 'on' and 'sat'. It extracts main concepts (e.g., 'cat', 'mat'). 3. No: The Key Phrase Extraction API (v3) does *not* return confidence scores, only the list of key phrase strings.",
 		"images": []
 	},
 	{
