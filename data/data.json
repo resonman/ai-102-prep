@@ -4818,9 +4818,9 @@
       { "id": "layout", "text": "Prebuilt layout" }
     ],
     "correct_answer": [
-      { "slot": 0, "option_id": "template_1" },
-      { "slot": 1, "option_id": "template_2" },
-      { "slot": 2, "option_id": "neural_3" }
+      { "slot": 0, "option_id": "template" },
+      { "slot": 1, "option_id": "template" },
+      { "slot": 2, "option_id": "neural" }
     ],
     "explanation": "1 & 2. Forms with *fixed layouts* (like structured applications or authorization forms) are best served by **Custom Template** models (cheaper, faster training). 3. Unstructured or varying layout forms (surveys) require **Custom Neural** models to understand the context.",
     "images": []
