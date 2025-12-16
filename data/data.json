@@ -4554,9 +4554,9 @@
 		"id": "T4-Q16",
 		"topic": "Topic 4",
 		"type": "Hotspot",
-		"question_text": "Provision Azure Cognitive Services resource using C# SDK. Create a Standard tier resource that converts scanned receipts into text.",
+		"question_text": "HOTSPOT\nYou plan to provision Azure Cognitive Services resources by using the following method.\n\nYou need to create a Standard tier resource that will convert scanned receipts into text.\n\nHow should you call the method? To answer, select the appropriate options in the answer area.\n\nNOTE: Each correct selection is worth one point.",
 		"allow_randomize_options": false,
-		"code_snippet": "provision_resource(\"res1\",\n  {0},\n  {1});",
+		"code_snippet": "static void provision_resource(CognitiveServicesManagementClient client, string name, string kind, string tier, string location) {\n    CognitiveServicesAccount parameters = new CognitiveServicesAccount(null, null, kind, location, name,\n        new CognitiveServicesAccountProperties(), new Sku(tier));\n    result = client.Accounts.Create(resource_group_name, tier, parameters);\n}",
 		"options": [
 			{ "id": "kind_cv", "text": "ComputerVision", "group": 0 },
 			{ "id": "kind_custom", "text": "CustomVision.Prediction", "group": 0 },
@@ -4571,7 +4571,7 @@
 			{ "slot": 0, "option_id": "kind_form" },
 			{ "slot": 1, "option_id": "sku_s0_east" }
 		],
-		"explanation": "1. To convert receipts, use **FormRecognizer** (Document Intelligence). 2. The Standard tier SKU code is **S0** (not S1). The region code is `eastus`.",
+		"explanation": "1. To convert scanned receipts into text, you need Form Recognizer (Document Intelligence) service, so use **FormRecognizer**. 2. Standard tier is represented by SKU **S0** (not S1), and the correct region code is **eastus**.",
 		"images": []
 	},
 	{
