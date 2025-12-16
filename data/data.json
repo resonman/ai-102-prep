@@ -4885,7 +4885,7 @@
     "id": "T4-Q31",
     "topic": "Topic 4",
     "type": "DragDrop",
-    "question_text": "Create and train custom model in Document Intelligence Studio. Sequence 4 actions.",
+    "question_text": "DRAG DROP\n\nYou have an Azure subscription that contains a storage account named sa1 and an Azure AI Document Intelligence resource named D11.\n\nYou need to create and train a custom model in D11 by using Document Intelligence Studio. The solution must minimize development effort.\n\nWhich four actions should you perform in sequence? To answer, move the appropriate actions from the list of actions to the answer area and arrange them in the correct order.",
     "allow_randomize_options": false,
     "options": [
       { "id": "act_upload", "text": "Upload five sample documents." },
@@ -4914,7 +4914,7 @@
     "id": "T4-Q32",
     "topic": "Topic 4",
     "type": "DragDrop",
-    "question_text": "Build custom model 'Model1' using SDK (C# logic implicitly). Sequence 4 actions.",
+    "question_text": "DRAG DROP\n\nYou have an Azure subscription that contains an Azure AI Document Intelligence resource named DI1 and a storage account named sa1. The sa1 account contains a blob container named blob1 and an Azure Files share named share1.\n\nYou plan to build a custom model named Model1 in DI1.\n\nYou create sample forms and JSON files for Model1.\n\nYou need to train Model1 and retrieve the ID of the model.\n\nWhich four actions should you perform in sequence? To answer, move the appropriate actions from the list of actions to the answer area and arrange them in the correct order.\n\nNOTE: More than one order of answer choices is correct. You will receive credit for any of the correct orders you select.",
     "allow_randomize_options": false,
     "options": [
       { "id": "act_rest_info", "text": "Call the Get info REST API function." },
@@ -4933,7 +4933,7 @@
       },
       {
         "id": "act_sas",
-        "text": "Create a shared access signature (SAS) URL for blob1."
+        "text": "Create a shared signature (SAS) URL for blob1."
       },
       { "id": "act_rest_get", "text": "Call the Get model REST API function." }
     ],
@@ -4943,7 +4943,7 @@
       { "order": 3, "option_id": "act_rest_build" },
       { "order": 4, "option_id": "act_rest_get" }
     ],
-    "explanation": "1. Upload training data to Blob Container. 2. Create SAS URL (so the service can access the data). 3. Call 'Build Model' API (pass the SAS URL). 4. Call 'Get Model' API to check status/get result ID.",
+    "explanation": "1. Upload training data to Blob 2. Create SAS URL (so the service can access the data). 3. Call 'Build Model' API (pass the SAS URL). 4. Call 'Get Model' API to check status/get result ID.",
     "images": []
   },
   {
