@@ -4037,10 +4037,10 @@
 			{ "id": "rec_trans", "text": "TranslationRecognizer", "group": 1 }
 		],
 		"correct_answer": [
-			{ "slot": 0, "option_id": "opt_all" },
+			{ "slot": 0, "option_id": "opt_part" },
 			{ "slot": 1, "option_id": "rec_trans" }
 		],
-		"explanation": "1. We need to define the full list of languages to iterate over, so **[\"en\",\"fr\",\"de\",\"es\"]** is the correct choice. 2. **TranslationRecognizer** is used for translation.",
+		"explanation": "1. We need to define the full list of languages except for English to iterate over, so **[\"fr\",\"de\",\"es\"]** is the correct choice. 2. **TranslationRecognizer** is used for translation.",
 		"images": []
 	},
 	{
