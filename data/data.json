@@ -4580,7 +4580,6 @@
     "type": "Hotspot",
     "question_text": "You have an app named App1 that uses Azure AI Document Intelligence to analyze medical records and provide pharmaceutical dosage recommendations for patients.\n\nYou send a request to App1 and receive the following response.\n\nFor each of the following statements, select Yes if the statement is true. Otherwise, select No.\n\nNOTE: Each correct selection is worth one point.",
     "allow_randomize_options": false,
-    "code_snippet": "{\n  \"status\": \"succeeded\",\n  \"createdDateTime\": \"2023-09-14T21:01:02Z\",\n  \"lastUpdatedDateTime\": \"2023-09-14T21:01:03Z\",\n  \"analyzeResult\": {\n    \"apiVersion\": \"2023-07-31\",\n    \"modelId\": \"prebuilt-healthInsuranceCard.us\",\n    \"stringIndexType\": \"utf16CodeUnit\",\n    \"content\": \"Blood Pressure 118/72\",\n    \"pages\": [\n      {\n        \"words\": [\n          {\n            \"content\": \"Blood\",\n            \"confidence\": 0.766,\n            \"span\": {\n              \"offset\": 0,\n              \"length\": 5\n            }\n          },\n          {\n            \"content\": \"Pressure\",\n            \"confidence\": 0.716,\n            \"span\": {\n              \"offset\": 6,\n              \"length\": 8\n            }\n          },\n          {\n            \"content\": \"118/72\",\n            \"confidence\": 0.761,\n            \"span\": {\n              \"offset\": 15,\n              \"length\": 6\n            }\n          }\n        ]\n      }\n    ]\n  }\n}",
     "options": [
       { "id": "s1_yes", "text": "Yes", "group": 0 },
       { "id": "s1_no", "text": "No", "group": 0 },
@@ -4600,7 +4599,7 @@
       { "slot": 2, "option_id": "s3_no" }
     ],
     "explanation": "1. No: The response shows `prebuilt-healthInsuranceCard.us` was used. The requirement is to analyze medical records and provide pharmaceutical dosage recommendations, but the insurance card model is not designed for prescription or dosage analysis. 2. Yes: The word confidences are 0.766, 0.716, and 0.761, all greater than 0.7 (70%). 3. No: The response only shows word-level confidence scores, not form element confidence scores. There are no form elements (like fields or tables) in this response to evaluate.",
-    "images": []
+    "images": ["T4-Q17.jpg"]
   },
   {
     "id": "T4-Q18",
