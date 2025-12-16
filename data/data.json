@@ -4187,16 +4187,17 @@
 		"id": "T3-Q80",
 		"topic": "Topic 3",
 		"type": "SingleChoice",
-		"question_text": "Python function `my_function`. Calls `extract_key_phrases` on \"the quick brown fox jumps over the lazy dog\". Following 'Key phrases', what output?",
+		"question_text": "You have the following Python function.\n\nYou call the function by using the following code.\n\nmy_function(text_analytics_client, \"the quick brown fox jumps over the lazy dog\")\n\nFollowing 'Key phrases', what output will you receive?",
 		"allow_randomize_options": true,
+		"code_snippet": "def my_function(textAnalyticsClient, text):\n    response = textAnalyticsClient.extract_key_phrases(documents = [text])[0]\n    print(\"Key Phrases:\")\n    for phrase in response.key_phrases:\n        print(phrase)",
 		"options": [
 			{ "id": "A", "text": "The quick - The lazy" },
 			{ "id": "B", "text": "jumps over the" },
-			{ "id": "C", "text": "quick brown fox - lazy dog" },
+			{ "id": "C", "text": "quick brown fox\nlazy dog" },
 			{ "id": "D", "text": "the quick brown fox jumps over the lazy dog" }
 		],
 		"correct_answer": ["C"],
-		"explanation": "Key phrase extraction identifies the main subjects: **'quick brown fox'** and **'lazy dog'**.",
+		"explanation": "The extract_key_phrases function identifies the main noun phrases. For the input \"the quick brown fox jumps over the lazy dog\", it extracts 'quick brown fox' and 'lazy dog' as key phrases. The function prints each phrase on a new line.",
 		"images": []
 	},
 	{
