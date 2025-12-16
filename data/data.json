@@ -4530,23 +4530,24 @@
 		"id": "T4-Q15",
 		"topic": "Topic 4",
 		"type": "Hotspot",
-		"question_text": "Analyze PDF containing tabular data using Document Intelligence. Complete the curl command.",
+		"question_text": "HOTSPOT\nYou have an Azure subscription that contains an Azure AI Document Intelligence resource named D11.\nYou create a PDF document named Test.pdf that contains tabular data.\nYou need to analyze Test.pdf by using D11.\nHow should you complete the command? To answer, select the appropriate options in the answer area.\n\nNOTE: Each correct selection is worth one point.",
 		"allow_randomize_options": false,
-		"code_snippet": "curl .../formrecognizer/documentModels/{0}:analyze ... --data-ascii \"{'{1}': '...'}\"",
+		"code_snippet": "curl -v -i POST \"{endpoint}/formrecognizer/documentModels/{0}:analyze?api-version=2023-07-31 \" -H \"Content-Type: application/json\" -H {1}: {yourkey} \" --data-ascii \"{'urlSource': 'test.pdf'}\"",
 		"options": [
 			{ "id": "mod_contract", "text": "prebuilt-contract", "group": 0 },
 			{ "id": "mod_doc", "text": "prebuilt-document", "group": 0 },
 			{ "id": "mod_layout", "text": "prebuilt-layout", "group": 0 },
 			{ "id": "mod_read", "text": "prebuilt-read", "group": 0 },
-			{ "id": "src_url", "text": "urlSource", "group": 1 },
-			{ "id": "src_base64", "text": "base64Source", "group": 1 },
-			{ "id": "src_source", "text": "source", "group": 1 }
+			{ "id": "key_key", "text": "Key1", "group": 1 },
+			{ "id": "key_ocp", "text": "Ocp-Apim-Subscription-Key", "group": 1 },
+			{ "id": "key_secret", "text": "Secret", "group": 1 },
+			{ "id": "key_sk", "text": "Subscription-Key", "group": 1 }
 		],
 		"correct_answer": [
 			{ "slot": 0, "option_id": "mod_layout" },
-			{ "slot": 1, "option_id": "src_url" }
+			{ "slot": 1, "option_id": "key_ocp" }
 		],
-		"explanation": "1. To extract tabular data (tables), use the **prebuilt-layout** model. 2. The standard JSON body for URL input uses the key **urlSource**.",
+		"explanation": "1. For tabular data extraction, use the **prebuilt-layout** model. 2. The standard JSON body for URL input uses the key **urlSource**.",
 		"images": []
 	},
 	{
