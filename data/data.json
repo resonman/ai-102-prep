@@ -4811,12 +4811,11 @@
     "allow_randomize_options": false,
     "code_snippet": "Expenditure forms: {0}\nEmployment forms: {1}\nSurvey forms: {2}",
     "options": [
-      { "id": "neural_1", "text": "Custom neural", "group": 0 },
-      { "id": "template_1", "text": "Custom template", "group": 0 },
-      { "id": "neural_2", "text": "Custom neural", "group": 1 },
-      { "id": "template_2", "text": "Custom template", "group": 1 },
-      { "id": "neural_3", "text": "Custom neural", "group": 2 },
-      { "id": "template_3", "text": "Custom template", "group": 2 }
+      { "id": "neural", "text": "Custom neural" },
+      { "id": "template", "text": "Custom template" },
+      { "id": "contact", "text": "Prebuilt contact" },
+      { "id": "invoice", "text": "Prebuilt invoice" },
+      { "id": "layout", "text": "Prebuilt layout" }
     ],
     "correct_answer": [
       { "slot": 0, "option_id": "template_1" },
