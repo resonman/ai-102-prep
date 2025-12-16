@@ -4474,13 +4474,14 @@
 		"id": "T4-Q13",
 		"topic": "Topic 4",
 		"type": "Hotspot",
-		"question_text": "Create a knowledge store for Cognitive Search using JSON. Complete statements.",
+		"question_text": "You create a knowledge store for Azure Cognitive Search by using the following JSON.\n\nUse the drop-down menus to select the answer choice that completes each statement based on the information presented in the graphic.\n\nNOTE: Each correct selection is worth one point.",
 		"allow_randomize_options": false,
-		"code_snippet": "\"projections\": [ { \"tables\": [...], \"objects\": [...], \"files\": [] } ]",
+		"code_snippet": "{\n    \"knowledgeStore\": {\n        \"storageConnectionString\": \"DefaultEndpointsProtocol=https;AccountName=<Acct Name>;AccountKey=<Acct Key>;\",\n        \"projections\": [\n            {\n                \"tables\": [\n                    {\n                        \"tableName\": \"unrelatedDocument\",\n                        \"generatedKeyName\": \"Documentid\",\n                        \"source\": \"/document/pbiShape\"\n                    },\n                    {\n                        \"tableName\": \"unrelatedKeyPhrases\",\n                        \"generatedKeyName\": \"KeyPhraseid\",\n                        \"source\": \"/document/pbiShape/keyPhrases\"\n                    }\n                ],\n                \"objects\": [],\n                \"files\": []\n            },\n            {\n                \"tables\": [],\n                \"objects\": [\n                    {\n                        \"storageContainer\": \"unrelatedocrtext\",\n                        \"source\": null,\n                        \"sourceContext\": \"/document/normalized_images/*/text\",\n                        \"inputs\": [\n                            {\n                                \"name\": \"ocrText\",\n                                \"source\": \"/document/normalized_images/*/text\"\n                            }\n                        ]\n                    },\n                    {\n                        \"storageContainer\": \"unrelatedocrlayout\",\n                        \"source\": null,\n                        \"sourceContext\": \"/document/normalized_images/*/text\",\n                        \"inputs\": [\n                            {\n                                \"name\": \"ocrLayoutText\",\n                                \"source\": \"/document/normalized_images/*/text\"\n                            }\n                        ]\n                    }\n                ],\n                \"files\": []\n            }\n        ]\n    }\n}",
 		"options": [
 			{ "id": "choice1_no", "text": "no projection groups", "group": 0 },
 			{ "id": "choice1_one", "text": "one projection group", "group": 0 },
 			{ "id": "choice1_two", "text": "two projection groups", "group": 0 },
+			{ "id": "choice1_four", "text": "four projection groups", "group": 0 },
 			{ "id": "choice2_not", "text": "not be projected", "group": 1 },
 			{
 				"id": "choice2_blob",
@@ -4490,6 +4491,11 @@
 			{
 				"id": "choice2_file",
 				"text": "be projected to Azure File storage",
+				"group": 1
+			},
+			{
+				"id": "choice2_table",
+				"text": "be saved to an Azure Table storage",
 				"group": 1
 			}
 		],
@@ -4501,7 +4507,7 @@
 			{ "slot": 0, "option_id": "choice1_two" },
 			{ "slot": 1, "option_id": "choice2_blob" }
 		],
-		"explanation": "1. The JSON array `\"projections\": [...]` contains distinct objects. If the snippet shows two distinct objects inside the array, then it's 'two projection groups'. (Assumption: The snippet shows separate groupings for independent projections). 2. `\"files\": []` is usually used for `normalized_images`. Knowledge store projects these files into **Azure Blob storage** containers.",
+		"explanation": "1. The JSON defines two projection groups: the first one (tables) contains 'unrelatedDocument' and 'unrelatedKeyPhrases' tables; the second one (objects) contains 'unrelatedocrtext' and 'unrelatedocrlayout' containers. 2. Normalized images with 'storageContainer' references in the objects array are projected to Azure Blob storage.",
 		"images": []
 	},
 	{
