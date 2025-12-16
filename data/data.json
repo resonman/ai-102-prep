@@ -4765,19 +4765,24 @@
         "group": 0
       },
       {
-        "id": "custom_2",
-        "text": "Azure AI Document Intelligence custom model",
-        "group": 1
+        "id": "custom vision",
+        "text": "Azure Al Custom Vision",
+        "group": 0
       },
       {
-        "id": "prebuilt_2",
-        "text": "Azure AI Document Intelligence pre-built model",
-        "group": 1
+        "id": "reader",
+        "text": "Azure Al Immersive Reader",
+        "group": 0
+      },
+      {
+        "id": "vison",
+        "text": "Azure Al Vision",
+        "group": 0
       }
     ],
     "correct_answer": [
       { "slot": 0, "option_id": "custom" },
-      { "slot": 1, "option_id": "prebuilt_2" }
+      { "slot": 1, "option_id": "prebuilt" }
     ],
     "explanation": "1. Internal forms are unique to the company, requiring a **Custom model**. 2. Supplier invoices are a standard document type supported by the **Pre-built Invoice model**.",
     "images": []
