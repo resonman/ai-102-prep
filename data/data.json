@@ -4855,8 +4855,8 @@
       { "id": "D", "text": "File2.jpg and File3.tiff only" },
       { "id": "E", "text": "File1.pdf, File2.jpg, and File3.tiff" }
     ],
-    "correct_answer": ["B"],
-    "explanation": "File1.pdf (800MB) exceeds the 500MB size limit for the S0 tier. File3.tiff (5MB) is within the size limit, but the exam answer key indicates only File2.jpg is acceptable. This may be due to specific constraints related to TIFF file dimensions or other limitations in the exam context.",
+    "correct_answer": ["C"],
+    "explanation": "File1.pdf (800MB) exceeds the 500MB size limit for the S0 tier. File2.jpg cannot be used due to the small pixels(the smallest pixed for the model.",
     "images": []
   },
   {
