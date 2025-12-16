@@ -4730,22 +4730,20 @@
     "id": "T4-Q24",
     "topic": "Topic 4",
     "type": "Hotspot",
-    "question_text": "Language learning solution. 1. Analyze lesson plans to extract key fields. 2. Provide pictures for words in learning content. Select services.",
+    "question_text": "HOTSPOT\nYou are building a language learning solution.\n\nYou need to recommend which Azure services can be used to perform the following tasks:\n\n- Analyze lesson plans submitted by teachers and extract key fields, such as lesson times and required texts.\n\n- Analyze learning content and provide students with pictures that represent commonly used words or phrases in the text.\n\nThe solution must minimize development effort.\n\nWhich Azure service should you recommend for each task? To answer, select the appropriate options in the answer area.\n\nNOTE: Each correct selection is worth one point.",
     "allow_randomize_options": false,
     "code_snippet": "Analyze lesson plans: {0}\nAnalyze learning content (pictures): {1}",
     "options": [
-      { "id": "search_1", "text": "Azure Cognitive Search", "group": 0 },
-      { "id": "doc_1", "text": "Azure AI Document Intelligence", "group": 0 },
-      { "id": "im_1", "text": "Immersive Reader", "group": 0 },
-      { "id": "search_2", "text": "Azure Cognitive Search", "group": 1 },
-      { "id": "doc_2", "text": "Azure AI Document Intelligence", "group": 1 },
-      { "id": "im_2", "text": "Immersive Reader", "group": 1 }
+      { "id": "search", "text": "Azure Cognitive Search" },
+      { "id": "custom", "text": "Azure AI Custom Vision" },
+      { "id": "doc", "text": "Azure AI Document Intelligence" },
+      { "id": "im", "text": "Immersive Reader" }
     ],
     "correct_answer": [
-      { "slot": 0, "option_id": "doc_1" },
-      { "slot": 1, "option_id": "im_2" }
+      { "slot": 0, "option_id": "doc" },
+      { "slot": 1, "option_id": "im" }
     ],
-    "explanation": "1. Extracting key fields from documents (lesson plans) is **Document Intelligence**. 2. Providing 'pictures for words' (Picture Dictionary) is a key feature of **Immersive Reader**.",
+    "explanation": "1. Extracting key fields from documents (lesson plans) is a core function of **Azure AI Document Intelligence**. 2. Providing 'pictures for words' (Picture Dictionary) is a key feature of **Immersive Reader**.",
     "images": []
   },
   {
