@@ -4101,7 +4101,7 @@
 			{ "slot": 1, "option_id": "sent_lang" }
 		],
 		"explanation": "1. Extract text from PDFs: **Document Intelligence** (Read model). 2. Sentiment: **Azure AI Language**.",
-		"images": ["T3-Q75.png"]
+		"images": []
 	},
 	{
 		"id": "T3-Q76",
@@ -4157,10 +4157,10 @@
 			{ "id": "rec_trans", "text": "TranslationRecognizer", "group": 1 }
 		],
 		"correct_answer": [
-			{ "slot": 0, "option_id": "opt_all" },
+			{ "slot": 0, "option_id": "opt_part" },
 			{ "slot": 1, "option_id": "rec_trans" }
 		],
-		"explanation": "1. The list is empty, so we need the full list of languages: **[\"en\",\"fr\",\"de\",\"es\"]**. 2. **TranslationRecognizer** is the correct class.",
+		"explanation": "1. The list is for target language, so we need the list of languages: **[\"fr\",\"de\",\"es\"]**. 2. **TranslationRecognizer** is the correct class.",
 		"images": []
 	},
 	{
