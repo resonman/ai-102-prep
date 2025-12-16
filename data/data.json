@@ -4167,8 +4167,9 @@
 		"id": "T3-Q79",
 		"topic": "Topic 3",
 		"type": "SingleChoice",
-		"question_text": "Text processing function `GetKeywords`. Input: \"Our tour of London included a visit to Buckingham Palace\". What will it return?",
+		"question_text": "You are developing a text processing solution.\n\nYou have the following function.\n\nYou call the function and use the following string as the second argument.\n\nOur tour of London included a visit to Buckingham Palace\n\nWhat will the function return?",
 		"allow_randomize_options": true,
+		"code_snippet": "static void GetKeyWords(TextAnalyticsClient textAnalyticsClient, string text)\n{\n    var response = textAnalyticsClient.RecognizeEntities(text);\n    Console.WriteLine(\"Key words:\");\n    foreach (CategorizedEntity entity in response.Value)\n    {\n        Console.WriteLine($\"\\t${entity.Text}\");\n    }\n}",
 		"options": [
 			{ "id": "A", "text": "London and Buckingham Palace only" },
 			{ "id": "B", "text": "Tour and visit only" },
@@ -4179,7 +4180,7 @@
 			}
 		],
 		"correct_answer": ["A"],
-		"explanation": "The function likely calls **NER** (RecognizeEntities). 'London' and 'Buckingham Palace' are Location entities. 'Tour' and 'visit' are not standard named entities.",
+		"explanation": "The function calls RecognizeEntities (Named Entity Recognition). 'London' and 'Buckingham Palace' are recognized as Location entities, while 'Tour' and 'visit' are not standard named entities and will not be extracted.",
 		"images": []
 	},
 	{
