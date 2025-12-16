@@ -4832,7 +4832,7 @@
     "question_text": "You have an Azure subscription that contains an Azure AI Document Intelligence resource named Aldoc1 in the S0 tier.\n\nYou have the files shown in the following table.\n\n| Name | Format | Password-locked | Size (MB) |\n|------|--------|-----------------|-----------|\n| File1 | JPG    | N/A             | 400       |\n| File2 | PDF    | No              | 250       |\n| File3 | PNG    | N/A             | 600       |\n| File4 | XLSX   | No              | 900       |\n| File5 | PDF    | Yes             | 160       |\n\nYou need to train a custom extraction model by using Aldoc1.\n\nWhich files can you upload?",
     "allow_randomize_options": true,
     "options": [
-      { "id": "A", "text": ", File2, and File4 only" },
+      { "id": "A", "text": "File1, File2, and File4 only" },
       { "id": "B", "text": "File2, and File5 only" },
       { "id": "C", "text": "File2, File4, and File5 only" },
       { "id": "D", "text": "File1, File2, File3, File4, and File5" },
