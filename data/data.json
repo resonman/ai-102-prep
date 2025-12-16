@@ -4650,13 +4650,22 @@
     "id": "T4-Q20",
     "topic": "Topic 4",
     "type": "Hotspot",
-    "question_text": "Deploy Azure AI Document Intelligence via ARM template. Complete the JSON.",
+    "question_text": "HOTSPOT\nYou have an Azure subscription.\nYou need to deploy an Azure AI Document Intelligence resource.\nHow should you complete the Azure Resource Manager (ARM) template? To answer, select the appropriate options in the answer area.\n\nNOTE: Each correct selection is worth one point.",
     "allow_randomize_options": false,
-    "code_snippet": "\"type\": \"{0}\",\n\"kind\": \"{1}\"",
+    "code_snippet": "{\n  \"$schema\": \"https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#\",\n  \"contentVersion\": \"1.0.0.0\",\n  \"parameters\": {},\n  \"variables\": {},\n  \"resources\": [\n    {\n      \"type\": \"{0}/accounts\",\n      \"apiVersion\": \"2023-05-01\",\n      \"name\": \"DocumentIntelligenceDemo\",\n      \"location\": \"westeurope\",\n      \"sku\": {\n        \"name\": \"F0\"\n      },\n      \"kind\": \"{1}\"\n    }\n  ]\n}",
     "options": [
-      { "id": "type_search", "text": "Microsoft.CognitiveSearch", "group": 0 },
+      {
+        "id": "type_search",
+        "text": "Microsoft.CognitiveServices/accounts",
+        "group": 0
+      },
       { "id": "type_cog", "text": "Microsoft.CognitiveServices", "group": 0 },
       { "id": "type_ml", "text": "Microsoft.MachineLearning", "group": 0 },
+      {
+        "id": "type_compute",
+        "text": "Microsoft.MachineLearningServices",
+        "group": 0
+      },
       { "id": "kind_ai", "text": "AiBuilder", "group": 1 },
       { "id": "kind_cogsearch", "text": "CognitiveSearch", "group": 1 },
       { "id": "kind_form", "text": "FormRecognizer", "group": 1 },
@@ -4666,7 +4675,7 @@
       { "slot": 0, "option_id": "type_cog" },
       { "slot": 1, "option_id": "kind_form" }
     ],
-    "explanation": "1. The Azure Resource Manager type for all Cognitive Services (including Doc Intel) is **Microsoft.CognitiveServices/accounts**. 2. The specific 'kind' for Document Intelligence is **FormRecognizer** (legacy name persisted in ARM).",
+    "explanation": "1. The Azure Resource Manager type for all Cognitive Services (including Document Intelligence) is **Microsoft.CognitiveServices/accounts**. 2. The specific 'kind' for Document Intelligence is **FormRecognizer** (the legacy name is still used in ARM templates).",
     "images": []
   },
   {
