@@ -68,8 +68,8 @@
       },
       { "id": "D", "text": "Text Analytics, Translator, and Dispatch" }
     ],
-    "correct_answer": ["C"],
-    "explanation": "Option C is the most complete answer. 'QnA Maker' handles chit-chat and knowledge base. 'Language Understanding (LUIS)' handles intent recognition. 'Text Analytics' handles sentiment analysis. While 'Dispatch' (mentioned in A) is used for routing, Option C explicitly includes Text Analytics which is required for the 'perform sentiment analysis' requirement, making it the best fit among the choices.",
+    "correct_answer": ["A"],
+    "explanation": "Language Understanding (LUIS) handles language models. QnA Maker manages the knowledge base and chit-chat. Dispatch routes user input to the appropriate LUIS model or QnA Maker knowledge base, enabling multilingual support and model selection. Sentiment analysis can be integrated via LUIS or Text Analytics, but the key components for the chatbot are LUIS, QnA Maker, and Dispatch.",
     "images": []
   },
   {
@@ -274,7 +274,7 @@
       { "id": "F", "text": "File6" }
     ],
     "correct_answer": ["A", "C", "F"],
-    "explanation": "Form Recognizer constraints: 1. Format must be PDF, JPG, or PNG. (Eliminates File2 MP4). 2. File size must be less than 50 MB (for Standard tier) or 500 MB (Wait, typical limit is 50MB for free/standard usually, but let's check recent docs. Actually, the limit is often 50MB for training documents. File4 is 100MB, too large. File5 format is unspecified/invalid in context). Correct files are File1 (PDF, 20MB), File3 (JPG, 20MB), File6 (JPG, 40MB).",
+    "explanation": "Form Recognizer constraints: 1. Format must be PDF, JPG, or PNG. (Eliminates File2 MP4). 2. File size must be less than 50 MB (for training purpose). File4 is 100MB, too large. File5 format is unspecified/invalid in context). Correct files are File1 (PDF, 20MB), File3 (JPG, 20MB), File6 (JPG, 40MB).",
     "images": []
   },
   {

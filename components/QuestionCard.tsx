@@ -273,36 +273,33 @@ export default function QuestionCard({
   };
 
   const renderNormalOptions = () => {
+    // 为了防止 correct_answer 是字符串导致 filter 报错，这里做个标准化处理
+    // 把答案统一转成数组，这样无论是单选还是多选逻辑都通畅
+    const correctAnswersList = Array.isArray(question.correct_answer)
+      ? question.correct_answer
+      : [question.correct_answer];
+
     return currentOptions.map((opt: Option) => {
+      // 判断当前选项是否被用户选中
       const isSelected = Array.isArray(selected)
         ? selected.includes(opt.id)
         : selected === opt.id;
 
-      let styleClass =
-        "border p-3 rounded cursor-pointer hover:bg-gray-50 mb-2 transition-colors relative border-gray-200";
+      // 判断当前选项是否是正确答案
+      const isCorrectOption = correctAnswersList.includes(opt.id);
 
-      if (isSelected)
-        styleClass += " border-blue-500 bg-blue-50 ring-1 ring-blue-500";
+      // 判断是否是错误选项（用户选了，但不是正确答案）
+      const isWrongSelection = isSelected && !isCorrectOption;
 
-      if (showFeedbackImmediate && isSubmitted) {
-        const correctIds = question.correct_answer.filter(
-          (i): i is string => typeof i === "string"
-        );
-        const isCorrectOption = correctIds.includes(opt.id);
-
-        if (isCorrectOption) {
-          styleClass = "border-green-500 bg-green-100 ring-1 ring-green-500";
-        } else if (isSelected && !isCorrectOption) {
-          styleClass = "border-red-500 bg-red-100 ring-1 ring-red-500";
-        }
-      }
+      // 判断是否处于“提交后显示结果”的状态
+      const isResultMode = showFeedbackImmediate && isSubmitted;
 
       return (
         <div
           key={opt.id}
-          className={styleClass}
           onClick={() => {
-            if (showFeedbackImmediate && isSubmitted) return;
+            // 如果已经提交了，禁止再次点击修改
+            if (isResultMode) return;
 
             if (question.type === "MultipleChoice") {
               const prev = Array.isArray(selected) ? selected : [];
@@ -315,12 +312,59 @@ export default function QuestionCard({
               setSelected(opt.id);
             }
           }}
+          // 使用 clsx 动态组合类名
+          className={clsx(
+            // 1. 基础布局样式 (永远不变，保证不跳动)
+            "relative flex items-center p-3 rounded-lg mb-2 border transition-all duration-200 cursor-pointer",
+
+            // 2. 根据状态决定颜色
+            !isResultMode &&
+              !isSelected &&
+              "border-gray-200 hover:bg-gray-50 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700", // 默认未选中
+
+            !isResultMode &&
+              isSelected &&
+              "border-blue-500 bg-blue-50 ring-1 ring-blue-500 dark:bg-blue-900/30 dark:border-blue-400 dark:ring-blue-400", // 选中但在提交前
+
+            // 3. 提交后的结果样式 (Result Mode)
+            isResultMode &&
+              isCorrectOption &&
+              "border-green-500 bg-green-50 ring-1 ring-green-500 dark:bg-green-900/30 dark:border-green-400 dark:ring-green-400", // 正确答案（无论有没有选）
+
+            isResultMode &&
+              isWrongSelection &&
+              "border-red-500 bg-red-50 ring-1 ring-red-500 dark:bg-red-900/30 dark:border-red-400 dark:ring-red-400", // 选错了
+
+            isResultMode &&
+              !isCorrectOption &&
+              !isSelected &&
+              "border-gray-200 opacity-50 dark:border-gray-700" // 既没选也不是答案（淡化处理）
+          )}
         >
-          {opt.text}
-          {showFeedbackImmediate && isSubmitted && (
-            <div className="absolute right-3 top-3">
-              {(question.correct_answer as string[]).includes(opt.id) && (
-                <Check className="w-5 h-5 text-green-600" />
+          {/* 选项文字 */}
+          <span
+            className={clsx(
+              "text-base",
+              // 提交后，如果是正确答案，文字加粗一点
+              isResultMode && isCorrectOption
+                ? "font-medium text-green-800 dark:text-green-300"
+                : "text-gray-900 dark:text-gray-200",
+              isResultMode &&
+                isWrongSelection &&
+                "text-red-800 dark:text-red-300"
+            )}
+          >
+            {opt.text}
+          </span>
+
+          {/* 右侧的图标 (对勾/叉号) */}
+          {isResultMode && (
+            <div className="absolute right-3 top-1/2 -translate-y-1/2">
+              {isCorrectOption && (
+                <Check className="w-5 h-5 text-green-600 dark:text-green-400" />
+              )}
+              {isWrongSelection && (
+                <X className="w-5 h-5 text-red-600 dark:text-red-400" />
               )}
             </div>
           )}
