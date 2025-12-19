@@ -4,17 +4,21 @@ import allQuestions from "@/data/data.json";
 import QuestionCard from "@/components/QuestionCard";
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import { Home, Trash2, AlertCircle, RotateCcw } from "lucide-react"; // ✅ 引入 RotateCcw
+import { Home, Trash2, AlertCircle, RotateCcw } from "lucide-react";
 import { Question } from "@/lib/types";
 
 export default function MistakesPage() {
+  // ✅ 1. 引入 addMistake 和 recordAnswer
   const {
     userData,
     loading,
     removeMistake,
+    addMistake, // <--- 新增
+    recordAnswer, // <--- 新增
     toggleFavorite,
     saveMistakesProgress,
   } = useUserData();
+
   const mistakesList = allQuestions.filter((q) =>
     userData.mistakes.includes(q.id)
   );
@@ -49,7 +53,6 @@ export default function MistakesPage() {
 
   const safeIndex = Math.min(index, mistakesList.length - 1);
   const currentQ = mistakesList[safeIndex] as Question;
-  // ✅ 获取当前题目的错误次数
   const mistakeCount = userData.mistakeCounts[currentQ.id] || 1;
 
   const handleNext = () => {
@@ -68,8 +71,21 @@ export default function MistakesPage() {
     }
   };
 
+  // ✅ 2. 定义处理答题的逻辑
+  const handleAnswer = (isCorrect: boolean, userSelection: any) => {
+    // 无论对错，都更新一下“我最后一次选了什么”，这样下次进来看到的是最新的
+    recordAnswer(currentQ.id, userSelection);
+
+    if (!isCorrect) {
+      // 如果在错题本里又做错了，调用 addMistake
+      // 我们之前的逻辑里，addMistake 会自动让 count + 1
+      addMistake(currentQ.id);
+    }
+  };
+
   return (
     <div className="min-h-screen bg-gray-100 p-4">
+      {/* 顶部导航 (不变) */}
       <div className="max-w-3xl mx-auto mb-6 flex justify-between items-center">
         <Link
           href="/"
@@ -77,12 +93,9 @@ export default function MistakesPage() {
         >
           <Home className="w-5 h-5 mr-1" /> Home
         </Link>
-
         <span className="font-bold text-red-600">
           Mistakes ({safeIndex + 1} / {mistakesList.length})
         </span>
-
-        {/* ✅ Reset 按钮 */}
         <button
           onClick={() => {
             if (confirm("Reset review progress to start?")) {
@@ -96,7 +109,7 @@ export default function MistakesPage() {
         </button>
       </div>
 
-      {/* ✅ 显示错误次数提示条 */}
+      {/* 错误次数提示 (不变) */}
       <div className="max-w-3xl mx-auto mb-4 bg-red-50 border border-red-200 p-3 rounded-lg flex items-center justify-between text-red-800 text-sm">
         <div className="flex items-center">
           <AlertCircle className="w-4 h-4 mr-2" />
@@ -112,14 +125,19 @@ export default function MistakesPage() {
         question={currentQ}
         isRandomMode={false}
         showFeedbackImmediate={true}
-        onAnswer={() => {}}
+        // ✅ 3. 将 handleAnswer 传进去 (之前这里是空函数 () => {})
+        onAnswer={handleAnswer}
         isFavorite={userData.favorites.includes(currentQ.id)}
         onToggleFavorite={() => toggleFavorite(currentQ.id)}
+        // 注意：如果你希望每次进来都能“重新做题”，可以把下面这行 savedUserAnswer 注释掉
+        // 如果保留下面这行，你进来时看到的是上次选的答案（如果是错的，那你就不能再点一次来增加错误次数了，除非你先去别的页面再回来？）
+        // 建议：保留 savedUserAnswer，但理解为“只有当你改变主意选了另一个错选项时，次数才会增加”。
         savedUserAnswer={
           userData.answers ? userData.answers[currentQ.id] : null
         }
       />
 
+      {/* 底部按钮 (不变) */}
       <div className="max-w-3xl mx-auto mt-6 flex justify-between items-center">
         <div className="space-x-2">
           <button
