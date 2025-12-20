@@ -7004,7 +7004,7 @@
       { "id": "path_trans", "text": "/translate", "group": 1 }
     ],
     "correct_answer": [
-      { "slot": 0, "option_id": "api_west" },
+      { "slot": 0, "option_id": "api_custom" },
       { "slot": 1, "option_id": "path_trans" }
     ],
     "explanation": "1. Use the global Translator endpoint: `api.cognitive.microsofttranslator.com`. 2. Use the `/translate` path.",
