@@ -7,7 +7,6 @@ import { clsx } from "clsx";
 
 type UserSelection = string | string[] | Record<number, string> | null;
 
-// 定义答案对象的结构，用于类型断言
 type AnswerObject = {
 	slot?: number;
 	order?: number;
@@ -22,6 +21,7 @@ interface Props {
 	onAnswer: (isCorrect: boolean, userSelection: UserSelection) => void;
 	isFavorite: boolean;
 	onToggleFavorite: () => void;
+	// ✅ 1. 新增接口定义
 	savedUserAnswer?: UserSelection;
 }
 
@@ -32,6 +32,7 @@ export default function QuestionCard({
 	onAnswer,
 	isFavorite,
 	onToggleFavorite,
+	// ✅ 2. 解构参数
 	savedUserAnswer,
 }: Props) {
 	const [selected, setSelected] = useState<UserSelection>(null);
@@ -44,19 +45,31 @@ export default function QuestionCard({
 		question.type === "DragDrop" || question.type === "Hotspot";
 	const slotCount = isSlotQuestion ? question.correct_answer.length : 0;
 
+	// ✅ 3. 核心修复：依赖数组改为 question.id
 	useEffect(() => {
-		setSelected(isSlotQuestion ? {} : null);
-		setIsSubmitted(false);
+		// 如果传入了存档答案，优先恢复
+		if (savedUserAnswer) {
+			setSelected(savedUserAnswer);
+			setIsSubmitted(true);
+		} else {
+			// 如果没有存档，且题目ID变了，才重置状态
+			// 这保证了父组件刷新（如增加错题计数）时，当前选项不会消失
+			setSelected(isSlotQuestion ? {} : null);
+			setIsSubmitted(false);
+		}
 
 		const opts = [...question.options];
-		if (isRandomMode && question.allow_randomize_options) {
+		// 只有在新题且无存档时才乱序
+		if (!savedUserAnswer && isRandomMode && question.allow_randomize_options) {
 			for (let i = opts.length - 1; i > 0; i--) {
 				const j = Math.floor(Math.random() * (i + 1));
 				[opts[i], opts[j]] = [opts[j], opts[i]];
 			}
 		}
 		setCurrentOptions(opts);
-	}, [question, isRandomMode, isSlotQuestion, savedUserAnswer]);
+
+		// ⚠️ 注意这里的依赖：必须是 question.id
+	}, [question.id, isRandomMode, isSlotQuestion, savedUserAnswer]);
 
 	const renderCodeSnippet = (text: string) => {
 		const parts = text.split(/\{(\d+)\}/);
@@ -108,7 +121,6 @@ export default function QuestionCard({
 			correct = correctAnswers.every((ans, index) => {
 				if (typeof ans === "string") return false;
 				const targetSlot = getNormalizedSlotIndex(ans, index);
-				// 这里 ans 是 CorrectAnswerItem，需要断言成对象才能访问 option_id
 				return userSlots[targetSlot] === (ans as AnswerObject).option_id;
 			});
 		} else if (
@@ -230,19 +242,14 @@ export default function QuestionCard({
 					);
 				})}
 
-				{/* ✅ 修复点：正确答案渲染区域 */}
 				{showFeedbackImmediate && isSubmitted && (
 					<div className="mt-4 p-3 bg-green-50 border border-green-200 rounded text-sm text-gray-700">
 						<span className="font-bold block mb-1 text-green-800">
 							Correct Answer:
 						</span>
 						{question.correct_answer.map((ans, i) => {
-							// 1. 先判断类型：如果是字符串（单选题数据），直接跳过，不渲染
 							if (typeof ans === "string") return null;
-
-							// 2. 类型断言：现在 TS 知道 ans 是对象了
 							const safeAns = ans as AnswerObject;
-
 							const slotIdx = getNormalizedSlotIndex(safeAns, i);
 							const optText = question.options.find(
 								(o) => o.id === safeAns.option_id
@@ -275,34 +282,24 @@ export default function QuestionCard({
 	};
 
 	const renderNormalOptions = () => {
-		// 为了防止 correct_answer 是字符串导致 filter 报错，这里做个标准化处理
-		// 把答案统一转成数组，这样无论是单选还是多选逻辑都通畅
 		const correctAnswersList = Array.isArray(question.correct_answer)
 			? question.correct_answer
 			: [question.correct_answer];
 
 		return currentOptions.map((opt: Option) => {
-			// 判断当前选项是否被用户选中
 			const isSelected = Array.isArray(selected)
 				? selected.includes(opt.id)
 				: selected === opt.id;
 
-			// 判断当前选项是否是正确答案
 			const isCorrectOption = correctAnswersList.includes(opt.id);
-
-			// 判断是否是错误选项（用户选了，但不是正确答案）
 			const isWrongSelection = isSelected && !isCorrectOption;
-
-			// 判断是否处于“提交后显示结果”的状态
 			const isResultMode = showFeedbackImmediate && isSubmitted;
 
 			return (
 				<div
 					key={opt.id}
 					onClick={() => {
-						// 如果已经提交了，禁止再次点击修改
 						if (isResultMode) return;
-
 						if (question.type === "MultipleChoice") {
 							const prev = Array.isArray(selected) ? selected : [];
 							const prevArray = Array.isArray(prev) ? prev : [];
@@ -314,40 +311,29 @@ export default function QuestionCard({
 							setSelected(opt.id);
 						}
 					}}
-					// 使用 clsx 动态组合类名
 					className={clsx(
-						// 1. 基础布局样式 (永远不变，保证不跳动)
 						"relative flex items-center p-3 rounded-lg mb-2 border transition-all duration-200 cursor-pointer",
-
-						// 2. 根据状态决定颜色
 						!isResultMode &&
 							!isSelected &&
-							"border-gray-200 hover:bg-gray-50 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700", // 默认未选中
-
+							"border-gray-200 hover:bg-gray-50 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700",
 						!isResultMode &&
 							isSelected &&
-							"border-blue-500 bg-blue-50 ring-1 ring-blue-500 dark:bg-blue-900/30 dark:border-blue-400 dark:ring-blue-400", // 选中但在提交前
-
-						// 3. 提交后的结果样式 (Result Mode)
+							"border-blue-500 bg-blue-50 ring-1 ring-blue-500 dark:bg-blue-900/30 dark:border-blue-400 dark:ring-blue-400",
 						isResultMode &&
 							isCorrectOption &&
-							"border-green-500 bg-green-50 ring-1 ring-green-500 dark:bg-green-900/30 dark:border-green-400 dark:ring-green-400", // 正确答案（无论有没有选）
-
+							"border-green-500 bg-green-50 ring-1 ring-green-500 dark:bg-green-900/30 dark:border-green-400 dark:ring-green-400",
 						isResultMode &&
 							isWrongSelection &&
-							"border-red-500 bg-red-50 ring-1 ring-red-500 dark:bg-red-900/30 dark:border-red-400 dark:ring-red-400", // 选错了
-
+							"border-red-500 bg-red-50 ring-1 ring-red-500 dark:bg-red-900/30 dark:border-red-400 dark:ring-red-400",
 						isResultMode &&
 							!isCorrectOption &&
 							!isSelected &&
-							"border-gray-200 opacity-50 dark:border-gray-700" // 既没选也不是答案（淡化处理）
+							"border-gray-200 opacity-50 dark:border-gray-700"
 					)}
 				>
-					{/* 选项文字 */}
 					<span
 						className={clsx(
 							"text-base",
-							// 提交后，如果是正确答案，文字加粗一点
 							isResultMode && isCorrectOption
 								? "font-medium text-green-800 dark:text-green-300"
 								: "text-gray-900 dark:text-gray-200",
@@ -358,8 +344,6 @@ export default function QuestionCard({
 					>
 						{opt.text}
 					</span>
-
-					{/* 右侧的图标 (对勾/叉号) */}
 					{isResultMode && (
 						<div className="absolute right-3 top-1/2 -translate-y-1/2">
 							{isCorrectOption && (
@@ -386,28 +370,28 @@ export default function QuestionCard({
 	};
 
 	return (
-		<div className="bg-white shadow rounded-lg p-6 max-w-3xl mx-auto border border-gray-100">
+		<div className="bg-white dark:bg-gray-900 shadow rounded-lg p-6 max-w-3xl mx-auto border border-gray-100 dark:border-gray-800">
 			<div className="flex justify-between items-start mb-4">
 				<span className="text-xs font-bold text-gray-400 uppercase tracking-wider">
 					{question.topic} | {question.id}
 				</span>
-
 				<button
 					type="button"
 					onClick={onToggleFavorite}
-					aria-label={isFavorite ? "Remove from favorites" : "Add to favorites"}
-					className="focus:outline-none p-1 hover:bg-gray-100 rounded-full transition"
+					className="focus:outline-none p-1 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-full transition"
 				>
 					<Star
 						className={clsx(
 							"w-6 h-6",
-							isFavorite ? "fill-yellow-400 text-yellow-400" : "text-gray-300"
+							isFavorite
+								? "fill-yellow-400 text-yellow-400"
+								: "text-gray-300 dark:text-gray-600"
 						)}
 					/>
 				</button>
 			</div>
 
-			<h2 className="text-lg font-semibold mb-4 whitespace-pre-line leading-relaxed text-gray-900">
+			<h2 className="text-lg font-semibold mb-4 whitespace-pre-line leading-relaxed text-gray-900 dark:text-white">
 				{question.question_text}
 			</h2>
 
@@ -424,7 +408,7 @@ export default function QuestionCard({
 					{question.images.map((img) => (
 						<div
 							key={img}
-							className="relative w-full h-auto border border-gray-200 rounded-lg overflow-hidden shadow-sm"
+							className="relative w-full h-auto border border-gray-200 dark:border-gray-700 rounded-lg overflow-hidden shadow-sm"
 						>
 							<Image
 								src={`/assets/images/${img}`}
@@ -438,7 +422,7 @@ export default function QuestionCard({
 				</div>
 			)}
 
-			<div className="mb-6 space-y-2 text-gray-800">
+			<div className="mb-6 space-y-2 text-gray-800 dark:text-gray-200">
 				{isSlotQuestion ? renderSlotInputs() : renderNormalOptions()}
 			</div>
 
@@ -447,19 +431,19 @@ export default function QuestionCard({
 					type="button"
 					onClick={handleSubmit}
 					disabled={isSubmitDisabled()}
-					className="w-full bg-blue-600 text-white py-3 rounded-lg font-semibold hover:bg-blue-700 disabled:bg-gray-200 disabled:text-gray-400 disabled:cursor-not-allowed transition-all shadow-sm"
+					className="w-full bg-blue-600 text-white py-3 rounded-lg font-semibold hover:bg-blue-700 disabled:bg-gray-200 dark:disabled:bg-gray-700 disabled:text-gray-400 disabled:cursor-not-allowed transition-all shadow-sm"
 				>
 					Submit Answer
 				</button>
 			)}
 
 			{showFeedbackImmediate && isSubmitted && (
-				<div className="mt-8 p-6 bg-blue-50/50 rounded-xl border border-blue-100 animate-in fade-in slide-in-from-top-4 duration-500">
-					<div className="flex items-center gap-2 mb-3 text-blue-800">
-						<div className="w-1 h-6 bg-blue-600 rounded-full"></div>
+				<div className="mt-8 p-6 bg-blue-50/50 dark:bg-blue-900/20 rounded-xl border border-blue-100 dark:border-blue-800 animate-in fade-in slide-in-from-top-4 duration-500">
+					<div className="flex items-center gap-2 mb-3 text-blue-800 dark:text-blue-200">
+						<div className="w-1 h-6 bg-blue-600 dark:bg-blue-400 rounded-full"></div>
 						<h3 className="font-bold text-lg">Explanation</h3>
 					</div>
-					<p className="text-gray-700 leading-relaxed text-sm">
+					<p className="text-gray-700 dark:text-gray-300 leading-relaxed text-sm">
 						{question.explanation}
 					</p>
 				</div>
