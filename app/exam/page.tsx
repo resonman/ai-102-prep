@@ -15,10 +15,26 @@ export default function ExamPage() {
   const [isFinished, setIsFinished] = useState(false);
 
   useEffect(() => {
-    const shuffled = [...allQuestions]
-      .sort(() => 0.5 - Math.random())
-      .slice(0, 50);
-    setExamQuestions(shuffled as Question[]);
+    // 1. 第一步：先过滤 (Filter)
+    // 排除 Simulation 类型，同时也排除了可能导致崩溃的空数据
+    const validPool = allQuestions.filter(
+      (q) => q.type !== "Simulation"
+    ) as Question[]; // 确保类型断言
+
+    // 2. 第二步：专业的洗牌算法 (Fisher-Yates Shuffle)
+    // 相比简单的 sort 随机，这个算法能保证每一题出现在任何位置的概率完全相等
+    const shuffled = [...validPool];
+    for (let i = shuffled.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+    }
+
+    // 3. 第三步：最后切取前 50 题 (Slice)
+    // 只要 validPool 的长度 > 50，这里就一定能取到 50 题
+    const selectedQuestions = shuffled.slice(0, 50);
+
+    setExamQuestions(selectedQuestions);
+    // 这里如果还有其他的重置逻辑（比如清空当前做题进度、计时器归零等）也可以放在这
   }, []);
 
   const handleAnswer = (isCorrect: boolean, selection: any) => {
