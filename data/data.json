@@ -4757,28 +4757,23 @@
     "options": [
       {
         "id": "custom",
-        "text": "Azure AI Document Intelligence custom model",
-        "group": 0
+        "text": "Azure AI Document Intelligence custom model"
       },
       {
         "id": "prebuilt",
-        "text": "Azure AI Document Intelligence pre-built model",
-        "group": 0
+        "text": "Azure AI Document Intelligence pre-built model"
       },
       {
         "id": "custom vision",
-        "text": "Azure Al Custom Vision",
-        "group": 0
+        "text": "Azure AI Custom Vision"
       },
       {
         "id": "reader",
-        "text": "Azure Al Immersive Reader",
-        "group": 0
+        "text": "Azure AI Immersive Reader"
       },
       {
         "id": "vison",
-        "text": "Azure Al Vision",
-        "group": 0
+        "text": "Azure AI Vision"
       }
     ],
     "correct_answer": [
