@@ -110,7 +110,7 @@ export default function QuestionCard({
   };
 
   const handleSubmit = () => {
-    // if (selected === null) return;
+    if (selected === null) return;
 
     let correct = false;
 
@@ -430,8 +430,7 @@ export default function QuestionCard({
         <button
           type="button"
           onClick={handleSubmit}
-          //   disabled={isSubmitDisabled()}
-          disabled={false}
+          disabled={isSubmitDisabled()}
           className="w-full bg-blue-600 text-white py-3 rounded-lg font-semibold hover:bg-blue-700 disabled:bg-gray-200 dark:disabled:bg-gray-700 disabled:text-gray-400 disabled:cursor-not-allowed transition-all shadow-sm"
         >
           Submit Answer
