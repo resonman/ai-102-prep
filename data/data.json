@@ -3757,18 +3757,17 @@
     "allow_randomize_options": false,
     "code_snippet": "Query parameters:\nautocorrect: {0}\nPII: {1}\nlistId: {2}\nclassify: {3}",
     "options": [
-      { "id": "name", "text": "name", "group": 0 },
-      { "id": "resource_name", "text": "resource_name", "group": 0 },
-      { "id": "autocoect", "text": "autocoect", "group": 0 },
-      { "id": "PII", "text": "PII", "group": 0 },
-      { "id": "listID", "text": "listID", "group": 0 },
-      { "id": "classify", "text": "classify", "group": 0 },
-      { "id": "language", "text": "language", "group": 0 },
-      { "id": "content_type", "text": "content_type", "group": 0 },
+      { "id": "name", "text": "name" },
+      { "id": "resource_name", "text": "resource_name" },
+      { "id": "autocoect", "text": "autocoect" },
+      { "id": "PII", "text": "PII" },
+      { "id": "listID", "text": "listID" },
+      { "id": "classify", "text": "classify" },
+      { "id": "language", "text": "language" },
+      { "id": "content_type", "text": "content_type" },
       {
         "id": "Ocp-Apim-Subscription-Key",
-        "text": "Ocp-Apim-Subscription-Key",
-        "group": 0
+        "text": "Ocp-Apim-Subscription-Key"
       }
     ],
     "correct_answer": [
